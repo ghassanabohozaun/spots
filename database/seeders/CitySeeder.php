@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\City;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class CitySeeder extends Seeder
 {
@@ -13,55 +14,58 @@ class CitySeeder extends Seeder
      */
     public function run(): void
     {
+        // DB::table('cities')->truncate();
+
         $cities = [
             [
+                'governorate_id' => 1,
                 'name' => [
-                    'ar' => 'النصر',
-                    'en' => 'El Nasser',
+                    'en' => 'Kafr el-Sheikh Governorate',
+                    'ar' => 'كفر الشيخ ',
                 ],
-                'governorate_id' => '1',
+            ],
+
+            [
+                'governorate_id' => 1,
+                'name' => [
+                    'en' => 'Desooq',
+                    'ar' => 'دسوق',
+                ],
             ],
             [
+                'governorate_id' => 1,
                 'name' => [
-                    'ar' => 'الصبرة',
-                    'en' => 'El Sabra',
+                    'en' => 'Sede Salem',
+                    'ar' => 'سيدي سالم',
                 ],
-                'governorate_id' => '1',
             ],
             [
+                'governorate_id' => 2,
                 'name' => [
-                    'ar' => 'تل الهواء',
-                    'en' => 'Tal El Hawa',
+                    'en' => 'Cairo City',
+                    'ar' => 'مدينة القاهرة ',
                 ],
-                'governorate_id' => '1',
             ],
             [
+                'governorate_id' => 2,
                 'name' => [
-                    'ar' => 'الشيخ رضوان',
-                    'en' => 'El Shekh Radawan',
+                    'en' => 'Helwan City',
+                    'ar' => 'مدينة حلوان ',
                 ],
-                'governorate_id' => '1',
             ],
             [
+                'governorate_id' => 2,
                 'name' => [
-                    'ar' => 'النصيرات',
-                    'en' => 'El Nusirate',
+                    'en' => 'Banha City',
+                    'ar' => 'مدينة بنها ',
                 ],
-                'governorate_id' => '2',
             ],
             [
+                'governorate_id' => 27,
                 'name' => [
-                    'ar' => 'البريج',
-                    'en' => 'El Burij',
+                    'en' => 'El Delem City',
+                    'ar' => 'مدينة الدلم',
                 ],
-                'governorate_id' => '2',
-            ],
-            [
-                'name' => [
-                    'ar' => 'دير البلح',
-                    'en' => 'Dar El Balah',
-                ],
-                'governorate_id' => '2',
             ],
         ];
 

@@ -5,5 +5,6 @@ return [
     'roles' => 'Roles Management',
     'admins' => 'Admins Management',
     'world' => 'World Management',
-    'children' => 'Children Management',
+    'users' => 'Users Management',
+    'sliders' => 'Sliders Management',
 ];

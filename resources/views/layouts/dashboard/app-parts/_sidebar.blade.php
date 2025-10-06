@@ -16,7 +16,6 @@
 
 
             <!-- begin: settings -->
-
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
                 <li class=" nav-item">
                     <a href="#">
@@ -34,13 +33,19 @@
                             </li>
                         @endcan
 
+                        @can('sliders')
+                            <li class="@if (str_contains(url()->current(), 'sliders')) active @endif">
+                                <a class="menu-item" href="{!! route('dashboard.sliders.index') !!}" data-i18n="nav.dash.sliders">
+                                    {!! __('sliders.sliders') !!}
+                                </a>
+                            </li>
+                        @endcan
+
                     </ul>
                     <!-- end: settings -->
                 </li>
             </ul>
-
             <!-- end: settings -->
-
 
 
             <!-- begin: roles -->
@@ -92,7 +97,29 @@
             <!-- end: admins -->
 
 
+            <!-- begin: users -->
+            @can('users')
+                <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+                    <li class=" nav-item">
+                        <a href="#">
+                            <i class="la la-users"></i>
+                            <span class="menu-title" data-i18n="nav.dash.users">{!! __('dashboard.users') !!}</span>
+                            <span class="badge badge badge-info badge-pill float-right mr-2">{!! $users_count !!}</span>
+                        </a>
+                        <!-- begin: users -->
+                        <ul class="menu-content">
+                            <li class="@if (str_contains(url()->current(), 'users')) active @endif">
+                                <a class="menu-item" href="{!! route('dashboard.users.index') !!}" data-i18n="nav.dash.users">
+                                    {!! __('users.users') !!}
+                                </a>
 
+                            </li>
+                        </ul>
+                        <!-- end: users -->
+                    </li>
+                </ul>
+            @endcan
+            <!-- end: users -->
 
             <!-- begin: world -->
             @can('world')
@@ -105,6 +132,14 @@
                         </a>
 
                         <ul class="menu-content">
+                            <!-- begin: countries -->
+                            <li class="@if (str_contains(url()->current(), 'countries')) active @endif">
+                                <a class="menu-item" href="{!! route('dashboard.countries.index') !!}" data-i18n="nav.dash.countries">
+                                    {!! __('world.countries') !!}
+                                </a>
+                            </li>
+                            <!-- end: countries -->
+
                             <!-- begin: governorates -->
                             <li class="@if (str_contains(url()->current(), 'governorates')) active @endif">
                                 <a class="menu-item" href="{!! route('dashboard.governorates.index') !!}" data-i18n="nav.dash.governorates">
@@ -127,8 +162,6 @@
                 </ul>
             @endcan
             <!-- end: world -->
-
-
 
 
 

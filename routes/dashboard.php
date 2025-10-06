@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\Dashboard\{AdminsController, ChildernController, CitiesController, DashboardController, GovernoratiesController, ProductsController, RolesController, SettingsController};
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\Auth\AuthController;
 use App\Http\Controllers\Dashboard\Auth\Passowrd\ForgetPasswordController;
 use App\Http\Controllers\Dashboard\Auth\Passowrd\ResetPasswordController;
+use App\Http\Controllers\Dashboard\{AdminsController,CountriesController, SlidersController,UsersController, CitiesController, DashboardController, GovernoratiesController, ProductsController, RolesController, SettingsController};
+use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -39,7 +39,19 @@ Route::group(
         Route::group(['middleware' => 'auth:admin'], function () {
             ########################################### welcome  ##########################################################################
             Route::get('/', [DashboardController::class, 'index'])->name('index');
-            ########################################### roles routes ######################################################################
+            ########################################### settings routes  ##################################################################
+            Route::group(['middleware' => 'can:settings'], function () {
+                Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
+                Route::put('/settings/{id?}', [SettingsController::class, 'update'])->name('settings.update');
+            });
+            ###########################################  sliders routes  ##################################################################
+            Route::group(['middlwire' => 'can:sliders'], function () {
+                Route::resource('sliders', SlidersController::class);
+                Route::get('/slides-all', [SlidersController::class, 'getAll'])->name('sliders.get.all');
+                Route::post('/sliders/change-status', [SlidersController::class, 'changeStatus'])->name('sliders.change.status');
+            });
+
+            ########################################### roles routes #######################################################################
             Route::group(['middleware' => 'can:roles'], function () {
                 Route::resource('roles', RolesController::class);
                 Route::post('/roles/destroy', [RolesController::class, 'destroy'])->name('roles.destroy');
@@ -52,8 +64,19 @@ Route::group(
                 Route::post('/admins/status', [AdminsController::class, 'changeStatus'])->name('admins.change.status');
             });
 
+            ########################################### users routes  ######################################################################
+            Route::group(['middlewire' => 'can:users'], function () {
+                Route::resource('users', UsersController::class);
+                Route::get('/users-all', [UsersController::class, 'getAll'])->name('users.get.all');
+                Route::post('/users/change-status', [UsersController::class, 'changeStatus'])->name('users.change.status');
+            });
             ########################################### world routes  ######################################################################
             Route::group(['middleware' => 'can:world'], function () {
+                // countries routes
+                Route::resource('countries', CountriesController::class);
+                Route::post('/countries/destroy', [CountriesController::class, 'destroy'])->name('countries.destroy');
+                Route::post('/countries/status', [CountriesController::class, 'changeStatus'])->name('countries.change.status');
+                Route::get('/country/{country_id?}/governorates', [CountriesController::class, 'getGovrnoratesByCountryID'])->name('countries.get.govnernorates.by.country.id');
                 // governorates routes
                 Route::resource('governorates', GovernoratiesController::class);
                 Route::post('/governorates/destroy', [GovernoratiesController::class, 'destroy'])->name('governorates.destroy');
@@ -66,28 +89,6 @@ Route::group(
                 Route::resource('cities', CitiesController::class);
                 Route::post('/cities/destroy', [CitiesController::class, 'destroy'])->name('cities.destroy');
             });
-
-            ########################################### settings routes  ######################################################################
-            Route::group(['middleware' => 'can:settings'], function () {
-                Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
-                Route::put('/settings/{id?}', [SettingsController::class, 'update'])->name('settings.update');
-            });
-
-            ########################################### products routes  ######################################################################
-
-            Livewire::setUpdateRoute(function ($handle) {
-                return Route::post('/livewire/update', $handle);
-            });
-
-            ########################################### children routes  ######################################################################
-            Route::group(['middleware' => 'can:children'], function () {
-                Route::resource('children', ChildernController::class);
-                Route::get('/children-all', [ChildernController::class, 'getAll'])->name('children.get.all');
-                Route::post('/childrem/change-status', [ChildernController::class, 'changeStatus'])->name('children.change.status');
-                Route::get('download-pdf/{id?}', [ChildernController::class, 'downloadPDF'])->name('children.download.pdf');
-            });
-
-
         });
     },
 );

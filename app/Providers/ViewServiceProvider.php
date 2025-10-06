@@ -33,7 +33,7 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-         // view composer dashboard
+        // view composer dashboard
         view()->composer('dashboard.*', function ($view) {
             // admins count
             if (!Cache::has('admins_count')) {
@@ -42,7 +42,12 @@ class ViewServiceProvider extends ServiceProvider
                 });
             }
 
-
+            // users count
+            if (!Cache::has('users_count')) {
+                Cache::remember('users_count', now()->addMinutes(60), function () {
+                    return User::count();
+                });
+            }
 
             // governorates count
             if (!Cache::has('governorates_count')) {
@@ -61,6 +66,7 @@ class ViewServiceProvider extends ServiceProvider
             // view share
             view()->share([
                 'admins_count' => Cache::get('admins_count'),
+                'users_count' => Cache::get('users_count'),
                 'governorates_count' => Cache::get('governorates_count'),
                 'cities_count' => Cache::get('cities_count'),
             ]);
@@ -92,7 +98,7 @@ class ViewServiceProvider extends ServiceProvider
         $settings = Setting::firstOr(function () {
             return Setting::create([
                 'site_name' => [
-                    'en' => 'Spots Travel and Tourism',
+                    'en' => 'Spots',
                     'ar' => 'نقاط للسياحة والسفر',
                 ],
                 'address' => [

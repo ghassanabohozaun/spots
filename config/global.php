@@ -5,6 +5,7 @@ return [
         'roles' => 'global.roles',
         'admins' => 'global.admins',
         'world' => 'global.world',
-        'children' => 'global.children',
+        'sliders' => 'global.sliders',
+        'users' => 'global.users',
     ],
 ];
