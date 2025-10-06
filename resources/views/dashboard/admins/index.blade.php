@@ -88,6 +88,8 @@
                                                         <th class="text-center">{!! __('admins.email') !!}</th>
                                                         <th class="text-center">{!! __('admins.role_id') !!}</th>
                                                         <th class="text-center">{!! __('admins.status') !!}
+                                                        <th class="text-center">{!! __('admins.status') !!}
+                                                        <th class="text-center">{!! __('admins.manage_status') !!}
                                                         <th class="text-center">{!! __('admins.created_at') !!}
                                                         <th class="text-center">{!! __('general.actions') !!}</th>
                                                     </tr>
@@ -101,6 +103,8 @@
                                                             <td class="col-lg-2 text-center">{!! $admin->role->role !!}</td>
                                                             <td class="col-lg-1 text-center">
                                                                 @include('dashboard.admins.parts.status')</td>
+                                                            <td class="col-lg-1 text-center">
+                                                                @include('dashboard.admins.parts.manage_status')</td>
                                                             <td class="col-lg-2 text-center">{!! $admin->created_at->format('Y-m-d H:i A') !!}</td>
                                                             <td class="col-lg-2 text-center">
                                                                 @include('dashboard.admins.parts.actions')
@@ -239,8 +243,18 @@
                 type: 'post',
                 dataType: 'JSON',
                 success: function(data) {
+                    $('.admin_status_' + data.data.id).empty();
+                    $('.admin_status_' + data.data.id).removeClass('badge-danger');
+                    $('.admin_status_' + data.data.id).removeClass('badge-success');
+                    if (data.data.status == 'on') {
+                        $('.admin_status_' + data.data.id).addClass('badge-success');
+                        $('.admin_status_' + data.data.id).text("{!! __('general.enable') !!}");
+                    } else if (data.data.status == '') {
+                        $('.admin_status_' + data.data.id).addClass('badge-danger');
+                        $('.admin_status_' + data.data.id).text("{!! __('general.disabled') !!}");
+                    }
+                    console.log(data);
                     if (data.status === true) {
-                        $('#myTable').load(location.href + (' #myTable'));
                         flasher.success("{!! __('general.change_status_success_message') !!}");
                     } else {
                         flasher.error("{!! __('general.change_status_error_message') !!}");

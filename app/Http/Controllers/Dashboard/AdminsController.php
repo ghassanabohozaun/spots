@@ -92,11 +92,15 @@ class AdminsController extends Controller
     // admin change status
     public function changeStatus(Request $request)
     {
-        $admin = $this->adminService->changeStatusAdmin($request->id, $request->statusSwitch);
+        if ($request->ajax()) {
+            $admin = $this->adminService->changeStatusAdmin($request->id, $request->statusSwitch);
 
-        if (!$admin) {
-            return response()->json(['status' => false], 500);
+            if (!$admin) {
+                return response()->json(['status' => false], 500);
+            }
+            $admin = $this->adminService->getAdmin($request->id);
+            return response()->json(['status' => true, 'data' => $admin], 201);
+
         }
-        return response()->json(['status' => true], 201);
     }
 }

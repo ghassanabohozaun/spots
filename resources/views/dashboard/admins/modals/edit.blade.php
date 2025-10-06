@@ -190,11 +190,11 @@
 
                 <!--begin::modal footer-->
                 <div class="modal-footer">
-                    <button type="submit" id="create_admin_btn" class="btn btn-info font-weight-bold ">
+                    <button type="submit" class="btn btn-info font-weight-bold ">
                         {{ trans('general.save') }}
                     </button>
 
-                    <button type="button" id="cancel_admin_btn" class="btn btn-light-dark font-weight-bold"
+                    <button type="button" id="cancel_admin_btn_edit" class="btn btn-light-dark font-weight-bold"
                         data-dismiss="modal">
                         {{ trans('general.cancel') }}
                     </button>
@@ -243,7 +243,7 @@
         }
 
         // cancel
-        $('body').on('click', '#cancel_admin_btn', function(e) {
+        $('body').on('click', '#cancel_admin_btn_edit', function(e) {
             $('#updateAdminModal').modal('hide');
             $('#update_admin_form')[0].reset();
             resetEditForm();

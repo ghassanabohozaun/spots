@@ -35,7 +35,7 @@
                 <!-- begin: content header right-->
                 <div class="content-header-right col-md-6 col-12">
                     <div class="float-md-right mb-2">
-                        <a href="{!! route('dashboard.sliders.create') !!}" class="btn btn-info round btn-glow px-2">
+                        <a href="{!! route('dashboard.sliders.create') !!}" class="btn btn-info  btn-glow px-2">
                             {!! __('sliders.create_new_slider') !!}
                         </a>
                     </div>

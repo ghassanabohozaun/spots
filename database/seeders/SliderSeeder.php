@@ -16,7 +16,7 @@ class SliderSeeder extends Seeder
     {
         Slider::truncate();
 
-        for ($i = 1; $i <= 4; $i++) {
+        for ($i = 1; $i <= 2; $i++) {
             Slider::create([
                 'title' => [
                     'en' => Fake()->sentence(5) . ' | ' . $i,

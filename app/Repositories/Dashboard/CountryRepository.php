@@ -24,7 +24,7 @@ class CountryRepository
     // get countries
     public function getCountries()
     {
-        $conuntries = Country::withCount(['governorates', 'users'])
+        $conuntries = Country::withCount(['governorates'])
             ->when(!empty(request()->keyword), function ($query) {
                 $query->where('name', 'like', '%' . request()->keyword . '%');
             })

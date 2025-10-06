@@ -35,7 +35,7 @@
                 <!-- begin: content header right-->
                 <div class="content-header-right col-md-6 col-12">
                     <div class="float-md-right mb-2">
-                        <button type="button" class="btn btn-info round btn-glow px-2" data-toggle="modal"
+                        <button type="button" class="btn btn-info  btn-glow px-2" data-toggle="modal"
                             data-target="#createUserModal">
                             {!! __('users.create_new_user') !!}
                         </button>

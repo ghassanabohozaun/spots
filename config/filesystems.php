@@ -55,10 +55,10 @@ return [
             'report' => false,
         ],
 
-        'children' => [
+        'sliders' => [
             'driver' => 'local',
-            'root' => public_path('/uploads/children'),
-            'url' => env('APP_URL') . '/uploads/children',
+            'root' => public_path('/uploads/sliders'),
+            'url' => env('APP_URL') . '/uploads/sliders',
             'visibility' => 'public',
             'throw' => false,
             'report' => false,

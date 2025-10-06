@@ -42,6 +42,7 @@ return [
     'english_langauge_enabled_all_the_times' => 'English Langauge enabled all the times',
     'send' => 'Send',
     'write_here' => 'Write Here ...',
+    'full_screen'=>'Full Screen',
 
     'not_found' => 'Not Found',
     'example' => 'Example',

@@ -10,7 +10,7 @@
 
     <button type="button" class="btn btn-primary btn-block btn-glow px-2 mt-1 " data-toggle="modal"
         data-target="#fullScreenModal_{!! $slider->id !!}">
-        {!! __('products.full_screen') !!}
+        {!! __('general.full_screen') !!}
     </button>
 
 </div>
