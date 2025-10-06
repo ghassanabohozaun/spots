@@ -1,0 +1,13 @@
+.text-danger {
+font-size: 12px;
+}
+body{
+font-size: 12px;
+}
+.form-control{
+font-size: 0.775rem;
+}
+.btn{
+font-size: 0.775rem;
+letter-spacing: 0.07rem;
+}

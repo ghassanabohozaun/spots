@@ -1,0 +1,42 @@
+input[type="checkbox"] {
+width: 1.0em;
+height: 1.0em;
+}
+
+#myTable td,
+#myTable th {
+vertical-align: middle
+}
+
+#statusLabel
+{
+margin-top: 35px;
+font-size: 13px
+}
+#statusLabel span
+{
+padding: 0 10px;
+}
+
+
+table.dataTable td ,th {
+  font-size: 0.92em;
+}
+
+.page-item.disabled .page-link {
+    color: #6B6F82;
+    pointer-events: none;
+    cursor: auto;
+    background-color: #FFFFFF;
+    border-color: #d0d1d3;
+    font-size: 12px;
+}
+
+
+
+.table-image {
+    width: 70px;
+    height: 65px;
+    border-radius: 10px;
+}
+
