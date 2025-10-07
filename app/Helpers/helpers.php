@@ -37,15 +37,6 @@ if (!function_exists('web')) {
 }
 
 
-//  get student Helper Function
-if (!function_exists('child')) {
-    function child()
-    {
-        return auth()->guard('child');
-    }
-}
-
-
 
 if (!function_exists('slug')) {
     function slug($string)

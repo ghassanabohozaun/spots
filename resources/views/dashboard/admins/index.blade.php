@@ -88,7 +88,6 @@
                                                         <th class="text-center">{!! __('admins.email') !!}</th>
                                                         <th class="text-center">{!! __('admins.role_id') !!}</th>
                                                         <th class="text-center">{!! __('admins.status') !!}
-                                                        <th class="text-center">{!! __('admins.status') !!}
                                                         <th class="text-center">{!! __('admins.manage_status') !!}
                                                         <th class="text-center">{!! __('admins.created_at') !!}
                                                         <th class="text-center">{!! __('general.actions') !!}</th>
@@ -243,10 +242,11 @@
                 type: 'post',
                 dataType: 'JSON',
                 success: function(data) {
+
                     $('.admin_status_' + data.data.id).empty();
                     $('.admin_status_' + data.data.id).removeClass('badge-danger');
                     $('.admin_status_' + data.data.id).removeClass('badge-success');
-                    if (data.data.status == 'on') {
+                    if (data.data.status == 1) {
                         $('.admin_status_' + data.data.id).addClass('badge-success');
                         $('.admin_status_' + data.data.id).text("{!! __('general.enable') !!}");
                     } else if (data.data.status == '') {

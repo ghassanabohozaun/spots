@@ -34,7 +34,7 @@ class UserRepository
     // destroy user
     public function destroyUser($user)
     {
-        return $user->delete();
+        return $user->forceDelete();
     }
 
     // change status

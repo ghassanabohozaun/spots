@@ -45,9 +45,14 @@ return [
             'provider' => 'admins',
         ],
 
-        'child' => [
-            'driver' => 'session',
-            'provider' => 'children',
+        'user-api' => [
+            'driver' => 'sanctum',
+            'provider' => 'users',
+        ],
+
+        'admin-api' => [
+            'driver' => 'sanctum',
+            'provider' => 'admins',
         ],
     ],
 
@@ -69,19 +74,14 @@ return [
     */
 
     'providers' => [
-        // 'users' => [
-        //     'driver' => 'eloquent',
-        //     'model' => env('AUTH_MODEL', App\Models\User::class),
-        // ],
+        'users' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_MODEL', App\Models\User::class),
+        ],
 
         'admins' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\Admin::class),
-        ],
-
-        'children' => [
-            'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\Child::class),
         ],
     ],
 

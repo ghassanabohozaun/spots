@@ -42,7 +42,7 @@ return [
     'english_langauge_enabled_all_the_times' => 'English Langauge enabled all the times',
     'send' => 'Send',
     'write_here' => 'Write Here ...',
-    'full_screen'=>'Full Screen',
+    'full_screen' => 'Full Screen',
 
     'not_found' => 'Not Found',
     'example' => 'Example',
@@ -86,6 +86,9 @@ return [
     'prevent_delete' => 'Prevent Delete',
     'login_faild' => 'Sorry , Login Faild',
     'login_success' => 'Login Successfully',
+    'logout_success' => 'Logout Successfully',
+    'data_fetch_successfully'=>'Data Fetch Successfully',
+
     'add_success_message' => 'Added Successfully',
     'add_error_message' => 'Added Failed',
     'delete_success_message' => 'Deleted Successfully',

@@ -35,5 +35,4 @@ return [
     'enter_city_id' => 'Enter City',
 
     'no_users_found' => 'No Users Found !',
-    'login_success' => 'Users Login Successfully',
-];
+ ];

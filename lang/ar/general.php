@@ -46,7 +46,7 @@ return [
     'english_langauge_enabled_all_the_times' => 'اللغة الانجليزية فعالة دائماً',
     'send' => 'إرسال',
     'write_here' => 'اكتب هنا ....',
-    'full_screen'=>'ملأ الشاشة',
+    'full_screen' => 'ملأ الشاشة',
 
     'not_found' => 'غير متاحة',
     'example' => 'مثال',
@@ -90,6 +90,7 @@ return [
     'login_succsss' => 'تمت عملية تسجيل الدخول بنجاح',
     'prevent_delete' => 'ممنوع الحذف',
     'login_success' => 'تم تسجيل الدخول بنجاح',
+    'logout_success' => 'تم تسجيل الخروج بنجاح',
     'add_success_message' => 'تمت عملية الحفظ بنجاح',
     'add_error_message' => 'لم تتم عملية الحفظ',
     'delete_success_message' => 'تمت عملية الحذف بنجاح',
@@ -100,6 +101,7 @@ return [
     'restore_error_message' => 'لم تتم عملية الاسترجاع',
     'delete_image_success_message' => 'تمت عملية حذف الصورة بنجاح',
     'delete_image_error_message' => 'لم تتم عملية حذف الصورة',
+    'data_fetch_successfully'=>'تم جلب البيانات بنجاح',
 
     'upload_success_message' => 'تمت عملية الرفع بنجاح',
     'upload_error_message' => 'لم تتم عملية الرفع ',
