@@ -1,8 +1,12 @@
 <?php
 
+use App\Models\Admin;
 use App\Models\AttributeValue;
-use Illuminate\Support\Facades\Config;
+use App\Models\City;
+use App\Models\Country;
+use App\Models\Governorate;
 use App\Models\Setting;
+use Illuminate\Support\Facades\Config;
 
 //  setting Helper Function
 if (!function_exists('setting')) {
@@ -36,8 +40,6 @@ if (!function_exists('web')) {
     }
 }
 
-
-
 if (!function_exists('slug')) {
     function slug($string)
     {
@@ -51,5 +53,36 @@ if (!function_exists('replaceHyphensWithSpaces')) {
     function replaceHyphensWithSpaces($string)
     {
         return $string = str_replace('-', ' ', $string); // Replaces all hyphens with spaces.
+    }
+
+    //  get admin count Helper Function
+    if (!function_exists('adminCount')) {
+        function adminCount()
+        {
+            return Admin::count();
+        }
+    }
+
+    //  get country count Helper Function
+    if (!function_exists('countryCount')) {
+        function countryCount()
+        {
+            return Country::count();
+        }
+    }
+    //  get governorate count Helper Function
+    if (!function_exists('governorateCount')) {
+        function governorateCount()
+        {
+            return Governorate::count();
+        }
+    }
+
+    //  get city count Helper Function
+    if (!function_exists('cityCount')) {
+        function cityCount()
+        {
+            return City::count();
+        }
     }
 }

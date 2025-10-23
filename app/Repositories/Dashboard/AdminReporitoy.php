@@ -24,7 +24,7 @@ class AdminReporitoy
     // get admins
     public function getAdmins()
     {
-        $admins = Admin::orderByDesc('created_at')->select('id', 'name', 'email', 'password', 'status', 'role_id', 'created_at')->paginate(5);
+        $admins = Admin::orderByDesc('created_at')->select('id', 'name', 'email', 'mobile', 'password', 'status', 'role_id', 'created_at')->paginate(5);
         return $admins;
     }
 
@@ -38,6 +38,7 @@ class AdminReporitoy
                 'en' => $request->name['en'],
             ],
             'email' => $request->email,
+            'mobile' => $request->mobile,
             'password' => $request->password,
             'role_id' => $request->role_id,
             'status' => empty($request->input('status')) ? 0 : 1,
@@ -56,6 +57,7 @@ class AdminReporitoy
                 'en' => $request->name['en'],
             ],
             'email' => $request->email,
+            'mobile' => $request->mobile,
             'password' => empty($request->input('password')) ? $admin->password : $request->password,
             'role_id' => $request->role_id,
             'status' => empty($request->input('status')) ? 0 : 1,

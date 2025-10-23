@@ -37,7 +37,8 @@ class CitiesController extends Controller
     // store
     public function store(CityRequest $request)
     {
-        $city = $this->cityService->storeCity($request);
+        $data = $request->only(['name','governorate_id']);
+        $city = $this->cityService->storeCity($data);
         if (!$city) {
             return response()->json(['status' => false], 500);
         }
@@ -68,11 +69,22 @@ class CitiesController extends Controller
     {
         $city = $this->cityService->getCity($id);
 
-        $city = $this->cityService->updateCity($request, $id);
+        $data = $request->only(['name','governorate_id']);
+        $city = $this->cityService->updateCity($data, $id);
         if (!$city) {
             return response()->json(['status' => false], 500);
         }
         return response()->json(['status' => true, 'data' => $city], 201);
+    }
+
+    // autocomplete govnerorate
+    public function autocompleteGovnerorate(Request $request)
+    {
+        $data = [];
+        if ($request->filled('q')) {
+            $data = $this->cityService->autocompleteGovnerorate($request->get('q'));
+        }
+        return response()->json($data);
     }
 
     // destroy

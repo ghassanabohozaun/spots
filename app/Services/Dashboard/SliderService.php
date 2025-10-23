@@ -3,17 +3,17 @@
 namespace App\Services\Dashboard;
 
 use App\Repositories\Dashboard\SliderRepository;
-use App\Utils\ImageManager;
+use App\Utils\ImageManagerUtils;
 use Yajra\DataTables\Facades\DataTables;
 
 class SliderService
 {
-    protected $sliderRepository, $imageManager;
+    protected $sliderRepository, $imageManagerUtils;
     //__construct
-    public function __construct(SliderRepository $sliderRepository, ImageManager $imageManager)
+    public function __construct(SliderRepository $sliderRepository, ImageManagerUtils $imageManagerUtils)
     {
         $this->sliderRepository = $sliderRepository;
-        $this->imageManager = $imageManager;
+        $this->imageManagerUtils = $imageManagerUtils;
     }
 
     // get slider
@@ -68,7 +68,7 @@ class SliderService
     public function create($data)
     {
         if (array_key_exists('photo', $data) && $data['photo'] != null) {
-            $photo_name = $this->imageManager->uploadSingleImage('/', $data['photo'], 'sliders');
+            $photo_name = $this->imageManagerUtils->saveResizeImage($data['photo'], 'sliders', 1700, 1000);
             $data['photo'] = $photo_name;
         }
 
@@ -85,8 +85,9 @@ class SliderService
         $slider = self::getSlider($data['id']);
 
         if (array_key_exists('photo', $data) && $data['photo'] != null) {
-            $this->imageManager->removeImageFromLocal($slider->photo, 'sliders');
-            $photo_name = $this->imageManager->uploadSingleImage('/', $data['photo'], 'sliders');
+            $this->imageManagerUtils->removeImageFromLocal($slider->photo, 'sliders');
+            $photo_name = $this->imageManagerUtils->saveResizeImage($data['photo'], 'sliders', 1700, 1000);
+
             $data['photo'] = $photo_name;
         }
 
@@ -103,7 +104,7 @@ class SliderService
         $slider = self::getSlider($id);
 
         if (!empty($slider->photo)) {
-            $this->imageManager->removeImageFromLocal($slider->photo, 'sliders');
+            $this->imageManagerUtils->removeImageFromLocal($slider->photo, 'sliders');
         }
 
         $slider = $this->sliderRepository->destroy($slider);

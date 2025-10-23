@@ -15,7 +15,12 @@
                             <div class="card border-grey border-lighten-3 m-0">
                                 <div class="card-header border-0">
                                     <div class="card-title text-center">
-                                        <h2 style="font-weight: bolder">{!! setting()->site_name !!}</h2>
+                                        @if (setting()->logo)
+                                            <img src="{!! asset('uploads/settings/' . setting()->logo) !!}" class="rounded" alt="branding logo"
+                                                width="120">
+                                        @else
+                                            <h2 style="font-weight: bolder">{!! setting()->site_name !!}</h2>
+                                        @endif
                                     </div>
                                     <h6 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2">
                                         <span>{!! __('auth.login_dashboard') !!}</span>

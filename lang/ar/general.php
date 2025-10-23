@@ -47,6 +47,7 @@ return [
     'send' => 'إرسال',
     'write_here' => 'اكتب هنا ....',
     'full_screen' => 'ملأ الشاشة',
+    'filters'=>'فلاتر',
 
     'not_found' => 'غير متاحة',
     'example' => 'مثال',

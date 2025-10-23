@@ -40,6 +40,7 @@
 
                         <button type="button" class="btn btn-info  btn-glow px-2" data-toggle="modal"
                             data-target="#createRoleModal">
+                            <span class="la la-pencil"></span>
                             {!! __('roles.create_new_role') !!}
                         </button>
 

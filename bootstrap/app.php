@@ -55,6 +55,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'abilities' => CheckAbilities::class,
             'ability' => CheckForAnyAbility::class,
             'PDF' => Mccarlosen\LaravelMpdf\Facades\LaravelMpdf::class,
+            'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
             //'setLanguage' => SetLangMiddleware::class,
         ]);

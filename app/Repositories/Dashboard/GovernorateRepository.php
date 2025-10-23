@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Repositories\Dashboard;
+use App\Models\Country;
 use App\Models\Governorate;
 use App\Models\ShippingGovernorate;
 
@@ -23,14 +24,20 @@ class GovernorateRepository
     // get governorates
     public function getgovernoraties()
     {
-        $governorates = Governorate::withCount(['cities'])
+        return Governorate::withCount(['cities'])
             ->when(!empty(request()->keyword), function ($q) {
                 $q->where('name', 'like', '%' . request()->keyword . '%');
             })
             ->orderByDesc('id')
             ->paginate(10);
+    }
 
-        return $governorates;
+    // get governorates
+    public function getActiveGovernoraties()
+    {
+        return Governorate::withCount(['cities'])
+            ->orderByDesc('created_at')
+            ->get();
     }
 
     // get all governorates without relations
@@ -47,30 +54,16 @@ class GovernorateRepository
     }
 
     // store governorate
-    public function storeGovernorate($request)
+    public function storeGovernorate($data)
     {
-        $governorate = Governorate::create([
-            'name' => [
-                'en' => $request->name['en'],
-                'ar' => $request->name['ar'],
-            ],
-        ]);
-
+        $governorate = Governorate::create($data);
         return $governorate;
     }
 
     // update governorate
-    public function updateGovernorate($request, $id)
+    public function updateGovernorate($data, $governorate)
     {
-        $governorate = self::getGovernorate($id);
-        $governorateUpdate = $governorate->update([
-            'name' => [
-                'en' => $request->name['en'],
-                'ar' => $request->name['ar'],
-            ],
-        ]);
-
-        return $governorateUpdate;
+        return $governorate->update($data);
     }
 
     // change status
@@ -81,6 +74,17 @@ class GovernorateRepository
         ]);
         return $governorate;
     }
+
+    // autocomplete
+    public function autocompleteCountry($searchValue)
+    {
+        return Country::select('name->en as country_en', 'name->ar as country_ar', 'id')
+            ->where('name->en', 'LIKE', '%' . $searchValue . '%')
+            ->orWhere('name->ar', 'LIKE', '%' . $searchValue . '%')
+            ->active()
+            ->get();
+    }
+
     // destory governorate
     public function destroyGovernorate($governorate)
     {

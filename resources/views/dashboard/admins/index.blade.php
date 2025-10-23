@@ -43,8 +43,13 @@
 
                         <button type="button" class="btn btn-info  btn-glow px-2" data-toggle="modal"
                             data-target="#createAdminModal">
+                            <span class="la la-pencil"></span>
                             {!! __('admins.create_new_admin') !!}
+
                         </button>
+
+                        <a href="{{ route('dashboard.admins.export') }}" class="btn btn-warning  btn-glow px-2" i>
+                            <span class="la la-file-excel-o"></span> {!! __('general.export') !!}</a>
 
                     </div>
                 </div>
@@ -86,10 +91,12 @@
                                                         <th>#</th>
                                                         <th class="text-center">{!! __('admins.name') !!}</th>
                                                         <th class="text-center">{!! __('admins.email') !!}</th>
+                                                        <th class="text-center">{!! __('admins.mobile') !!}</th>
                                                         <th class="text-center">{!! __('admins.role_id') !!}</th>
+                                                        <th class="text-center">{!! __('admins.created_at') !!}
+
                                                         <th class="text-center">{!! __('admins.status') !!}
                                                         <th class="text-center">{!! __('admins.manage_status') !!}
-                                                        <th class="text-center">{!! __('admins.created_at') !!}
                                                         <th class="text-center">{!! __('general.actions') !!}</th>
                                                     </tr>
                                                 </thead>
@@ -99,13 +106,14 @@
                                                             <th class="col-lg-1 ">{!! $loop->iteration !!} </th>
                                                             <td class="col-lg-2 text-center">{!! $admin->name !!}</td>
                                                             <td class="col-lg-2 text-center">{!! $admin->email !!}</td>
+                                                            <td class="col-lg-2 text-center">{!! $admin->mobile !!}</td>
                                                             <td class="col-lg-2 text-center">{!! $admin->role->role !!}</td>
+                                                            <td class="col-lg-2 text-center">{!! $admin->created_at->format('Y-m-d H:i A') !!}</td>
                                                             <td class="col-lg-1 text-center">
                                                                 @include('dashboard.admins.parts.status')</td>
                                                             <td class="col-lg-1 text-center">
                                                                 @include('dashboard.admins.parts.manage_status')</td>
-                                                            <td class="col-lg-2 text-center">{!! $admin->created_at->format('Y-m-d H:i A') !!}</td>
-                                                            <td class="col-lg-2 text-center">
+                                                            <td class="col-lg-1 text-center">
                                                                 @include('dashboard.admins.parts.actions')
                                                             </td>
                                                         </tr>

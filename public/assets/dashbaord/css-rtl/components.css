@@ -689,13 +689,13 @@ footer.footer-dark {
 .navigation {
   font-size : 0.85rem;
   letter-spacing : 0.2px;
-  font-family: "Poppins", "ArbFONTSBEINNormalAR", sans-serif;
+  font-family: "Poppins", "Tajawal", sans-serif;
   font-weight : 400;
   overflow-y : hidden;
   padding-bottom : 20px;
 }
 .navigation .navigation-header {
-  font-family : 'Quicksand', Georgia, 'Times New Roman', Times, serif;
+  font-family : 'Quicksand', Georgia, 'Tajawal', Times, serif;
   font-weight : 400;
   line-height : 1.2;
   padding : 12px 22px;

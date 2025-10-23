@@ -29,6 +29,12 @@ class CountryService
         return $this->countryRepository->getCountries();
     }
 
+    // get active countries
+    public function getActiveCountries()
+    {
+        return $this->countryRepository->getActiveCountries();
+    }
+
     // get all countries without relations
     public function getAllCountriesWithoutRelations()
     {
@@ -44,23 +50,23 @@ class CountryService
     }
 
     // store country
-    public function storeCountry($request)
+    public function storeCountry($data)
     {
-        $country = $this->countryRepository->storeCountry($request);
+        $country = $this->countryRepository->storeCountry($data);
         if (!$country) {
             return false;
         }
         return $country;
     }
     // update country
-    public function updateCountry($request, $id)
+    public function updateCountry($data, $id)
     {
         $country = self::getCountry($id);
         if (!$country) {
             return false;
         }
 
-        $country = $this->countryRepository->updateCountry($request, $id);
+        $country = $this->countryRepository->updateCountry($data, $country);
         if (!$country) {
             return false;
         }
@@ -71,7 +77,14 @@ class CountryService
     public function destroyCountry($id)
     {
         $country = self::getCountry($id);
-        if ($country->governorates->count() > 0 || !$country) {
+        // if (!$country) {
+        //     return 'notFound';
+        // }
+        // if ($country->governorates->count() > 0) {
+        //     return 'hasGovernorate';
+        // }
+
+        if ($country->governorates->count() > 0 || $country->fromFlightTicket->count() > 0  || $country->toFlightTicket->count() > 0 || !$country) {
             return false;
         }
 

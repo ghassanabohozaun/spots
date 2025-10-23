@@ -7,4 +7,8 @@ return [
     'world' => 'World Management',
     'users' => 'Users Management',
     'sliders' => 'Sliders Management',
+    'tickets' => 'Flights Tickets Management',
+    'tours' => 'Sightseeing Tours Management',
+    'flights' => 'Flights Management',
+    'categories' => 'Categories Management',
 ];

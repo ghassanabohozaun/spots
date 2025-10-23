@@ -38,8 +38,8 @@
                                         <i class="icon-user info font-large-2 float-left"></i>
                                     </div>
                                     <div class="media-body text-right">
-                                        <h3>{!! $admins_count !!}</h3>
-                                        <span>{!! __('children.admins_count') !!}</span>
+                                        <h3>{!! adminCount() !!}</h3>
+                                        <span>{!! __('dashboard.admins_count') !!}</span>
                                     </div>
                                 </div>
                             </div>
@@ -56,7 +56,7 @@
                                     </div>
                                     <div class="media-body text-right">
                                         <h3>1</h3>
-                                        <span>{!! __('children.programs_count') !!}</span>
+                                        <span>{!! __('dashboard.countries_count') !!}</span>
                                     </div>
                                 </div>
                             </div>
@@ -72,8 +72,8 @@
                                         <i class="icon-pointer success font-large-2 float-left"></i>
                                     </div>
                                     <div class="media-body text-right">
-                                        <h3>{!! $governorates_count !!}</h3>
-                                        <span>{!! __('children.governorates_count') !!}</span>
+                                        <h3>{!! governorateCount() !!}</h3>
+                                        <span>{!! __('dashboard.governorates_count') !!}</span>
                                     </div>
                                 </div>
                             </div>
@@ -89,8 +89,8 @@
                                         <i class="icon-pointer danger font-large-2 float-left"></i>
                                     </div>
                                     <div class="media-body text-right">
-                                        <h3>{!! $cities_count !!}</h3>
-                                        <span>{!! __('children.cities_count') !!}</span>
+                                        <h3>{!! cityCount() !!}</h3>
+                                        <span>{!! __('dashboard.cities_count') !!}</span>
                                     </div>
                                 </div>
                             </div>

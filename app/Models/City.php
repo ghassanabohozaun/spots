@@ -11,12 +11,22 @@ class City extends Model
     use SoftDeletes, HasTranslations;
     protected $table = 'cities';
     protected $fillable = ['name', 'governorate_id'];
-    public $timestamps = false;
+    //public $timestamps = false;
     public array $translatable = ['name'];
 
     // relation
     public function governorate()
     {
         return $this->belongsTo(Governorate::class, 'governorate_id');
+    }
+
+    //scopes
+    public function scopeActive($query)
+    {
+        return $query->where('status', 1);
+    }
+    public function scopeInactive($query)
+    {
+        return $query->where('status', 0);
     }
 }

@@ -1,15 +1,7 @@
 <?php
 
-use App\Http\Controllers\Website\Auth\AuthController;
-use App\Http\Controllers\Website\Auth\RegisterController;
-use App\Http\Controllers\Website\BrandsController;
-use App\Http\Controllers\Website\CategoriesController;
-use App\Http\Controllers\Website\FaqController;
-use App\Http\Controllers\Website\HomeController;
-use App\Http\Controllers\Website\PagesController;
-use App\Http\Controllers\Website\ProductsController;
-use App\Http\Controllers\Website\ProfileController;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\SearchController;
+use App\Models\Country;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -20,12 +12,9 @@ Route::group(
         'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath'],
     ],
     function () {
-
-
-        Route::get('/home', function(){
+        Route::get('/home', function () {
             return 'home';
         })->name('home');
-
     },
 );
 

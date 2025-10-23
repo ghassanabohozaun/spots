@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Exports\AdminsExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\AdminRequest;
+use App\Models\Admin;
 use App\Services\Dashboard\AdminService;
 use App\Services\Dashboard\RoleService;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminsController extends Controller
 {
@@ -100,7 +103,17 @@ class AdminsController extends Controller
             }
             $admin = $this->adminService->getAdmin($request->id);
             return response()->json(['status' => true, 'data' => $admin], 201);
-
         }
+    }
+
+    public function export(Request $request)
+    {
+        $selectedColumns = $request->input('columns', ['id', 'name', 'email' ,'mobile','status','role_id']);
+
+        return Excel::download(new AdminsExport(Admin::get(), $selectedColumns), 'admins.xlsx');
+
+        // $filters = $request->only(['status']); // Get filters from request
+        // $selectedColumns = $request->input('columns', ['id', 'name']); // Get selected columns from request
+        //  return Excel::download(new AdminsExport($filters, $selectedColumns), 'dynamic_users.xlsx');
     }
 }

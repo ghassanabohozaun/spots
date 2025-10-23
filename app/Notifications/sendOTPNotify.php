@@ -39,13 +39,13 @@ class sendOTPNotify extends Notification
     /**
      * Get the mail representation of the notification.
      */
-    public function toMail(object $notifiable): MailMessage
+     public function toMail(object $notifiable): MailMessage
     {
         $otp = $this->otp->generate($notifiable->email, 'numeric', 5, 40);
-        return new MailMessage()
+        return (new MailMessage())
             ->greeting($this->header)
             ->line($this->message)
-            ->line('Code :' . $otp->token);
+            ->line('Code :' .$otp->token);
     }
 
     /**

@@ -24,10 +24,10 @@ class CountryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name.*' => ['required', 'string', 'min:5', 'max:100', UniqueTranslationRule::for('countries')->ignore($this->id)],
+            'name.*' => ['required', 'string', 'min:3', 'max:100', UniqueTranslationRule::for('countries')->ignore($this->id)],
             'phone_code' => ['required', 'string', 'min:2', 'max:10', Rule::unique('countries', 'phone_code')->ignore($this->id)],
             'flag_code' => ['required', 'string', 'min:2'],
-            'status' => ['in:on,off'],
+            'status' => ['required','in:1,0'],
         ];
     }
 }

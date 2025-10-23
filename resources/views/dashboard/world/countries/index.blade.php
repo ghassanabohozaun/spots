@@ -37,13 +37,19 @@
                 <!-- begin: content header right-->
                 <div class="content-header-right col-md-6 col-12">
                     <div class="float-md-right mb-2">
-                        <a href="{!! asset('assets/dashbaord/Countries_Flags_SVG.pdf') !!}" class="btn btn-primary  btn-glow px-2">
+                        <a href="{!! asset('assets/dashbaord/Countries_Flags_SVG.pdf') !!}" class="btn btn-primary  btn-glow px-2" target="_blank">
                             <i class="la la-download"></i>
                             {!! __('world.download_countries_flags') !!}
                         </a>
 
-                        <a href="{{ route('dashboard.countries.create') }}" class="btn btn-info  btn-glow px-2">
-                            {!! __('world.create_new_country') !!}</a>
+                        {{-- <a href="{{ route('dashboard.countries.create') }}" class="btn btn-info  btn-glow px-2">
+                            {!! __('world.create_new_country') !!}</a> --}}
+
+                        <button type="button" class="btn btn-info  btn-glow px-2" data-toggle="modal"
+                            data-target="#createCountryModal">
+                            <span class="la la-pencil"></span>
+                            {!! __('world.create_new_country') !!}
+                        </button>
 
                     </div>
                 </div>
@@ -79,7 +85,20 @@
                                 <div class="card-content collapse show">
                                     <div class="card-body">
                                         <!-- begin: seach form -->
-                                        @include('dashboard.includes.search')
+                                        <form action="{!! url()->current() !!}" method="GET" class="mb-4">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <input type="text" name="keyword" class="form-control"
+                                                        autocomplete="off" placeholder="{!! __('world.search_country') !!}">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <button type="submit" class="btn btn-primary" id='search'>
+                                                        <span class="la la-search"></span>
+                                                        {!! __('general.search') !!}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
                                         <!-- end: search -->
                                         <div class="table-responsive">
                                             <table class="table" id='myTable'>
@@ -99,7 +118,7 @@
                                                     @forelse ($countries as $country)
                                                         <tr>
                                                             <th class="col-lg-1">{!! $loop->iteration !!} </th>
-                                                            <td class="col-lg-2">
+                                                            <td class="col-lg-3">
                                                                 <i class="flag-icon flag-icon-{!! $country->flag_code !!}"></i>
                                                                 &nbsp; {!! $country->name !!}
                                                             </td>
@@ -115,7 +134,7 @@
                                                             <td class="col-lg-1 text-center">
                                                                 @include('dashboard.world.countries.parts.manage_status')
                                                             </td>
-                                                            <td class="col-lg-2">
+                                                            <td class="col-lg-1">
                                                                 @include('dashboard.world.countries.parts.actions')
                                                             </td>
                                                         </tr>
@@ -144,7 +163,8 @@
         </div> <!-- end: content wrapper  -->
     </div><!-- end: content app  -->
 
-    @include('dashboard.world.countries.modals.governorates')
+    @include('dashboard.world.countries.modals.create')
+    @include('dashboard.world.countries.modals.edit')
 @endsection
 @push('scripts')
     <script type="text/javascript">
@@ -183,6 +203,8 @@
                         type: 'post',
                         dataType: 'json',
                         success: function(data) {
+                            console.log(data);
+                            return false;
                             $('#myTable').load(location.href + (' #myTable'));
                             if (data.status == true) {
                                 swal({
@@ -197,21 +219,22 @@
                                         }
                                     }
                                 });
-                            } else if (data.status == false) {
-                                swal({
-                                    title: "{!! __('general.warning') !!} ",
-                                    text: "{!! __('general.delete_error_message') !!} ",
-                                    icon: "warning",
-                                    buttons: {
-                                        confirm: {
-                                            text: "{!! __('general.yes') !!}",
-                                            visible: true,
-                                            closeModal: true
-                                        }
-                                    }
-                                });
                             }
                         }, //end success
+                        error: function(data) {
+                            swal({
+                                title: "{!! __('general.warning') !!} ",
+                                text: "{!! __('general.delete_error_message') !!} ",
+                                icon: "warning",
+                                buttons: {
+                                    confirm: {
+                                        text: "{!! __('general.yes') !!}",
+                                        visible: true,
+                                        closeModal: true
+                                    }
+                                }
+                            });
+                        }
                     });
 
                 } else {
@@ -256,7 +279,7 @@
                     $('.country_status_' + data.data.id).empty();
                     $('.country_status_' + data.data.id).removeClass('badge-danger');
                     $('.country_status_' + data.data.id).removeClass('badge-success');
-                    if (data.data.status == 'on') {
+                    if (data.data.status == 1) {
                         $('.country_status_' + data.data.id).addClass('badge-success');
                         $('.country_status_' + data.data.id).text("{!! __('general.enable') !!}");
                     } else if (data.data.status == '') {

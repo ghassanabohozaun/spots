@@ -3,6 +3,7 @@
 namespace App\Repositories\Dashboard;
 
 use App\Models\City;
+use App\Models\Governorate;
 
 class CityRepository
 {
@@ -32,40 +33,22 @@ class CityRepository
         return $cities;
     }
 
-
     // get cities without Relations
     public function getAllCitiesWithoutRelation()
     {
         return City::get();
     }
 
-
     // store city
-    public function storeCity($request)
+    public function storeCity($data)
     {
-        $city = City::create([
-            'name' => [
-                'en' => $request->name['en'],
-                'ar' => $request->name['ar'],
-            ],
-            'governorate_id' => $request->governorate_id,
-        ]);
-        return $city;
+        return City::create($data);
     }
 
     // update city
-    public function updateCity($request, $id)
+    public function updateCity($data, $city)
     {
-        $city = self::getCity($id);
-        $city = $city->update([
-            'name' => [
-                'en' => $request->name['en'],
-                'ar' => $request->name['ar'],
-            ],
-            'governorate_id' => $request->governorate_id,
-        ]);
-
-        return $city;
+        return $city->update($data);
     }
 
     // destroy city
@@ -80,5 +63,15 @@ class CityRepository
             'status' => $status,
         ]);
         return $city;
+    }
+
+    // autocomplete
+    public function autocompleteGovnerorate($searchValue)
+    {
+        return Governorate::select('name->en as country_en', 'name->ar as country_ar', 'id')
+            ->where('name->en', 'LIKE', '%' . $searchValue . '%')
+            ->orWhere('name->ar', 'LIKE', '%' . $searchValue . '%')
+            ->active()
+            ->get();
     }
 }

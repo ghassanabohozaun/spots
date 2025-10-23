@@ -10,7 +10,11 @@ return [
     'back_to_home' => 'Back To Home',
     'search' => 'Search ... ',
     'hello' => 'Hello ,',
-    'welcome'=>'Welcome',
+    'welcome' => 'Welcome',
+    'admins_count' => 'Admins Count',
+    'countries_count' => 'Countries Count',
+    'governorates_count' => 'Governorates Count',
+    'cities_count' => 'Cities Count',
 
     // menu
     'roles' => 'Roles',
@@ -18,9 +22,10 @@ return [
     'users' => 'Users',
     'world' => 'World',
     'settings' => 'Site Settings',
-    'products' => 'Products',
-    'children' => 'Children',
-
+    'tickets' => 'Flights Tickets',
+    'tours' => 'Sightseeing Tours',
+    'flights' => 'Flights',
+    'categories' => 'Categories',
     // login
     'login' => 'Login',
 ];

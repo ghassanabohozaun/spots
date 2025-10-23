@@ -265,5 +265,14 @@ return [
         'name' => 'Name',
         'subject' => 'Subject',
         'message' => 'Message',
+        'title' => 'Title',
+
+        'from_country_id' => 'From Country',
+        'from_governorate_id' => 'From Governorate',
+        'to_country_id' => 'To Country',
+        'to_governorate_id' => 'To Governorate',
+        'photo' => 'Photo ',
+        'tour_guide_name.ar' => 'Arabic Tour Guide Name',
+        'tour_guide_name.en' => 'English Tour Guide Name',
     ],
 ];

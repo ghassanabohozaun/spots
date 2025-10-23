@@ -1,7 +1,7 @@
 <div class="modal fade" id="createAdminModal" tabindex="-1" role="dialog" aria-labelledby="createAdminModalLabel"
     aria-hidden="true">
 
-    <div class="modal-dialog modal-md" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <form class="form" action="{!! route('dashboard.admins.store') !!}" method="POST" enctype="multipart/form-data"
             id='create_admin_form'>
             @csrf
@@ -27,7 +27,7 @@
                             <!-- begin: row -->
                             <div class="row">
                                 <!-- begin: input -->
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="name_ar">{!! __('admins.name_ar') !!}</label>
                                         <input type="text" id="name_ar" name="name[ar]" class="form-control"
@@ -38,13 +38,8 @@
                                     </div>
                                 </div>
                                 <!-- end: input -->
-                            </div>
-                            <!-- end: row -->
-
-                            <!-- begin: row -->
-                            <div class="row">
                                 <!-- begin: input -->
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="name_en">{!! __('admins.name_en') !!}</label>
                                         <input type="text" id="name_en" name="name[en]" class="form-control"
@@ -58,11 +53,10 @@
                             </div>
                             <!-- end: row -->
 
-
                             <!-- begin: row -->
                             <div class="row">
                                 <!-- begin: input -->
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="email">{!! __('admins.email') !!}</label>
                                         <input type="text" id="email" name="email" class="form-control"
@@ -73,19 +67,15 @@
                                     </div>
                                 </div>
                                 <!-- end: input -->
-                            </div>
-                            <!-- end: row -->
 
-                            <!-- begin: row -->
-                            <div class="row">
                                 <!-- begin: input -->
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="password">{!! __('admins.password') !!}</label>
-                                        <input type="text" id="password" name="password" class="form-control"
-                                            autocomplete="off" placeholder="{!! __('admins.enter_password') !!}">
+                                        <label for="mobile">{!! __('admins.mobile') !!}</label>
+                                        <input type="text" id="mobile" name="mobile" class="form-control"
+                                            autocomplete="off" placeholder="{!! __('admins.enter_mobile') !!}">
                                         <span class="text text-danger">
-                                            <strong id="password_error"></strong>
+                                            <strong id="mobile_error"></strong>
                                         </span>
                                     </div>
                                 </div>
@@ -96,7 +86,19 @@
                             <!-- begin: row -->
                             <div class="row">
                                 <!-- begin: input -->
-                                <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="password">{!! __('admins.password') !!}</label>
+                                        <input type="text" id="password" name="password" class="form-control"
+                                            autocomplete="off" placeholder="{!! __('admins.enter_password') !!}">
+                                        <span class="text text-danger">
+                                            <strong id="password_error"></strong>
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- end: input -->
+                                <!-- begin: input -->
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="password_confirm">{!! __('admins.password_confirm') !!}</label>
                                         <input type="text" id="password_confirm" name="password_confirm"
@@ -110,7 +112,6 @@
                                 <!-- end: input -->
                             </div>
                             <!-- end: row -->
-
 
                             <!-- begin: row -->
                             <div class="row">
@@ -176,12 +177,16 @@
                 <!--begin::modal footer-->
                 <div class="modal-footer">
                     <button type="submit" id="create_admin_btn" class="btn btn-info font-weight-bold ">
-                        {{ trans('general.save') }}
+                        <span class="la la-save"></span>
+                        {{ __('general.save') }}
+                        <i class="la la-refresh spinner spinner_loading d-none">
+                        </i>
                     </button>
 
                     <button type="button" id="cancel_admin_btn" class="btn btn-light-dark font-weight-bold"
                         data-dismiss="modal">
-                        {{ trans('general.cancel') }}
+                        <span class="la la-close"></span>
+                        {{ __('general.cancel') }}
                     </button>
                 </div>
                 <!--end::modal footer-->
@@ -198,6 +203,7 @@
             $('#name_ar').css('border-color', '');
             $('#name_en').css('border-color', '');
             $('#email').css('border-color', '');
+            $('#mobile').css('border-color', '');
             $('#password').css('border-color', '');
             $('#password_confirm').css('border-color', '');
             $('#role_id').css('border-color', '');
@@ -206,6 +212,7 @@
             $('#name_ar_error').text('');
             $('#name_en_error').text('');
             $('#email_error').text('');
+            $('#mobile_error').text('');
             $('#password_error').text('');
             $('#password_confirm_error').text('');
             $('#role_id_error').text('');
@@ -246,6 +253,9 @@
                 cache: false,
                 processData: false,
                 contentType: false,
+                beforeSend: function() {
+                    $('.spinner_loading').removeClass('d-none');
+                },
                 success: function(data) {
                     if (data.status == true) {
                         console.log(data);
@@ -270,6 +280,9 @@
                         $('#' + key).css('border-color', '#F64E60');
                     });
                 }, //end error
+                complete: function() {
+                    $('.spinner_loading').addClass('d-none');
+                }
             });
 
         });

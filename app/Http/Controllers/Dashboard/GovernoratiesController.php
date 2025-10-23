@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\GovernorateRequest;
+use App\Models\Country;
 use App\Services\Dashboard\GovernorateService;
 use Illuminate\Http\Request;
 
@@ -41,7 +42,9 @@ class GovernoratiesController extends Controller
     // store
     public function store(GovernorateRequest $request)
     {
-        $governorate = $this->governorateService->storeGovernorate($request);
+        $data = $request->only(['name', 'country_id']);
+
+        $governorate = $this->governorateService->storeGovernorate($data);
         if (!$governorate) {
             return response()->json(['status' => false], 500);
         }
@@ -71,7 +74,8 @@ class GovernoratiesController extends Controller
     public function update(GovernorateRequest $request, string $id)
     {
         $governorate = $this->governorateService->getGovernorate($id);
-        $governorate = $this->governorateService->updateGovernorate($request, $id);
+        $data = $request->only(['name', 'country_id']);
+        $governorate = $this->governorateService->updateGovernorate($data, $id);
         if (!$governorate) {
             return response()->json(['status' => false], 500);
         }
@@ -83,7 +87,7 @@ class GovernoratiesController extends Controller
     {
         $governorate = $this->governorateService->changeStatus($id);
         if (!$governorate) {
-            return response()->json(['status' => false] , 500);
+            return response()->json(['status' => false], 500);
         }
         $governorate = $this->governorateService->getGovernorate($id);
         return response()->json(['status' => true, 'data' => $governorate]);
@@ -95,9 +99,9 @@ class GovernoratiesController extends Controller
         if ($request->json()) {
             $governorate = $this->governorateService->destroyGovernorate($request->id);
             if (!$governorate) {
-                return response()->json(['status' => false],500);
+                return response()->json(['status' => false], 500);
             }
-            return response()->json(['status' => true] , 200);
+            return response()->json(['status' => true], 200);
         }
     }
 
@@ -109,4 +113,17 @@ class GovernoratiesController extends Controller
             return response()->json(['data' => $cities]);
         }
     }
+
+    // autocomplete Country
+    public function autocompleteCountry(Request $request)
+    {
+        $data = [];
+        if ($request->filled('q')) {
+            $data = $this->governorateService->autocompleteCountry($request->get('q'));
+        }
+        return response()->json($data);
+    }
+
+
+
 }

@@ -1,7 +1,7 @@
 <div class="modal fade" id="updateAdminModal" tabindex="-1" role="dialog" aria-labelledby="updateAdminModalLabel"
     aria-hidden="true">
 
-    <div class="modal-dialog modal-md" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <form class="form" action="" method="POST" enctype="multipart/form-data" id='update_admin_form'>
             @csrf
             @method('PUT')
@@ -24,11 +24,11 @@
                         <div class="col-lg-12">
 
                             <!-- begin: row -->
-                            <div class="row">
+                            <div class="row d-none">
                                 <!-- begin: input -->
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <input type="text" id="id_edit" name="id" class="form-control">
+                                        <input type="hidden" id="id_edit" name="id" class="form-control">
                                     </div>
                                 </div>
                                 <!-- end: input -->
@@ -39,7 +39,7 @@
                             <!-- begin: row -->
                             <div class="row">
                                 <!-- begin: input -->
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="name_ar">{!! __('admins.name_ar') !!}</label>
                                         <input type="text" id="name_ar_edit" name="name[ar]" class="form-control"
@@ -50,15 +50,8 @@
                                     </div>
                                 </div>
                                 <!-- end: input -->
-                            </div>
-                            <!-- end: row -->
-
-
-
-                            <!-- begin: row -->
-                            <div class="row">
                                 <!-- begin: input -->
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="name_en">{!! __('admins.name_en') !!}</label>
                                         <input type="text" id="name_en_edit" name="name[en]" class="form-control"
@@ -76,7 +69,7 @@
                             <!-- begin: row -->
                             <div class="row">
                                 <!-- begin: input -->
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="email">{!! __('admins.email') !!}</label>
                                         <input type="text" id="email_edit" name="email" class="form-control"
@@ -87,19 +80,15 @@
                                     </div>
                                 </div>
                                 <!-- end: input -->
-                            </div>
-                            <!-- end: row -->
 
-                            <!-- begin: row -->
-                            <div class="row">
                                 <!-- begin: input -->
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="password">{!! __('admins.password') !!}</label>
-                                        <input type="text" id="password_edit" name="password" class="form-control"
-                                            autocomplete="off" placeholder="{!! __('admins.enter_password') !!}">
+                                        <label for="mobile">{!! __('admins.mobile') !!}</label>
+                                        <input type="text" id="mobile_edit" name="mobile" class="form-control"
+                                            autocomplete="off" placeholder="{!! __('admins.enter_mobile') !!}">
                                         <span class="text text-danger">
-                                            <strong id="password_error_edit"></strong>
+                                            <strong id="mobile_error_edit"></strong>
                                         </span>
                                     </div>
                                 </div>
@@ -110,7 +99,20 @@
                             <!-- begin: row -->
                             <div class="row">
                                 <!-- begin: input -->
-                                <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="password">{!! __('admins.password') !!}</label>
+                                        <input type="text" id="password_edit" name="password" class="form-control"
+                                            autocomplete="off" placeholder="{!! __('admins.enter_password') !!}">
+                                        <span class="text text-danger">
+                                            <strong id="password_error_edit"></strong>
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- end: input -->
+
+                                <!-- begin: input -->
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="password_confirm">{!! __('admins.password_confirm') !!}</label>
                                         <input type="text" id="password_confirm_edit" name="password_confirm"
@@ -122,9 +124,9 @@
                                     </div>
                                 </div>
                                 <!-- end: input -->
+
                             </div>
                             <!-- end: row -->
-
 
                             <!-- begin: row -->
                             <div class="row">
@@ -191,12 +193,16 @@
                 <!--begin::modal footer-->
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-info font-weight-bold ">
-                        {{ trans('general.save') }}
+                        <span class="la la-save"></span>
+                        {{ __('general.save') }}
+                        <i class="la la-refresh spinner spinner_loading d-none">
+                        </i>
                     </button>
 
                     <button type="button" id="cancel_admin_btn_edit" class="btn btn-light-dark font-weight-bold"
                         data-dismiss="modal">
-                        {{ trans('general.cancel') }}
+                        <span class="la la-close"></span>
+                        {{ __('general.cancel') }}
                     </button>
                 </div>
                 <!--end::modal footer-->
@@ -215,6 +221,7 @@
             var admin_name_ar = $(this).attr('admin-name-ar');
             var admin_name_en = $(this).attr('admin-name-en');
             var admin_email = $(this).attr('admin-email');
+            var admin_mobile = $(this).attr('admin-mobile');
             var admin_role_id = $(this).attr('admin-role-id');
             var admin_status = $(this).attr('admin-status');
 
@@ -222,6 +229,7 @@
             $('#name_ar_edit').val(admin_name_ar);
             $('#name_en_edit').val(admin_name_en);
             $('#email_edit').val(admin_email);
+            $('#mobile_edit').val(admin_mobile);
             $('#role_id_edit').val(admin_role_id);
 
             if (admin_status == 1) {
@@ -235,11 +243,25 @@
 
         // reset
         function resetEditForm() {
+
             $('#name_ar_edit').css('border-color', '');
             $('#name_en_edit').css('border-color', '');
+            $('#email_edit').css('border-color', '');
+            $('#mobile_edit').css('border-color', '');
+            $('#password_edit').css('border-color', '');
+            $('#password_confirm_edit').css('border-color', '');
+            $('#role_id_edit').css('border-color', '');
+            $('#status_edit').css('border-color', '');
 
             $('#name_ar_error_edit').text('');
             $('#name_en_error_edit').text('');
+            $('#email_error_edit').text('');
+            $('#mobile_error_edit').text('');
+            $('#password_error_edit').text('');
+            $('#password_confirm_error_edit').text('');
+            $('#role_id_error_edit').text('');
+            $('#status_error_edit').text('');
+
         }
 
         // cancel
@@ -278,6 +300,9 @@
                 cache: false,
                 processData: false,
                 contentType: false,
+                beforeSend: function() {
+                    $('.spinner_loading').removeClass('d-none');
+                },
                 success: function(data) {
                     if (data.status == true) {
                         console.log(data);
@@ -302,6 +327,9 @@
                         $('#' + key + '_edit').css('border-color', '#F64E60');
                     });
                 }, //end error
+                complete: function() {
+                    $('.spinner_loading').addClass('d-none');
+                }
             });
 
         });

@@ -702,7 +702,7 @@ select.form-control {
 .header-navbar {
   padding: 0px;
   min-height: 5rem;
-  font-family: "Quicksand", Georgia, "Times New Roman", Times, serif;
+  font-family: "Quicksand", Georgia, "Tajawal", Times, serif;
   transition: 300ms ease all;
   /* For sm screen*/ }
   .header-navbar .navbar-wrapper {
@@ -879,7 +879,7 @@ select.form-control {
     display: flex; }
 
 .navigation-main .mega-dropdown-menu, .navbar-nav .mega-dropdown-menu {
-  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Tajawal, sans-serif;
   width: calc(100% - 50px);
   padding: 0.5rem 0;
   /* fallback if needed */

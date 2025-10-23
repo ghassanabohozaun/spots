@@ -30,10 +30,15 @@ class GovernorateService
         return $this->governorateRepository->getgovernoraties();
     }
 
-      // get all governorates without relations
+   // get governoraties
+    public function getActiveGovernoraties()
+    {
+        return $this->governorateRepository->getActiveGovernoraties();
+    }
+    // get all governorates without relations
     public function getAllGovernoratesWithoutRelations()
     {
-        return  $this->governorateRepository->getAllGovernoratesWithoutRelations();
+        return $this->governorateRepository->getAllGovernoratesWithoutRelations();
     }
 
     // get all cities by governorate
@@ -44,9 +49,9 @@ class GovernorateService
         return $cities;
     }
     // store governorate
-    public function storeGovernorate($request)
+    public function storeGovernorate($data)
     {
-        $governorate = $this->governorateRepository->storeGovernorate($request);
+        $governorate = $this->governorateRepository->storeGovernorate($data);
         if (!$governorate) {
             return false;
         }
@@ -54,13 +59,13 @@ class GovernorateService
     }
 
     // update governorate
-    public function updateGovernorate($request, $id)
+    public function updateGovernorate($data, $id)
     {
         $governorate = self::getGovernorate($id);
         if (!$governorate) {
             return false;
         }
-        $governorate = $this->governorateRepository->updateGovernorate($request, $id);
+        $governorate = $this->governorateRepository->updateGovernorate($data, $governorate);
         if (!$governorate) {
             return false;
         }
@@ -81,11 +86,17 @@ class GovernorateService
         return $governorate;
     }
 
+    // autocomplete
+    public function autocompleteCountry($searchValue)
+    {
+        return $this->governorateRepository->autocompleteCountry($searchValue);
+    }
+
     // destory governorate
     public function destroyGovernorate($id)
     {
         $governorate = self::getGovernorate($id);
-        if ($governorate->cities->count() > 0 || !$governorate) {
+        if ($governorate->cities->count() > 0 || $governorate->fromFlightTicket->count() > 0  || $governorate->toFlightTicket->count() > 0 || !$governorate) {
             return false;
         }
 
@@ -95,7 +106,4 @@ class GovernorateService
         }
         return $governorate;
     }
-
-
-
 }

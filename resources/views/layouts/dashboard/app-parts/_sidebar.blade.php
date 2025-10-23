@@ -3,7 +3,7 @@
 
             <!-- begin: Dashboard -->
             <ul class="navigation navigation-main mt-1">
-                <li class=" nav-item">
+                <li class=" nav-item @if (Request::is('*welcome*')) active @endif">
                     <a href="{!! route('dashboard.index') !!}">
                         <i class="icon-home"></i>
                         <span class="menu-title" data-i18n="nav.dash.main">{!! __('dashboard.dashboard') !!}</span>
@@ -79,7 +79,7 @@
                         <a href="#">
                             <i class="icon-user"></i>
                             <span class="menu-title" data-i18n="nav.dash.admins">{!! __('dashboard.admins') !!}</span>
-                            <span class="badge badge badge-info badge-pill float-right mr-2">{!! $admins_count !!}</span>
+                            {{-- <span class="badge badge badge-info badge-pill float-right mr-2">{!! $admins_count !!}</span> --}}
                         </a>
                         <!-- begin: admins -->
                         <ul class="menu-content">
@@ -104,7 +104,7 @@
                         <a href="#">
                             <i class="la la-users"></i>
                             <span class="menu-title" data-i18n="nav.dash.users">{!! __('dashboard.users') !!}</span>
-                            <span class="badge badge badge-info badge-pill float-right mr-2">{!! $users_count !!}</span>
+                            {{-- <span class="badge badge badge-info badge-pill float-right mr-2">{!! $users_count !!}</span> --}}
                         </a>
                         <!-- begin: users -->
                         <ul class="menu-content">
@@ -163,6 +163,86 @@
             @endcan
             <!-- end: world -->
 
+
+            <!-- begin: tickets -->
+            @can('tickets')
+                <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+                    <li class=" nav-item">
+                        <a href="#">
+                            <i class="la la-ticket"></i>
+                            <span class="menu-title" data-i18n="nav.dash.tickets">{!! __('dashboard.tickets') !!}</span>
+                            {{-- <span class="badge badge badge-info badge-pill float-right mr-2">{!! $tickets_count !!}</span> --}}
+                        </a>
+                        <!-- begin: tickets -->
+                        <ul class="menu-content">
+                            <li class="@if (str_contains(url()->current(), 'tickets')) active @endif">
+                                <a class="menu-item" href="{!! route('dashboard.tickets.index') !!}" data-i18n="nav.dash.tickets">
+                                    {!! __('tickets.tickets') !!}
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- end: tickets -->
+                    </li>
+                </ul>
+            @endcan
+            <!-- end: tickets -->
+
+            <!-- begin: tours -->
+            @can('tours')
+                <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+                    <li class=" nav-item">
+                        <a href="#">
+                            <i class="la la-fighter-jet"></i>
+                            <span class="menu-title" data-i18n="nav.dash.tours">{!! __('dashboard.tours') !!}</span>
+                            {{-- <span class="badge badge badge-info badge-pill float-right mr-2">{!! $tours_count !!}</span> --}}
+                        </a>
+                        <!-- begin: tours -->
+                        <ul class="menu-content">
+                            <li class="@if (str_contains(url()->current(), 'tours')) active @endif">
+                                <a class="menu-item" href="{!! route('dashboard.tours.index') !!}" data-i18n="nav.dash.tours">
+                                    {!! __('tours.tours') !!}
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- end: tours -->
+                    </li>
+                </ul>
+            @endcan
+            <!-- end: tours -->
+
+
+            <!-- begin: tours -->
+
+            <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+                <li class=" nav-item">
+                    <a href="#">
+                        <i class="la la-fighter-jet"></i>
+                        <span class="menu-title" data-i18n="nav.dash.flights">{!! __('dashboard.flights') !!}</span>
+                        {{-- <span class="badge badge badge-info badge-pill float-right mr-2">{!! $flights_count !!}</span> --}}
+                    </a>
+                    <!-- begin: flights -->
+                    <ul class="menu-content">
+                        @can('flights')
+                            <li class="@if (str_contains(url()->current(), 'flights')) active @endif">
+                                <a class="menu-item" href="{!! route('dashboard.flights.index') !!}" data-i18n="nav.dash.flights">
+                                    {!! __('flights.flights') !!}
+                                </a>
+                            </li>
+                        @endcan
+
+                        @can('categories')
+                            <li class="@if (str_contains(url()->current(), 'categories')) active @endif">
+                                <a class="menu-item" href="{!! route('dashboard.categories.index') !!}" data-i18n="nav.dash.categories">
+                                    {!! __('categories.categories') !!}
+                                </a>
+                            </li>
+                        @endcan
+                    </ul>
+                    <!-- end: flights -->
+                </li>
+            </ul>
+
+            <!-- end: flights -->
 
 
         </div>

@@ -3,6 +3,11 @@
 /public/build
 /public/hot
 /public/storage
+/public/uploads/settings/*
+/public/uploads/sliders/*
+/public/uploads/tickets/*
+/public/uploads/tours/*
+/public/uploads/categories/*
 /storage/*.key
 /storage/pail
 /vendor

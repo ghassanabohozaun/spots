@@ -16,7 +16,7 @@ class Admin extends Authenticatable
     protected $table = 'admins';
 
     // fillable
-    protected $fillable = ['name', 'email', 'password', 'role_id', 'status'];
+    protected $fillable = ['name', 'email', 'mobile','password', 'role_id', 'status'];
 
     public array $translatable = ['name'];
 

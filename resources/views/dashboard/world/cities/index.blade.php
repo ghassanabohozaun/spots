@@ -37,6 +37,7 @@
                     <div class="float-md-right mb-1">
                         <button type="button" class="btn btn-info  btn-glow px-2" data-toggle="modal"
                             data-target="#createCityModal">
+                            <span class="la la-pencil"></span>
                             {!! __('world.create_new_city') !!}
                         </button>
                     </div>
@@ -73,7 +74,18 @@
                                 <div class="card-content collapse show">
                                     <div class="card-body">
                                         <!-- begin: seach form -->
-                                        @include('dashboard.includes.search')
+                                        <form action="{!! url()->current() !!}" method="GET" class="mb-4">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <input type="text" name="keyword" class="form-control"
+                                                        autocomplete="off" placeholder="{!! __('world.search_city') !!}">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <button type="submit" class="btn btn-primary"
+                                                        id='search'>{!! __('general.search') !!}</button>
+                                                </div>
+                                            </div>
+                                        </form>
                                         <!-- end: search -->
                                         <div class="table-responsive">
                                             <table class="table" id='myTable'>

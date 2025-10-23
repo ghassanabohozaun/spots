@@ -282,6 +282,13 @@ return [
         'title' => 'العنوان',
         'q' => 'البحث',
         'link' => 'رابط',
-        // 'slug'                  => ' ',
+
+        'from_country_id' => 'من الدولة',
+        'to_country_id' => 'الي الدولة ',
+        'from_governorate_id' => 'من المدينة',
+        'to_governorate_id' => 'الي المدينة ',
+        'photo' => 'الصورة ',
+        'tour_guide_name.ar' => 'اسم المرشد السياحي بالعربي',
+        'tour_guide_name.en' => 'اسم المرشد السياحي بالانجليزي',
     ],
 ];

@@ -10,6 +10,10 @@ return [
     'back_to_home' => 'الرجوع الي الشاشة الرئيسية',
     'search' => 'بحث ...',
     'hello' => 'مرحبا ,',
+    'admins_count' => 'عدد المديرين',
+    'countries_count' => 'عدد الدول',
+    'governorates_count' => 'عدد المحافظات',
+    'cities_count' => 'عدد المدن',
 
     // menu
     'roles' => 'الصلاحيات',
@@ -17,8 +21,10 @@ return [
     'users' => 'المستخدمين',
     'world' => 'المناطق',
     'settings' => 'إعدادات الموقع',
-    'products' => 'المنتجات',
-    'children' => 'الأطفال الأيتام',
+    'tickets' => 'تذاكر الطيران',
+    'tours' => 'الجولات السياحية',
+    'flights' => 'الرحلات السياحية',
+    'categories' => 'الأقسام',
 
     // login
     'login' => 'تسجيل الدخول',

@@ -9,6 +9,9 @@ return [
     'users_count' => 'عدد المتسخدمين',
     'status' => 'الحالة',
     'manage_status' => 'إدارةالحالة',
+    'search_country' => 'ادخل الدولة',
+    'search_governorate' => 'ادخل المحافظة',
+    'search_city' => 'ادخل المدينة',
 
     'country_name' => 'اسم الدولة',
     'country_name_ar' => 'اسم الدولة بالعربي',
@@ -38,6 +41,7 @@ return [
 
     'enter_governorate_name_ar' => 'ادخل اسم المحافظة بالعربي',
     'enter_governorate_name_en' => 'ادخل اسم المحافظة بالانجليزي',
+    'enter_country_id' => 'ادخل الدولة',
 
     'no_governorates_found' => 'لا يوجد محافضات حالياً !',
 

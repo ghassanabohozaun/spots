@@ -1,0 +1,153 @@
+<?php
+
+namespace App\Services\Dashboard;
+
+use App\Repositories\Dashboard\CategoryRepository;
+use App\Utils\ImageManager;
+use App\Utils\ImageManagerUtils;
+use Illuminate\Support\Facades\Cache;
+use Yajra\DataTables\Facades\DataTables;
+
+class CategorySevice
+{
+    protected $categoryRepository, $imageManagerUtils;
+    // __construct
+    public function __construct(CategoryRepository $categoryRepository, ImageManagerUtils $imageManagerUtils)
+    {
+        $this->categoryRepository = $categoryRepository;
+        $this->imageManagerUtils = $imageManagerUtils;
+    }
+
+    // get category
+    public function getCategory($id)
+    {
+        $category = $this->categoryRepository->getCategory($id);
+        if (!$category) {
+            return false;
+        }
+
+        return $category;
+    }
+
+    // get categories
+    public function getCategories()
+    {
+        return $this->categoryRepository->getCategories();
+    }
+    //  get all
+    public function getAll()
+    {
+        $categories = $this->categoryRepository->getCategories();
+
+        $DataTables = DataTables::of($categories)
+            ->addIndexColumn()
+            ->addColumn('icon', function ($category) {
+                return view('dashboard.categories.parts.icon', compact('category'));
+            })
+            ->addColumn('name', function ($category) {
+                return $category->getTranslation('name', Lang());
+            })
+            ->addColumn('status', function ($category) {
+                return view('dashboard.categories.parts.status', compact('category'));
+            })
+            ->addColumn('manage_status', function ($category) {
+                return view('dashboard.categories.parts.manage-status', compact('category'));
+            })
+
+            ->addColumn('actions', function ($category) {
+                return view('dashboard.categories.parts.actions', compact('category'));
+            })
+            ->make(true);
+
+        return $DataTables;
+    }
+
+    //  get parent categories
+    public function getParentCategories()
+    {
+        return $this->categoryRepository->getParentCategories();
+    }
+    // get categories without childern
+
+    public function getCategoreisWithoutChildren($id)
+    {
+        $category = $this->categoryRepository->getCategoreisWithoutChildren($id);
+        return $category;
+    }
+    // store category
+    public function storeCategory($data)
+    {
+        // upload logo
+        if (array_key_exists('icon', $data) && $data['icon'] != null) {
+            // add new icon
+            $data['icon'] = $this->imageManagerUtils->saveResizeImage($data['icon'], 'categories', 500, 500);
+        }
+
+        //slug
+        $data['slug'] = [
+            'ar' => slug($data['name']['ar']),
+            'en' => slug($data['name']['en']),
+        ];
+
+        $category = $this->categoryRepository->storeCategory($data);
+        if (!$category) {
+            return false;
+        }
+
+        return $category;
+    }
+
+    // update category
+    public function updateCategory($data)
+    {
+        $category = $this->categoryRepository->getCategory($data['id']);
+
+        if (array_key_exists('icon', $data) && $data['icon'] != null) {
+            // delete old icon
+            $this->imageManagerUtils->removeImageFromLocal($category->icon, 'categories');
+            // add new icon
+            $data['icon'] = $this->imageManagerUtils->saveResizeImage($data['icon'], 'categories', 500, 500);
+        }
+
+        //slug
+        $data['slug'] = [
+            'ar' => slug($data['name']['ar']),
+            'en' => slug($data['name']['en']),
+        ];
+        $category = $this->categoryRepository->updateCategory($category, $data);
+
+        if (!$category) {
+            return false;
+        }
+        return $category;
+    }
+
+    // destroy category
+    public function destroyCategory($id)
+    {
+        $category = $this->categoryRepository->getCategory($id);
+
+        if ($category['icon'] != null) {
+            $this->imageManagerUtils->removeImageFromLocal($category->icon, 'categories');
+        }
+
+        $category = $this->categoryRepository->destroyCategory($category);
+        if (!$category) {
+            return false;
+        }
+
+        return $category;
+    }
+
+    // change status category
+    public function changeStatusCategory($id, $status)
+    {
+        $category = $this->categoryRepository->getCategory($id);
+
+        $category = $this->categoryRepository->changeStatusCategory($category, $status);
+        if (!$category) {
+            return false;
+        }
+        return $category;
+    }
+}

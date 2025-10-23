@@ -1,0 +1,58 @@
+<?php
+return [
+    'create_new_flight' => 'Create New Flights',
+    'update_flight' => 'Update Flights',
+    'flights' => 'Flights',
+    'show_all_flights' => 'Show All Flights',
+    'show_flight' => 'Show Flights',
+
+    'basic' => 'Basic Informations',
+    'services' => 'Flights Services',
+    'prices' => 'Flights Services',
+    'images' => 'Flights Images',
+    'sub_categoriess' => 'Sub Categories',
+    'confirmations' => 'Confirmations',
+
+    'back' => 'Back Step',
+    'next' => 'Next Step',
+    'submit' => 'Submit',
+    'add_new_service' => 'Add New Service',
+    'remove_service' => 'Remove Service',
+    'select' => 'Select',
+    'new_images' => 'New Images',
+    'full_screen' => 'Full Screen',
+
+    'flight_name' => 'Flight Name',
+    'name_ar' => 'Arabic Flight Name',
+    'name_en' => 'English Flight Name',
+
+    'flight_details' => 'Flight Details',
+    'details_ar' => 'Arabic Flight Details',
+    'details_en' => 'English Flight Details',
+    'category_id' => 'Flight Category',
+    'country_id' => 'Flights Country',
+    'governorate_id' => 'Governorate',
+    'days_num' => 'Days Number',
+    'nights_num' => 'Nights Number',
+    'views' => 'View',
+    'offer_duration_from' => 'Offer Duration From',
+    'offer_duration_to' => 'Offer Duration To',
+
+    'enter_flight_details' => 'Enter Flight Details',
+    'enter_details_ar' => 'Enter Arabic Flight Details',
+    'enter_details_en' => 'Enter English Flight Details',
+    'enter_category_id' => 'Enter Flight Category',
+    'enter_country_id' => 'Enter Flights Country',
+    'enter_governorate_id' => 'Enter Governorate',
+    'enter_days_num' => 'Enter Days Number',
+    'enter_nights_num' => 'Enter Nights Number',
+    'enter_views' => 'Enter View',
+    'enter_offer_duration_from' => 'Enter Offer Duration From',
+    'enter_offer_duration_to' => 'Enter Offer Duration To',
+
+    'status' => 'Status',
+    'manage_status' => 'Manage Status',
+
+    'no_flights_found' => 'No Flights Found !',
+    'no_flight_services_found' => 'No Flights Services Found !',
+];

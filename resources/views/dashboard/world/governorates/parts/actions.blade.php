@@ -5,7 +5,7 @@
         {{-- edit --}}
         <a href="#" class="btn btn-sm btn-outline-primary edit_governorate_button" title="{!! __('general.edit') !!}"
             governorate-id="{!! $governorate->id !!}" governorate-name-ar="{!! $governorate->getTranslation('name', 'ar') !!}"
-            governorate-name-en="{!! $governorate->getTranslation('name', 'en') !!}">
+            governorate-name-en="{!! $governorate->getTranslation('name', 'en') !!}" country-id = "{!! $governorate->country_id !!}">
             <i class="la la-edit"></i>
         </a>
 

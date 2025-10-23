@@ -37,6 +37,7 @@
                     <div class="float-md-right mb-2">
                         <button type="button" class="btn btn-info  btn-glow px-2" data-toggle="modal"
                             data-target="#createUserModal">
+                            <span class="la la-pencil"></span>
                             {!! __('users.create_new_user') !!}
                         </button>
                     </div>

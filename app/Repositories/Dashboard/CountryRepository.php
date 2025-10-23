@@ -24,13 +24,21 @@ class CountryRepository
     // get countries
     public function getCountries()
     {
-        $conuntries = Country::withCount(['governorates'])
+        return Country::withCount(['governorates'])
             ->when(!empty(request()->keyword), function ($query) {
                 $query->where('name', 'like', '%' . request()->keyword . '%');
             })
-            ->orderByDesc('id')
+            ->orderByDesc('created_at')
             ->paginate(10);
-        return $conuntries;
+    }
+
+    // get active countries
+    public function getActiveCountries()
+    {
+        return Country::withCount(['governorates'])
+            ->orderByDesc('created_at')
+            ->active()
+            ->get();
     }
 
     // get all countries without relations
@@ -51,35 +59,15 @@ class CountryRepository
     }
 
     // store country
-    public function storeCountry($request)
+    public function storeCountry($data)
     {
-        $country = Country::create([
-            'name' => [
-                'en' => $request->name['en'],
-                'ar' => $request->name['ar'],
-            ],
-            'status' => $request->has('status') ? 1 : 0,
-            'phone_code' => $request->phone_code,
-            'flag_code' => $request->flag_code,
-        ]);
-        return $country;
+        return Country::create($data);
     }
 
     // update country
-    public function updateCountry($request, $id)
+    public function updateCountry($data, $country)
     {
-        $country = self::getCountry($id);
-        $country = $country->update([
-            'name' => [
-                'en' => $request->name['en'],
-                'ar' => $request->name['ar'],
-            ],
-            'status' => $request->has('status') ? 1 : 0,
-            'phone_code' => $request->phone_code,
-            'flag_code' => $request->flag_code,
-        ]);
-
-        return $country;
+        return $country->update($data);
     }
 
     // destory country

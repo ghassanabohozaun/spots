@@ -33,44 +33,44 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // view composer dashboard
-        view()->composer('dashboard.*', function ($view) {
-            // admins count
-            if (!Cache::has('admins_count')) {
-                Cache::remember('admins_count', now()->addMinutes(60), function () {
-                    return Admin::count();
-                });
-            }
+        // // view composer dashboard
+        // view()->composer('dashboard.*', function ($view) {
+        //     // admins count
+        //     if (!Cache::has('admins_count')) {
+        //         Cache::remember('admins_count', now()->addMinutes(60), function () {
+        //             return Admin::count();
+        //         });
+        //     }
 
-            // users count
-            if (!Cache::has('users_count')) {
-                Cache::remember('users_count', now()->addMinutes(60), function () {
-                    return User::count();
-                });
-            }
+        //     // users count
+        //     if (!Cache::has('users_count')) {
+        //         Cache::remember('users_count', now()->addMinutes(60), function () {
+        //             return User::count();
+        //         });
+        //     }
 
-            // governorates count
-            if (!Cache::has('governorates_count')) {
-                Cache::remember('governorates_count', now()->addMinutes(60), function () {
-                    return Governorate::count();
-                });
-            }
+        //     // governorates count
+        //     if (!Cache::has('governorates_count')) {
+        //         Cache::remember('governorates_count', now()->addMinutes(60), function () {
+        //             return Governorate::count();
+        //         });
+        //     }
 
-            // cities count
-            if (!Cache::has('cities_count')) {
-                Cache::remember('cities_count', now()->addMinutes(60), function () {
-                    return City::count();
-                });
-            }
+        //     // cities count
+        //     if (!Cache::has('cities_count')) {
+        //         Cache::remember('cities_count', now()->addMinutes(60), function () {
+        //             return City::count();
+        //         });
+        //     }
 
-            // view share
-            view()->share([
-                'admins_count' => Cache::get('admins_count'),
-                'users_count' => Cache::get('users_count'),
-                'governorates_count' => Cache::get('governorates_count'),
-                'cities_count' => Cache::get('cities_count'),
-            ]);
-        });
+        //     // view share
+        //     view()->share([
+        //         'admins_count' => Cache::get('admins_count'),
+        //         'users_count' => Cache::get('users_count'),
+        //         'governorates_count' => Cache::get('governorates_count'),
+        //         'cities_count' => Cache::get('cities_count'),
+        //     ]);
+        // });
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // view composer website
@@ -85,49 +85,49 @@ class ViewServiceProvider extends ServiceProvider
         // });
 
         // get share settings in scope dashbaord and website
-        $settings = $this->firstOrCreateSettings();
-        view()->share([
-            'settings' => $settings,
-        ]);
+        // $settings = $this->firstOrCreateSettings();
+        // view()->share([
+        //     'settings' => $settings,
+        // ]);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // first Or Create Settings
-    public function firstOrCreateSettings()
-    {
-        $settings = Setting::firstOr(function () {
-            return Setting::create([
-                'site_name' => [
-                    'en' => 'Spots',
-                    'ar' => 'نقاط للسياحة والسفر',
-                ],
-                'address' => [
-                    'en' => '',
-                    'ar' => '',
-                ],
-                'description' => [
-                    'en' => '',
-                    'ar' => '',
-                ],
-                'keywords' => [
-                    'en' => '',
-                    'ar' => '',
-                ],
-                'phone' => '',
-                'mobile' => '',
-                'whatsapp' => '',
-                'email' => '',
-                'email_support' => '',
-                'facebook' => '',
-                'twitter' => '',
-                'instegram' => '',
-                'youtube' => '',
-                'logo' => '',
-                'favicon' => '',
-                'promation_video_url' => '',
-            ]);
-        });
+    // public function firstOrCreateSettings()
+    // {
+    //     $settings = Setting::firstOr(function () {
+    //         return Setting::create([
+    //             'site_name' => [
+    //                 'en' => 'Spots',
+    //                 'ar' => 'نقاط للسياحة والسفر',
+    //             ],
+    //             'address' => [
+    //                 'en' => '',
+    //                 'ar' => '',
+    //             ],
+    //             'description' => [
+    //                 'en' => '',
+    //                 'ar' => '',
+    //             ],
+    //             'keywords' => [
+    //                 'en' => '',
+    //                 'ar' => '',
+    //             ],
+    //             'phone' => '',
+    //             'mobile' => '',
+    //             'whatsapp' => '',
+    //             'email' => '',
+    //             'email_support' => '',
+    //             'facebook' => '',
+    //             'twitter' => '',
+    //             'instegram' => '',
+    //             'youtube' => '',
+    //             'logo' => '',
+    //             'favicon' => '',
+    //             'promation_video_url' => '',
+    //         ]);
+    //     });
 
-        return $settings;
-    }
+    //     return $settings;
+    // }
 }

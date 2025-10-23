@@ -45,6 +45,8 @@
                             <button class="btn btn-info  btn-glow px-2" type="submit">
                                 <i class="la la-save"></i>
                                 {!! __('general.save') !!}
+                                <i class="la la-refresh spinner spinner_loading d-none">
+                                </i>
                             </button>
                         </div>
                     </div>
@@ -331,7 +333,8 @@
                                                                 <div class="form-group">
                                                                     <label for="photo">{!! __('sliders.photo') !!}</label>
                                                                     <input type="file" id="single_image_create"
-                                                                        name="photo" class="form-control ">
+                                                                        accept="image/*" name="photo"
+                                                                        class="form-control ">
                                                                     <span class="text text-warning">
                                                                         <strong>{!! __('sliders.slider_size') !!}</strong>
                                                                     </span>
@@ -427,6 +430,9 @@
                 contentType: false,
                 cache: false,
                 processData: false,
+                beforeSend: function() {
+                    $('.spinner_loading').removeClass('d-none');
+                },
                 success: function(data) {
                     if (data.status == true) {
                         console.log(data);
@@ -457,7 +463,9 @@
                         $('#' + key).css('border-color', '#F64E60');
                     });
                 }, //end error
-
+                complete: function() {
+                    $('.spinner_loading').addClass('d-none');
+                }
 
             }); // end ajax
 

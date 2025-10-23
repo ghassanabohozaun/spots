@@ -45,7 +45,6 @@ return [
             'report' => false,
         ],
 
-
         'settings' => [
             'driver' => 'local',
             'root' => public_path('/uploads/settings'),
@@ -64,7 +63,32 @@ return [
             'report' => false,
         ],
 
+        'tickets' => [
+            'driver' => 'local',
+            'root' => public_path('/uploads/tickets'),
+            'url' => env('APP_URL') . '/uploads/tickets',
+            'visibility' => 'public',
+            'throw' => false,
+            'report' => false,
+        ],
 
+        'tours' => [
+            'driver' => 'local',
+            'root' => public_path('/uploads/tours'),
+            'url' => env('APP_URL') . '/uploads/tours',
+            'visibility' => 'public',
+            'throw' => false,
+            'report' => false,
+        ],
+
+        'categories' => [
+            'driver' => 'local',
+            'root' => public_path('/uploads/categories'),
+            'url' => env('APP_URL') . '/uploads/categories',
+            'visibility' => 'public',
+            'throw' => false,
+            'report' => false,
+        ],
 
         's3' => [
             'driver' => 's3',

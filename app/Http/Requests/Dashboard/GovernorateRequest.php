@@ -24,6 +24,7 @@ class GovernorateRequest extends FormRequest
     {
         return [
             'name.*' => ['required', 'string', 'max:100', UniqueTranslationRule::for('governorates')->ignore($this->id)],
+            'country_id' => ['required'],
         ];
     }
 }

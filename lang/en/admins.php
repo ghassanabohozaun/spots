@@ -5,10 +5,12 @@ return [
     'admins' => 'Admins',
     'show_all_admins' => 'Show All Admins',
 
+    'id' => 'ID',
     'name' => 'Admin Name',
     'name_ar' => 'Arabic Admin Name',
     'name_en' => 'English Admin Name',
     'email' => 'Admin Email',
+    'mobile' => 'Admin Mobile',
     'password' => 'Admin Password',
     'password_confirm' => 'Admin Password confirm',
     'role_id' => 'Admin Role',
@@ -19,12 +21,11 @@ return [
     'enter_name_ar' => 'Enter Arabic Admin Name',
     'enter_name_en' => 'Enter English Admin Name',
     'enter_email' => 'Enter Admin Email',
+    'enter_mobile' => 'Enter Admin Mobile',
     'enter_password' => 'Enter Admin Password',
     'enter_password_confirm' => 'Enter Admin Password Confirm',
     'enter_role_id' => 'Enter Admin Role',
 
     'permissions' => 'Permissions',
     'no_admins_found' => 'No Admins Found !',
-
-
 ];

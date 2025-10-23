@@ -8,6 +8,9 @@ return [
     'users_count' => 'Users Count',
     'status' => 'Status',
     'manage_status' => 'Manage Status',
+    'search_country' => 'Enter Country',
+    'search_governorate' => 'Enter Governorate',
+    'search_city' => 'Enter City',
 
     'country_name' => 'Country Name',
     'country_name_ar' => 'Arabic Country Name',
@@ -38,6 +41,7 @@ return [
 
     'enter_governorate_name_ar' => 'Enter Arabic Governorate Name',
     'enter_governorate_name_en' => 'Enter English Governorate Name',
+    'enter_country_id' => 'Enter Country',
 
     'no_governorates_found' => 'No Governorates Found !',
 

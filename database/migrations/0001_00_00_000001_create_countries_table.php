@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->string('name')->unique();
             $table->string('phone_code')->unique();
             $table->string('flag_code');
-            $table->boolean('status')->default(false);
+            $table->boolean('status')->default(1);
             $table->softDeletes();
             $table->timestamps();
         });

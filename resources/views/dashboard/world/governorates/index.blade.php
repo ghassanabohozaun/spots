@@ -37,6 +37,7 @@
                     <div class="float-md-right mb-1">
                         <button type="button" class="btn btn-info  btn-glow px-2" data-toggle="modal"
                             data-target="#createGovernorateModal">
+                            <span class="la la-pencil"></span>
                             {!! __('world.create_new_governorate') !!}
                         </button>
                     </div>
@@ -73,7 +74,18 @@
                                 <div class="card-content collapse show">
                                     <div class="card-body">
                                         <!-- begin: seach form -->
-                                        @include('dashboard.includes.search')
+                                        <form action="{!! url()->current() !!}" method="GET" class="mb-4">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <input type="text" name="keyword" class="form-control"
+                                                        autocomplete="off" placeholder="{!! __('world.search_governorate') !!}">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <button type="submit" class="btn btn-primary"
+                                                        id='search'>{!! __('general.search') !!}</button>
+                                                </div>
+                                            </div>
+                                        </form>
                                         <!-- end: search -->
                                         <div class="table-responsive">
                                             <table class="table" id='myTable'>
@@ -81,6 +93,7 @@
                                                     <tr>
                                                         <th>#</th>
                                                         <th>{!! __('world.governorate_name') !!}</th>
+                                                        <th>{!! __('world.country_id') !!}</th>
                                                         <th class="text-center">{!! __('world.cites_count') !!}</th>
                                                         <th class="text-center">{!! __('world.status') !!}</th>
                                                         <th class="text-center">{!! __('world.manage_status') !!}</th>
@@ -91,7 +104,8 @@
                                                     @forelse ($governorates as $governorate)
                                                         <tr class="row_{!! $governorate->id !!}">
                                                             <th class="col-lg-1">{!! $loop->iteration !!} </th>
-                                                            <td class="col-lg-6">{!! $governorate->name !!}</td>
+                                                            <td class="col-lg-3">{!! $governorate->name !!}</td>
+                                                            <td class="col-lg-3">{!! $governorate->country->name !!}</td>
                                                             <td class="col-lg-1 text-center">
                                                                 @include('dashboard.world.governorates.parts.cites_count')
                                                             </td>
@@ -129,6 +143,7 @@
             </div><!-- end: content body  -->
         </div> <!-- end: content wrapper  -->
     </div><!-- end: content app  -->
+
 
     @include('dashboard.world.governorates.modals.create')
     @include('dashboard.world.governorates.modals.edit')
@@ -187,21 +202,23 @@
                                     }
                                 });
                                 // $('.row_' + id).remove();
-                            } else if (data.status == false) {
-                                swal({
-                                    title: "{!! __('general.warning') !!} ",
-                                    text: "{!! __('general.delete_error_message') !!} ",
-                                    icon: "warning",
-                                    buttons: {
-                                        confirm: {
-                                            text: "{!! __('general.yes') !!}",
-                                            visible: true,
-                                            closeModal: true
-                                        }
-                                    }
-                                });
                             }
                         }, //end success
+                        error: function(data) {
+                            swal({
+                                title: "{!! __('general.warning') !!} ",
+                                text: "{!! __('general.delete_error_message') !!} ",
+                                icon: "warning",
+                                buttons: {
+                                    confirm: {
+                                        text: "{!! __('general.yes') !!}",
+                                        visible: true,
+                                        closeModal: true
+                                    }
+                                }
+                            });
+
+                        } // end error
                     });
 
                 } else {

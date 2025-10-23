@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('mobile');
             $table->string('password');
             $table->foreignId('role_id')->constrained('roles')->cascadeOnDelete();
             $table->boolean('status')->default(true);

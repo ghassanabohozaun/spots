@@ -43,6 +43,7 @@ return [
     'send' => 'Send',
     'write_here' => 'Write Here ...',
     'full_screen' => 'Full Screen',
+    'filters'=>'Filters',
 
     'not_found' => 'Not Found',
     'example' => 'Example',

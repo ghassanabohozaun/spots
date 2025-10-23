@@ -36,9 +36,23 @@ class CityService
     }
 
     // store city
-    public function storeCity($request)
+    public function storeCity($data)
     {
-        $city = $this->cityRepository->storeCity($request);
+        $city = $this->cityRepository->storeCity($data);
+        if (!$city) {
+            return false;
+        }
+        return $city;
+    }
+
+        // update city
+    public function updateCity($data, $id)
+    {
+        $city = self::getCity($id);
+        if (!$city) {
+            return false;
+        }
+        $city = $this->cityRepository->updateCity($data, $city);
         if (!$city) {
             return false;
         }
@@ -61,17 +75,9 @@ class CityService
         return $city;
     }
 
-    // update city
-    public function updateCity($request, $id)
+     // autocomplete
+    public function autocompleteGovnerorate($searchValue)
     {
-        $city = self::getCity($id);
-        if (!$city) {
-            return false;
-        }
-        $city = $this->cityRepository->updateCity($request, $id);
-        if (!$city) {
-            return false;
-        }
-        return $city;
+        return $this->cityRepository->autocompleteGovnerorate($searchValue);
     }
 }

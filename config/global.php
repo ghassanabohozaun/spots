@@ -7,5 +7,9 @@ return [
         'world' => 'global.world',
         'sliders' => 'global.sliders',
         'users' => 'global.users',
+        'tickets' => 'global.tickets',
+        'tours' => 'global.tours',
+        'flights' => 'global.flights',
+        'categories' => 'global.categories',
     ],
 ];

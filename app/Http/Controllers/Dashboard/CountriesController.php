@@ -47,14 +47,12 @@ class CountriesController extends Controller
     // store
     public function store(CountryRequest $request)
     {
-        $country = $this->countryService->storeCountry($request);
+        $data = $request->only(['name', 'phone_code', 'flag_code', 'status']);
+        $country = $this->countryService->storeCountry($data);
         if (!$country) {
-            flash()->error(__('general.add_error_message'));
-            return redirect()->back();
+            return response()->json(['status' => false], 500);
         }
-
-        flash()->success(__('general.add_success_message'));
-        return redirect()->back();
+        return response()->json(['status' => true, 'data' => $country], 201);
     }
 
     //show
@@ -84,14 +82,12 @@ class CountriesController extends Controller
             return redirect()->back();
         }
 
-        $country = $this->countryService->updateCountry($request, $id);
+        $data = $request->only(['name', 'phone_code', 'flag_code', 'status']);
+        $country = $this->countryService->updateCountry($data, $id);
         if (!$country) {
-            flash()->error(__('general.update_error_message'));
-            return redirect()->back();
+            return response()->json(['status' => false], 500);
         }
-
-        flash()->success(__('general.update_success_message'));
-        return redirect()->back();
+        return response()->json(['status' => true, 'data' => $country], 200);
     }
 
     // destroy
@@ -99,10 +95,17 @@ class CountriesController extends Controller
     {
         if ($request->json()) {
             $country = $this->countryService->destroyCountry($request->id);
+            // if ($country == 'notFound') {
+            //     return response()->json(['status' => 'notFound'], 500);
+            // } elseif ($country == 'notUpdate') {
+            //     return response()->json(['status' => 'notUpdate'], 500);
+            // } elseif ($country == 'hasGovernorate') {
+            //     return response()->json(['status' => 'hasGovernorate'], 500);
+            // }
             if (!$country) {
-                return response()->json(['status' => false]);
+                return response()->json(['status' => false], 500);
             }
-            return response()->json(['status' => true]);
+            return response()->json(['status' => true], 200);
         }
     }
 
@@ -112,11 +115,11 @@ class CountriesController extends Controller
         if ($request->json()) {
             $country = $this->countryService->changeStatus($request->id, $request->statusSwitch);
             if (!$country) {
-                return response()->json(['status' => false]);
+                return response()->json(['status' => false], 500);
             }
 
             $country = $this->countryService->getCountry($request->id);
-            return response()->json(['status' => true,'data'=>$country]);
+            return response()->json(['status' => true, 'data' => $country], 200);
         }
     }
 

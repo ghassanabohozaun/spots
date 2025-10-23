@@ -3,16 +3,16 @@
 namespace App\Services\Dashboard;
 
 use App\Repositories\Dashboard\SettingRepository;
-use App\Utils\ImageManager;
+use App\Utils\ImageManagerUtils;
 
 class SettingService
 {
-    protected $settingRepository, $imageManager;
+    protected $settingRepository, $imageManagerUtils;
     //
-    public function __construct(SettingRepository $settingRepository, ImageManager $imageManager)
+    public function __construct(SettingRepository $settingRepository, ImageManagerUtils $imageManagerUtils)
     {
         $this->settingRepository = $settingRepository;
-        $this->imageManager = $imageManager;
+        $this->imageManagerUtils = $imageManagerUtils;
     }
 
     // get setting
@@ -31,13 +31,13 @@ class SettingService
         $setting = self::getSetting($id);
 
         if (array_key_exists('logo', $data) && $data['logo'] != null) {
-            $this->imageManager->removeImageFromLocal($setting->logo , 'settings');
-            $data['logo'] = $this->imageManager->uploadSingleImage('/', $data['logo'], 'settings');
+            $this->imageManagerUtils->removeImageFromLocal($setting->logo, 'settings');
+            $data['logo'] = $this->imageManagerUtils->saveResizeImage($data['logo'], 'settings', 500, 500);
         }
 
         if (array_key_exists('favicon', $data) && $data['favicon'] != null) {
-            $this->imageManager->removeImageFromLocal($setting->favicon,'settings');
-            $data['favicon'] = $this->imageManager->uploadSingleImage('/', $data['favicon'], 'settings');
+            $this->imageManagerUtils->removeImageFromLocal($setting->favicon, 'settings');
+            $data['favicon'] = $this->imageManagerUtils->saveResizeImage($data['favicon'], 'settings', 500, 500);
         }
 
         $setting = $this->settingRepository->updateSettings($setting, $data);

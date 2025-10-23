@@ -36,6 +36,7 @@
                 <div class="content-header-right col-md-6 col-12">
                     <div class="float-md-right mb-2">
                         <a href="{!! route('dashboard.sliders.create') !!}" class="btn btn-info  btn-glow px-2">
+                            <span class="la la-pencil"></span>
                             {!! __('sliders.create_new_slider') !!}
                         </a>
                     </div>
@@ -82,8 +83,6 @@
                                                                 <th>{!! __('sliders.photo') !!}</th>
                                                                 <th>{!! __('sliders.title') !!}</th>
                                                                 <th>{!! __('sliders.details') !!}</th>
-                                                                {{-- <th>{!! __('sliders.url') !!}</th> --}}
-                                                                {{-- <th>{!! __('sliders.order') !!}</th> --}}
                                                                 <th>{!! __('sliders.details_status') !!}</th>
                                                                 <th>{!! __('sliders.button_status') !!}</th>
                                                                 <th>{!! __('sliders.status') !!}</th>
@@ -93,6 +92,19 @@
                                                         </thead>
                                                         <tbody>
                                                         </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>{!! __('sliders.photo') !!}</th>
+                                                                <th>{!! __('sliders.title') !!}</th>
+                                                                <th>{!! __('sliders.details') !!}</th>
+                                                                <th>{!! __('sliders.details_status') !!}</th>
+                                                                <th>{!! __('sliders.button_status') !!}</th>
+                                                                <th>{!! __('sliders.status') !!}</th>
+                                                                <th>{!! __('sliders.manage_status') !!}</th>
+                                                                <th>{!! __('general.actions') !!}</th>
+                                                            </tr>
+                                                        </tfoot>
                                                     </table>
                                                 </div>
                                             </div>
@@ -148,6 +160,8 @@
 
             ajax: '{!! route('dashboard.sliders.get.all') !!}',
 
+
+
             columns: [{
                     data: 'DT_RowIndex',
                     searchable: false,
@@ -167,17 +181,12 @@
                     data: 'details',
                     name: 'details',
                 },
-                // {
-                //     data: 'url',
-                //     name: 'url',
-                // },
-                // {
-                //     data: 'order',
-                //     name: 'order',
-                // },
+
                 {
                     data: 'details_status',
                     name: 'details_status',
+                    searchable: false,
+                    orderable: false,
                 },
                 {
                     data: 'button_status',
@@ -185,7 +194,9 @@
                 },
                 {
                     data: 'status',
-                    name: 'status'
+                    name: 'status',
+                    searchable: false,
+                    orderable: false,
                 },
                 {
                     data: 'manage_status',
@@ -206,6 +217,8 @@
                     buttons: ['copy', 'print', 'excel', 'pdf']
                 }
             },
+
+
             language: lang === 'ar' ? {
                 url: '{!! asset('vendor/datatables/ar.json') !!}',
             } : {},
@@ -251,8 +264,28 @@
                     }
                 },
 
-            ]
+            ],
 
+            // initComplete: function() {
+            //     this.api()
+            //         .columns()
+            //         .every(function() {
+            //             let column = this;
+            //             let title = column.footer().textContent;
+
+            //             // Create input element
+            //             let input = document.createElement('input');
+            //             input.placeholder = title;
+            //             column.footer().replaceChildren(input);
+
+            //             // Event listener for user input
+            //             input.addEventListener('keyup', () => {
+            //                 if (column.search() !== this.value) {
+            //                     column.search(input.value).draw();
+            //                 }
+            //             });
+            //         });
+            // }
         });
 
         // // disable button when mouse down

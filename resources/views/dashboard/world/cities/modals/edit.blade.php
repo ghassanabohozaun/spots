@@ -1,5 +1,8 @@
-<div class="modal fade" id="updateCityModal" tabindex="-1" role="dialog" aria-labelledby="updateCityModalLabel"
-    aria-hidden="true">
+@push('style')
+    <link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord/vendors/css/forms/selects/select2.min.css') !!}">
+@endpush
+
+<div class="modal fade" id="updateCityModal" role="dialog" aria-labelledby="updateCityModalLabel" aria-hidden="true">
 
     <div class="modal-dialog modal-md" role="document">
         <form class="form" action="" method="POST" enctype="multipart/form-data" id='update_city_form'>
@@ -19,7 +22,6 @@
 
                 <!--begin::modal body-->
                 <div class="modal-body">
-
                     <div class="row">
                         <div class="col-lg-12">
 
@@ -78,12 +80,13 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="governorate_id">{!! __('world.governorate_id') !!}</label>
-                                        <select class="form-control" id='governorate_id_edit' name="governorate_id">
-                                            <option value="" selected="">
-                                                {!! __('general.select_from_list') !!}</option>
-                                            @foreach ($governorates as $governorate)
-                                                <option value="{!! $governorate->id !!}">
-                                                    {!! $governorate->name !!}
+                                        <br />
+
+                                        <select class="governorate_select2_edit form-control" id="governorate_id_edit"
+                                            name="governorate_id" style="width: 100%">
+                                            @foreach (App\Models\Governorate::all() as $governorate)
+                                                <option value="{{ $governorate->id }}">
+                                                    {{ $governorate->name }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -93,24 +96,29 @@
                                     </div>
                                 </div>
                                 <!-- end: input -->
+
+                                <!-- end: input -->
                             </div>
                             <!-- end: row -->
-
                         </div>
                     </div>
-                    <!--end: form-->
+                    <!--end: row-->
                 </div>
                 <!--end::modal body-->
 
                 <!--begin::modal footer-->
                 <div class="modal-footer">
-                    <button type="submit" id="create_city_btn" class="btn btn-info font-weight-bold ">
-                        {{ trans('general.save') }}
+                    <button type="submit" id="update_city_btn" class="btn btn-info font-weight-bold ">
+                        <span class="la la-save"></span>
+                        {{ __('general.save') }}
+                        <i class="la la-refresh spinner spinner_loading d-none">
+                        </i>
                     </button>
 
                     <button type="button" id="cancel_city_btn" class="btn btn-light-dark font-weight-bold"
                         data-dismiss="modal">
-                        {{ trans('general.cancel') }}
+                        <span class="la la-close"></span>
+                        {{ __('general.cancel') }}
                     </button>
                 </div>
                 <!--end::modal footer-->
@@ -121,7 +129,65 @@
 </div>
 
 @push('scripts')
+    <script src="{!! asset('assets/dashbaord') !!}/vendors/js/forms/select/select2.full.min.js" type="text/javascript"></script>
+    <script src="{!! asset('assets/dashbaord') !!}/js/scripts/forms/select/form-select2.js" type="text/javascript"></script>
+
     <script type="text/javascript">
+        // select 2
+
+        $(".governorate_select2_edit").select2({
+            minimumInputLength: 1,
+            maximumInputLength: 20,
+            placeholder: '{!! __('general.select_from_list') !!}',
+            allowClear: true,
+            escapeMarkup: function(markup) {
+                return markup;
+            },
+            language: {
+                inputTooShort: function() {
+                    return "{!! __('general.inputTooShort') !!}";
+                },
+                inputTooLong: function() {
+                    return "{!! __('general.inputTooLong') !!}";
+                },
+                errorLoading: function() {
+                    return "{!! __('general.errorLoading') !!}";
+                },
+                noResults: function() {
+                    return "<span>{!! __('general.noResults2') !!}";
+                },
+                searching: function() {
+                    return " {!! __('general.searching') !!}";
+                }
+            },
+
+            ajax: {
+                url: "{{ route('dashboard.cities.autocomplete.govnerorate') }}",
+                dataType: 'json',
+                delay: 250,
+                processResults: function(data) {
+                    console.log(data);
+                    return {
+                        results: $.map(data, function(item) {
+                            if ('{!! Lang() !!}' === 'en') {
+                                return {
+                                    text: item.country_en,
+                                    id: item.id
+                                }
+                            } else {
+                                return {
+                                    text: item.country_ar,
+                                    id: item.id
+                                }
+                            }
+
+                        })
+                    };
+                },
+                cache: true
+            }
+        });
+
         // show edit modal
         $('body').on('click', '.edit_city_button', function(e) {
             e.preventDefault();
@@ -131,10 +197,11 @@
             var governorate_id = $(this).attr('governorate-id');
 
 
+
             $('#id_edit').val(city_id);
             $('#name_ar_edit').val(city_name_ar);
             $('#name_en_edit').val(city_name_en);
-            $('#governorate_id_edit').val(governorate_id);
+            $(".governorate_select2_edit").val(governorate_id).trigger('change');
 
 
             $('#updateCityModal').modal('show');
@@ -187,6 +254,9 @@
                 cache: false,
                 processData: false,
                 contentType: false,
+                beforeSend: function() {
+                    $('.spinner_loading').removeClass('d-none');
+                },
                 success: function(data) {
                     if (data.status == true) {
                         console.log(data);
@@ -211,6 +281,9 @@
                         $('#' + key + '_edit').css('border-color', '#F64E60');
                     });
                 }, //end error
+                complete: function() {
+                    $('.spinner_loading').addClass('d-none');
+                }
             });
 
         });
