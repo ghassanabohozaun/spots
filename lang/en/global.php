@@ -11,4 +11,7 @@ return [
     'tours' => 'Sightseeing Tours Management',
     'flights' => 'Flights Management',
     'categories' => 'Categories Management',
+    'pages' => 'Pages Management',
+    'mailing' => 'Mailing Box Management',
+    'notifications' => 'Notifications Box Management',
 ];

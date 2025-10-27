@@ -35,7 +35,8 @@
                 <!-- begin: content header right-->
                 <div class="content-header-right col-md-6 col-12">
                     <div class="float-md-right mb-2">
-                        <a href="{{ route('dashboard.tours.create') }}" class="btn btn-primary btn-glow px-2">
+                        <a href="{{ route('dashboard.tours.create') }}" class="btn btn-info btn-glow px-2">
+                            <span class="la la-pencil"></span>
                             {!! __('tours.create_new_tour') !!}
                         </a>
                     </div>
@@ -103,7 +104,7 @@
 
         loadData();
 
-        function loadData(price = '', country_id = '', governorate_id = '', status = '') {
+        function loadData(price = '', country_id = '', city_id = '', status = '') {
             // yajra tables
             $('#yajra-datatable').DataTable({
                 // dom: 'Bfrtip',
@@ -113,7 +114,8 @@
                 fixedHeader: true,
                 "bDestroy": true,
                 "bFilter": false,
-                "lengthChange": false,
+                "bLengthChange": false, //thought this line could hide the LengthMenu
+                pageLength: 10,
 
                 // rowReorder: {
                 //     update: false,
@@ -147,7 +149,7 @@
                     data: {
                         price: price,
                         country_id: country_id,
-                        governorate_id: governorate_id,
+                        city_id: city_id,
                         status: status
                     },
                     beforeSend: function() {}
@@ -182,8 +184,8 @@
                         name: 'country_id',
                     },
                     {
-                        data: 'governorate_id',
-                        name: 'governorate_id',
+                        data: 'city_id',
+                        name: 'city_id',
                     },
                     {
                         data: 'created_at',

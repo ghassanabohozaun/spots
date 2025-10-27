@@ -25,9 +25,9 @@ class DatabaseSeeder extends Seeder
         SettingSeeder::class,
         AdminSeeder::class,
         CountrySeeder::class,
-        GovernorateSeeder::class,
         CitySeeder::class,
         SliderSeeder::class,
+        PageSeeder::class,
         CategorySeeder::class,
     ]);
     }

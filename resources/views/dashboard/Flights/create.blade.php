@@ -11,7 +11,7 @@
             <div class="content-header row">
                 <!-- begin: content header left-->
                 <div class="content-header-left col-md-6 col-12 mb-2 breadcrumb-new">
-                    <h3 class="content-header-title mb-0 d-inline-block">{!! __('children.children') !!}</h3>
+                    <h3 class="content-header-title mb-0 d-inline-block">{!! __('flights.flights') !!}</h3>
                     <div class="row breadcrumbs-top d-inline-block">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
@@ -21,13 +21,13 @@
                                     </a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="{!! route('dashboard.children.index') !!}">
-                                        {!! __('children.children') !!}
+                                    <a href="{!! route('dashboard.flights.index') !!}">
+                                        {!! __('flights.flights') !!}
                                     </a>
                                 </li>
                                 <li class="breadcrumb-item active">
-                                    <a href="{!! route('dashboard.children.create') !!}">
-                                        {!! __('children.create_new_child') !!}
+                                    <a href="{!! route('dashboard.flights.create') !!}">
+                                        {!! __('flights.create_new_flight') !!}
                                     </a>
                                 </li>
                             </ol>
@@ -47,9 +47,6 @@
                             <div class="card">
                                 <!-- begin: card header -->
                                 <div class="card-header">
-                                    {{-- <h4 class="card-title" id="basic-layout-colored-form-control">
-                                        {!! __('children.create_new_child') !!}
-                                    </h4> --}}
                                     <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
                                         <ul class="list-inline mb-0">
@@ -65,7 +62,7 @@
                                 <!-- begin: card content -->
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        @livewire('dashboard.child.create-child', compact('governorates', 'cities'))
+                                        @livewire('dashboard.flight.create-flight', compact('countries', 'cities', 'categories'))
                                     </div>
                                     <!-- end: card content -->
                                 </div>

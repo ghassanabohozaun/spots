@@ -12,15 +12,11 @@ use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
-    protected $userService, $countryService, $governorateService, $cityService;
+    protected $userService;
     // __construct
-    public function __construct(UserService $userService, CountryService $countryService, GovernorateService $governorateService, CityService $cityService)
+    public function __construct(UserService $userService)
     {
         $this->userService = $userService;
-
-        $this->countryService = $countryService;
-        $this->governorateService = $governorateService;
-        $this->cityService = $cityService;
     }
     // index
     public function index()

@@ -57,14 +57,14 @@ class FlightTicketService
             ->addColumn('from_country_id', function ($ticket) {
                 return $ticket->formCountry->name;
             })
-            ->addColumn('from_governorate_id', function ($ticket) {
-                return $ticket->formGovernorate->name;
+            ->addColumn('from_city_id', function ($ticket) {
+                return $ticket->formCity->name;
             })
             ->addColumn('to_country_id', function ($ticket) {
                 return $ticket->toCountry->name;
             })
-            ->addColumn('to_governorate_id', function ($ticket) {
-                return $ticket->toGovernorate->name;
+            ->addColumn('to_city_id', function ($ticket) {
+                return $ticket->toCity->name;
             })
             ->addColumn('created_at', function ($ticket) {
                 return $ticket->created_at;

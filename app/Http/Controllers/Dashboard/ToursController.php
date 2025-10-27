@@ -4,19 +4,19 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\TourRequest;
+use App\Services\Dashboard\CityService;
 use App\Services\Dashboard\CountryService;
-use App\Services\Dashboard\GovernorateService;
 use App\Services\Dashboard\TourService;
 use Illuminate\Http\Request;
 
 class ToursController extends Controller
 {
-    protected $tourService, $countryService, $governorateService;
-    public function __construct(TourService $tourService, CountryService $countryService, GovernorateService $governorateService)
+    protected $tourService, $countryService, $cityService;
+    public function __construct(TourService $tourService, CountryService $countryService, CityService $cityService)
     {
         $this->tourService = $tourService;
         $this->countryService = $countryService;
-        $this->governorateService = $governorateService;
+        $this->cityService = $cityService;
     }
 
     // index
@@ -41,7 +41,7 @@ class ToursController extends Controller
     // store
     public function store(TourRequest $request)
     {
-        $data = $request->only(['title', 'name', 'title', 'details', 'price', 'country_id', 'governorate_id', 'tour_guide_name', 'photo', 'status']);
+        $data = $request->only(['title', 'name', 'title', 'details', 'price', 'country_id', 'city_id', 'tour_guide_name', 'photo', 'status']);
         $tour = $this->tourService->store($data);
         if (!$tour) {
             return response()->json(['status' => false], 500);
@@ -65,14 +65,14 @@ class ToursController extends Controller
             return redirect()->back();
         }
         $countries = $this->countryService->getActiveCountries();
-        $governorates = $this->governorateService->getActiveGovernoraties();
-        return view('dashboard.tours.edit', compact('title', 'tour', 'countries', 'governorates'));
+        $cities = $this->cityService->getActiveCities();
+        return view('dashboard.tours.edit', compact('title', 'tour', 'countries', 'cities'));
     }
 
     // update
     public function update(TourRequest $request, string $id)
     {
-        $data = $request->only(['id', 'title', 'name', 'title', 'details', 'price', 'country_id', 'governorate_id', 'tour_guide_name', 'photo', 'status']);
+        $data = $request->only(['id', 'title', 'name', 'title', 'details', 'price', 'country_id', 'city_id', 'tour_guide_name', 'photo', 'status']);
         $tour = $this->tourService->update($data);
         if (!$tour) {
             return response()->json(['status' => false], 500);

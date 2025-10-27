@@ -11,7 +11,7 @@ class Tour extends Model
 {
     use SoftDeletes, HasTranslations;
     protected $table = 'tours';
-    protected $fillable = ['id', 'name', 'title', 'details', 'price', 'country_id', 'governorate_id', 'tour_guide_name', 'photo', 'status'];
+    protected $fillable = ['id', 'name', 'title', 'details', 'price', 'country_id', 'city_id', 'tour_guide_name', 'photo', 'status'];
 
     public array $translatable = ['name', 'title', 'details', 'tour_guide_name'];
 
@@ -21,9 +21,9 @@ class Tour extends Model
         return $this->belongsTo(Country::class, 'country_id');
     }
 
-    public function governorate()
+    public function city()
     {
-        return $this->belongsTo(Governorate::class, 'governorate_id');
+        return $this->belongsTo(City::class, 'city_id');
     }
 
     //scopes

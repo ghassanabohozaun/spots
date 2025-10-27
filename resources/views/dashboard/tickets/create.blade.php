@@ -5,11 +5,15 @@
 
 @push('style')
     <link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord/vendors/css/forms/selects/select2.min.css') !!}">
+    @if (Lang() == 'ar')
+        <link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord/css-rtl/my-select2-style.css') !!}">
+    @endif
 @endpush
 @section('content')
     <div class="app-content content">
 
-        <form class="form" action="{!! route('dashboard.tickets.store') !!}" method="post" enctype="multipart/form-data" id="storeSliderFrom">
+        <form class="form" action="{!! route('dashboard.tickets.store') !!}" method="post" enctype="multipart/form-data"
+            id="storeSliderFrom">
             @csrf
             <div class="content-wrapper">
                 <!-- begin: content header -->
@@ -195,14 +199,14 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label
-                                                                        for="from_governorate_id">{!! __('tickets.from_governorate_id') !!}</label>
+                                                                        for="from_city_id">{!! __('tickets.from_city_id') !!}</label>
                                                                     <br />
-                                                                    <select class="from_governorate_id_select form-control"
-                                                                        id="from_governorate_id"
-                                                                        name="from_governorate_id" style="width: 100%">
+                                                                    <select class="from_city_id_select form-control"
+                                                                        id="from_city_id" name="from_city_id"
+                                                                        style="width: 100%">
                                                                     </select>
                                                                     <span class="text text-danger"
-                                                                        id="from_governorate_id_error">
+                                                                        id="from_city_id_error">
                                                                     </span>
                                                                 </div>
                                                             </div>
@@ -237,14 +241,13 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label
-                                                                        for="to_governorate_id">{!! __('tickets.to_governorate_id') !!}</label>
+                                                                        for="to_city_id">{!! __('tickets.to_city_id') !!}</label>
                                                                     <br />
-                                                                    <select class="to_governorate_id_select form-control"
-                                                                        id="to_governorate_id" name="to_governorate_id"
+                                                                    <select class="to_city_id_select form-control"
+                                                                        id="to_city_id" name="to_city_id"
                                                                         style="width: 100%">
                                                                     </select>
-                                                                    <span class="text text-danger"
-                                                                        id="to_governorate_id_error">
+                                                                    <span class="text text-danger" id="to_city_id_error">
                                                                     </span>
                                                                 </div>
                                                             </div>
@@ -333,7 +336,7 @@
 
     <script type="text/javascript">
         // select 2
-        var countryPath = "{{ route('dashboard.governorates.autocomplete.country') }}";
+        var countryPath = "{{ route('dashboard.countries.autocomplete.country') }}";
         $(".from_country_id_select").select2({
             minimumInputLength: 1,
             maximumInputLength: 20,
@@ -443,8 +446,8 @@
 
 
         // select 2
-        var governoratePath = "{{ route('dashboard.cities.autocomplete.govnerorate') }}";
-        $(".from_governorate_id_select").select2({
+        var cityPath = "{{ route('dashboard.cities.autocomplete.city') }}";
+        $(".from_city_id_select").select2({
             minimumInputLength: 1,
             maximumInputLength: 20,
             placeholder: '{!! __('general.select_from_list') !!}',
@@ -471,7 +474,7 @@
             },
 
             ajax: {
-                url: governoratePath,
+                url: cityPath,
                 dataType: 'json',
                 delay: 250,
                 processResults: function(data) {
@@ -480,12 +483,12 @@
                         results: $.map(data, function(item) {
                             if ('{!! Lang() !!}' === 'en') {
                                 return {
-                                    text: item.country_en,
+                                    text: item.city_en,
                                     id: item.id
                                 }
                             } else {
                                 return {
-                                    text: item.country_ar,
+                                    text: item.city_ar,
                                     id: item.id
                                 }
                             }
@@ -497,7 +500,7 @@
             }
         });
 
-        $(".to_governorate_id_select").select2({
+        $(".to_city_id_select").select2({
             minimumInputLength: 1,
             maximumInputLength: 20,
             placeholder: '{!! __('general.select_from_list') !!}',
@@ -524,7 +527,7 @@
             },
 
             ajax: {
-                url: governoratePath,
+                url: cityPath,
                 dataType: 'json',
                 delay: 250,
                 processResults: function(data) {
@@ -533,12 +536,12 @@
                         results: $.map(data, function(item) {
                             if ('{!! Lang() !!}' === 'en') {
                                 return {
-                                    text: item.country_en,
+                                    text: item.city_en,
                                     id: item.id
                                 }
                             } else {
                                 return {
-                                    text: item.country_ar,
+                                    text: item.city_ar,
                                     id: item.id
                                 }
                             }
@@ -574,9 +577,9 @@
             $('#details_en').css('border-color', '');
             $('#price').css('border-color', '');
             $('#from_country_id').css('border-color', '');
-            $('#from_governorate_id').css('border-color', '');
+            $('#from_city_id').css('border-color', '');
             $('#to_country_id').css('border-color', '');
-            $('#to_governorate_id').css('border-color', '');
+            $('#to_city_id').css('border-color', '');
             $('#photo').css('border-color', '');
             $('#status').css('border-color', '');
 
@@ -586,9 +589,9 @@
             $('#details_en_error').text('');
             $('#price_error').text('');
             $('#from_country_id_error').text('');
-            $('#from_governorate_id_error').text('');
+            $('#from_city_id_error').text('');
             $('#to_country_id_error').text('');
-            $('#to_governorate_id_error').text('');
+            $('#to_city_id_error').text('');
             $('#photo_error').text('');
             $('#status_error').text('');
 
@@ -621,8 +624,8 @@
                         $('#storeSliderFrom')[0].reset();
                         $(".from_country_id_select").val('').trigger('change');
                         $(".to_country_id_select").val('').trigger('change');
-                        $(".from_governorate_id_select").val('').trigger('change');
-                        $(".to_governorate_id_select").val('').trigger('change');
+                        $(".from_city_id_select").val('').trigger('change');
+                        $(".to_city_id_select").val('').trigger('change');
                         resetCreateTicketFrom()
                         flasher.success("{!! __('general.add_success_message') !!}");
                     } else {

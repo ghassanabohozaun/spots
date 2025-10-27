@@ -26,9 +26,9 @@ class TicketRequest extends FormRequest
             'details.*' => ['required', 'string', 'min:10', 'max:5000'],
             'price' => ['required'],
             'from_country_id' => ['required'],
-            'from_governorate_id' => ['required'],
+            'from_city_id' => ['required'],
             'to_country_id' => ['required'],
-            'to_governorate_id' => ['required'],
+            'to_city_id' => ['required'],
             'status' => ['required', 'in:1,0'],
             'photo' => ['required_without:hidden_photo', 'mimes:png,jpg,jpeg,webp', 'max:2048'],
         ];

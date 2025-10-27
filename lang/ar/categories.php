@@ -4,7 +4,8 @@ return [
     'update_category' => 'تعديل القسم',
     'categories' => 'الأقسام',
     'show_all_categories' => 'عرض جميع الأقسام',
-    'products_count' => 'عدد المنتجات',
+    'added_flights_count'=>'عدد  الرحلات المضافة',
+    'flights'=>'الرحلات السياحية',
 
     'category_name' => 'اسم القسم',
     'name_ar' => 'اسم القسم بالعربي',

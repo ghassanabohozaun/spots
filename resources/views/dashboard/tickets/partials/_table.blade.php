@@ -7,9 +7,9 @@
             <th>{!! __('tickets.details') !!}</th>
             <th>{!! __('tickets.price') !!}</th>
             <th>{!! __('tickets.from_country_id') !!}</th>
-            <th>{!! __('tickets.from_governorate_id') !!}</th>
+            <th>{!! __('tickets.from_city_id') !!}</th>
             <th>{!! __('tickets.to_country_id') !!}</th>
-            <th>{!! __('tickets.to_governorate_id') !!}</th>
+            <th>{!! __('tickets.to_city_id') !!}</th>
             <th>{!! __('tickets.created_at') !!}</th>
             <th>{!! __('tickets.status') !!}</th>
             <th>{!! __('tickets.manage_status') !!}</th>

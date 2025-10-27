@@ -14,9 +14,9 @@ return [
     'details_en' => 'English Flights Ticket Details',
     'price' => 'Price',
     'from_country_id' => 'From Country',
-    'from_governorate_id' => 'From Governorate',
+    'from_city_id' => 'From City',
     'to_country_id' => 'To Country',
-    'to_governorate_id' => 'To Governorate',
+    'to_city_id' => 'To City',
     'status' => 'Flights Ticket Status ',
     'photo' => 'Flights Ticket Photo ',
     'manage_status' => 'manage Status',
@@ -28,9 +28,9 @@ return [
     'enter_details_en' => 'Enter English Flights Ticket Details',
     'enter_price' => 'Enter Price',
     'enter_from_country_id' => 'Enter From Country',
-    'enter_from_governorate_id' => 'Enter From Governorate',
+    'enter_from_city_id' => 'Enter From City',
     'enter_to_country_id' => 'Enter To Country',
-    'enter_to_governorate_id' => 'Enter To Governorate',
+    'enter_to_city_id' => 'Enter To City',
 
     'enter_photo' => 'Enter Flights Ticket Photo',
 

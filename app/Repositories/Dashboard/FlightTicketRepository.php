@@ -23,19 +23,19 @@ class FlightTicketRepository
             ->when(!empty(request()->from_country_id), function ($query) {
                 $query->where('from_country_id', request()->from_country_id);
             })
-            ->when(!empty(request()->from_governorate_id), function ($query) {
-                $query->where('from_governorate_id', request()->from_governorate_id);
+            ->when(!empty(request()->from_city_id), function ($query) {
+                $query->where('from_city_id', request()->from_city_id);
             })
             ->when(!empty(request()->to_country_id), function ($query) {
                 $query->where('to_country_id', request()->to_country_id);
             })
-            ->when(!empty(request()->to_governorate_id), function ($query) {
-                $query->where('to_governorate_id', request()->to_governorate_id);
+            ->when(!empty(request()->to_city_id), function ($query) {
+                $query->where('to_city_id', request()->to_city_id);
             })
             ->when(request()->status != null, function ($query) {
                 $query->where('status', request()->status);
             })
-            ->select('id', 'title', 'details', 'price', 'from_country_id', 'from_governorate_id', 'to_country_id', 'to_governorate_id', 'status', 'photo', 'created_at')
+            ->select('id', 'title', 'details', 'price', 'from_country_id', 'from_city_id', 'to_country_id', 'to_city_id', 'status', 'photo', 'created_at')
             ->latest()
             ->get();
     }
@@ -43,7 +43,7 @@ class FlightTicketRepository
     // get active tickets
     public function getActive()
     {
-        return FlightTicket::orderByDesc('created_at')->active()->select('id', 'title', 'details', 'price', 'from_country_id', 'from_governorate_id', 'to_country_id', 'to_governorate_id', 'status', 'photo', 'created_at')->get();
+        return FlightTicket::orderByDesc('created_at')->active()->select('id', 'title', 'details', 'price', 'from_country_id', 'from_city_id', 'to_country_id', 'to_city_id', 'status', 'photo', 'created_at')->get();
     }
 
     // store ticket

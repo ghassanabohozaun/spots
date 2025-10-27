@@ -290,5 +290,28 @@ return [
         'photo' => 'الصورة ',
         'tour_guide_name.ar' => 'اسم المرشد السياحي بالعربي',
         'tour_guide_name.en' => 'اسم المرشد السياحي بالانجليزي',
+
+        'flight_details' => 'تفاصيل الرحلة',
+        'details_ar' => 'تفاصيل الرحلة بالعربي',
+        'details_en' => 'تفاصيل الرحلة بالانجليزي',
+        'days_num' => 'عدد الأيام',
+        'nights_num' => 'عدد الليالي',
+        'views' => 'المشاهدات',
+        'offer_duration_from' => 'بداية فترة العرض',
+        'offer_duration_to' => 'نهاية فترة العرض',
+
+        'servicesItems.*.service_name_ar' => 'اسم الخدمة بالعربي ',
+        'servicesItems.*.service_name_en' => 'اسم الخدمة بالانجليزي',
+        'pricesItems.*.price_text_ar' => 'نص السعر بالعربي :index',
+        'pricesItems.*.price_text_en' => 'نص السعر بالانجليزي :index',
+        'pricesItems.*.price' => ' السعر :index',
+        'notesItems.*.note_text_ar' => 'نص الملاحظة بالعربي :index',
+        'notesItems.*.note_text_en' => 'نص الملاحظة بالانجليزي :index',
+
+        'offerIncludingItems.*.including_text_ar' => 'نص العرض يشمل بالعربي :index',
+        'offerIncludingItems.*.including_text_en' => 'نص العرض يشمل بالانجليزي :index',
+        'offerNotIncludingItems.*.not_including_text_ar' => 'نص العرض لا يشمل بالعربي :index',
+        'offerNotIncludingItems.*.not_including_text_en' => 'نص العرض لا يشمل بالانجليزي :index',
+        'images' => 'الصور',
     ],
 ];

@@ -11,7 +11,7 @@
             <div class="content-header row">
                 <!-- begin: content header left-->
                 <div class="content-header-left col-md-6 col-12 mb-2 breadcrumb-new">
-                    <h3 class="content-header-title mb-0 d-inline-block">{!! __('children.children') !!}</h3>
+                    <h3 class="content-header-title mb-0 d-inline-block">{!! __('flights.flights') !!}</h3>
                     <div class="row breadcrumbs-top d-inline-block">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
@@ -21,13 +21,13 @@
                                     </a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="{!! route('dashboard.children.index') !!}">
-                                        {!! __('children.children') !!}
+                                    <a href="{!! route('dashboard.flights.index') !!}">
+                                        {!! __('flights.flights') !!}
                                     </a>
                                 </li>
                                 <li class="breadcrumb-item active">
-                                    <a href="{!! route('dashboard.children.create') !!}">
-                                        {!! __('children.update_child') !!}
+                                    <a href="{!! route('dashboard.flights.create') !!}">
+                                        {!! __('flights.update_flight') !!}
                                     </a>
                                 </li>
                             </ol>
@@ -48,7 +48,7 @@
                                 <!-- begin: card header -->
                                 <div class="card-header">
                                     {{-- <h4 class="card-title" id="basic-layout-colored-form-control">
-                                        {!! __('children.update_child') !!}
+                                        {!! __('flights.update_flight') !!}
                                     </h4> --}}
                                     <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -65,7 +65,7 @@
                                 <!-- begin: card content -->
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        @livewire('dashboard.child.edit-child', compact('ChildID', 'child'))
+                                        @livewire('dashboard.flight.edit-flight', compact('FlightID', 'flight', 'countries', 'cities', 'categories'))
                                     </div>
                                     <!-- end: card content -->
                                 </div>
@@ -85,12 +85,12 @@
     {{-- <script>
         $(document).ready(function() {
             // images preview
-            $("#picture_of_the_orphan_child").change(function() {
+            $("#picture_of_the_orphan_flight").change(function() {
                 const file = this.files[0];
                 if (file) {
                     const reader = new FileReader();
                     reader.onload = function(e) {
-                        $(".picture_of_the_orphan_child_preview")
+                        $(".picture_of_the_orphan_flight_preview")
                             .attr("src", e.target.result)
                             .css("display", "block");
                     };

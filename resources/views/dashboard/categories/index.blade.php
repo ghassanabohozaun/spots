@@ -39,6 +39,7 @@
                             {!! __('categories.create_new_category') !!}</a> --}}
                         <button type="button" class="btn btn-info  btn-glow px-2" data-toggle="modal"
                             data-target="#createCategoryModal">
+                            <span class="la la-pencil"></span>
                             {!! __('categories.create_new_category') !!}
                         </button>
 
@@ -85,6 +86,7 @@
                                                                 <th>#</th>
                                                                 <th>{!! __('categories.icon') !!}</th>
                                                                 <th>{!! __('categories.category_name') !!}</th>
+                                                                <th>{!! __('categories.added_flights_count') !!}</th>
                                                                 <th>{!! __('categories.created_at') !!}</th>
                                                                 <th>{!! __('categories.status') !!}</th>
                                                                 <th>{!! __('categories.manage_status') !!}</th>
@@ -124,7 +126,9 @@
             serverSide: true,
             colReorder: true,
             fixedHeader: true,
-
+            "bFilter": true,
+            "bLengthChange": false, //thought this line could hide the LengthMenu
+            pageLength: 10,
 
             // rowReorder: {
             //     update: false,
@@ -169,6 +173,10 @@
                     name: 'name',
                 },
                 {
+                    data: 'added_flights_count',
+                    name: 'added_flights_count',
+                },
+                {
                     data: 'created_at',
                     name: 'created_at',
                     searchable: false,
@@ -194,9 +202,9 @@
 
             layout: {
                 // 'colvis',
-                topStart: {
-                    buttons: ['copy', 'print', 'excel', 'pdf']
-                }
+                // topStart: {
+                //     buttons: ['copy', 'print', 'excel', 'pdf']
+                // }
             },
             language: lang === 'ar' ? {
                 url: '{!! asset('vendor/datatables/ar.json') !!}',
@@ -292,6 +300,7 @@
                         type: 'post',
                         dataType: 'json',
                         success: function(data) {
+                            console.log(data);
                             $('#yajra-datatable').DataTable().page(currentPage).draw(false);
                             if (data.status == true) {
                                 swal({
@@ -302,28 +311,27 @@
                                         confirm: {
                                             text: "{!! __('general.yes') !!}",
                                             visible: true,
-                                            closeModal: true,
-                                        }
-                                    }
-                                });
-                                // setTimeout(function() {
-                                //     window.location.reload();
-                                // }, 1000)
-                            } else if (data.status == false) {
-                                swal({
-                                    title: "{!! __('general.warning') !!} ",
-                                    text: "{!! __('general.delete_error_message') !!} ",
-                                    icon: "warning",
-                                    buttons: {
-                                        confirm: {
-                                            text: "{!! __('general.yes') !!}",
-                                            visible: true,
                                             closeModal: true
                                         }
                                     }
                                 });
                             }
                         }, //end success
+                        error: function(data) {
+                            $('#yajra-datatable').DataTable().page(currentPage).draw(false);
+                            swal({
+                                title: "{!! __('general.warning') !!} ",
+                                text: "{!! __('general.delete_error_message') !!} ",
+                                icon: "warning",
+                                buttons: {
+                                    confirm: {
+                                        text: "{!! __('general.yes') !!}",
+                                        visible: true,
+                                        closeModal: true
+                                    }
+                                }
+                            });
+                        }
                     });
 
                 } else {

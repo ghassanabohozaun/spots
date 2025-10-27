@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\CategoryRequest;
+use App\Models\Flight;
 use App\Services\Dashboard\CategorySevice;
 use Illuminate\Http\Request;
 
@@ -71,7 +72,6 @@ class CategoriesController extends Controller
     // update
     public function update(CategoryRequest $request, string $id)
     {
-
         $data = $request->only(['id', 'name', 'status', 'icon']);
         $category = $this->categorySevice->updateCategory($data);
 
@@ -87,9 +87,9 @@ class CategoriesController extends Controller
         if ($request->json()) {
             $category = $this->categorySevice->destroyCategory($request->id);
             if (!$category) {
-                return response()->json(['status' => false] , 500);
+                return response()->json(['status' => false], 500);
             }
-            return response()->json(['status' => true] , 200);
+            return response()->json(['status' => true], 200);
         }
     }
     // change status
@@ -101,6 +101,38 @@ class CategoriesController extends Controller
                 return response()->json(['status' => false]);
             }
             return response()->json(['status' => true]);
+        }
+    }
+
+    // get flights
+    public function getFlights($category_id)
+    {
+        if (!$category_id) {
+            flash()->error(__('general.no_record_found'));
+            return redirect()->route('dashboard.categories.index');
+        }
+
+        $category = $this->categorySevice->getCategory($category_id);
+        if (!$category) {
+            flash()->error(__('general.no_record_found'));
+            return redirect()->route('dashboard.categories.index');
+        }
+
+        $flights = Flight::where('category_id', $category_id)->orderByDesc('created_at')->paginate(3);
+
+        $title = __('categories.flights');
+        return view('dashboard.categories.flights', compact('title', 'flights', 'category_id'));
+    }
+
+    // flights paging
+    public function flightPaging(Request $request)
+    {
+        $flights = Flight::where('category_id', $request->category_id)->orderByDesc('created_at')->paginate(3);
+
+        if ($request->ajax()) {
+            // If it's an AJAX request, return rendered view for new items
+            $view = view('dashboard.categories.partials.flight-items', compact('flights'))->render();
+            return response()->json(['html' => $view]);
         }
     }
 }

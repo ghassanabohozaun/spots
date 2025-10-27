@@ -21,7 +21,7 @@ return [
     'tour_guide_name_en' => 'English Tour Guide Name',
     'price' => 'Price',
     'country_id' => 'Country',
-    'governorate_id' => 'Governorate',
+    'city_id' => 'City',
     'status' => 'Sightseeing Tour Status ',
     'photo' => 'Sightseeing Tour Photo ',
     'manage_status' => 'manage Status',
@@ -37,7 +37,7 @@ return [
     'enter_tour_guide_name_en' => 'Enter English Tour Guide Name',
     'enter_price' => 'Enter Price',
     'enter_country_id' => 'Enter Country',
-    'enter_governorate_id' => 'Enter Governorate',
+    'enter_city_id' => 'Enter City',
 
 
     'no_tours_found' => 'No Sightseeing Tours Found',

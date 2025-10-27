@@ -165,12 +165,12 @@ font-size: 1.0rem;
 }
 
 
- .note-editor.is-invalid-summernote-editor {
-            border: 1px solid #dc3545 !important;
-        }
+.note-editor.is-invalid-summernote-editor {
+border: 1px solid #dc3545 !important;
+}
 
-        .invalid-feedback {
-            color: #dc3545;
-            display: block;
-            margin-top: 0.25rem;
-        }
+.invalid-feedback {
+color: #dc3545;
+display: block;
+margin-top: 0.25rem;
+}

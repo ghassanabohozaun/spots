@@ -4,7 +4,8 @@ use App\Http\Controllers\Dashboard\Auth\AuthController;
 use App\Http\Controllers\Dashboard\Auth\Passowrd\ForgetPasswordController;
 use App\Http\Controllers\Dashboard\Auth\Passowrd\ResetPasswordController;
 use App\Http\Controllers\Dashboard\CategoriesController;
-use App\Http\Controllers\Dashboard\{AdminsController, CountriesController, SlidersController, UsersController, CitiesController, DashboardController, FlightsController, FlightTicketsController, GovernoratiesController, ProductsController, RolesController, SettingsController, ToursController};
+use App\Http\Controllers\Dashboard\{AdminsController, CountriesController, SlidersController, PagesController, UsersController, CitiesController, DashboardController, FlightsController, FlightTicketsController, MailingBoxController, RolesController, SettingsController, ToursController};
+use App\Http\Controllers\Dashboard\NotificationsController;
 use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -50,6 +51,13 @@ Route::group(
                 Route::get('/slides-all', [SlidersController::class, 'getAll'])->name('sliders.get.all');
                 Route::post('/sliders/change-status', [SlidersController::class, 'changeStatus'])->name('sliders.change.status');
             });
+            ###########################################  pages routes  ######################################################################
+            Route::group(['middlewire' => 'can:pages'], function () {
+                Route::resource('pages', PagesController::class);
+                Route::get('/pages-all', [PagesController::class, 'getAll'])->name('pages.get.all');
+                Route::post('/pages/change-status', [PagesController::class, 'changeStatus'])->name('pages.change.status');
+                Route::post('/pages/delete-photo', [PagesController::class, 'deletePhoto'])->name('pages.delete.photo');
+            });
 
             ########################################### roles routes #######################################################################
             Route::group(['middleware' => 'can:roles'], function () {
@@ -77,22 +85,15 @@ Route::group(
                 Route::resource('countries', CountriesController::class);
                 Route::post('/countries/destroy', [CountriesController::class, 'destroy'])->name('countries.destroy');
                 Route::post('/countries/status', [CountriesController::class, 'changeStatus'])->name('countries.change.status');
-                Route::get('/country/{country_id?}/governorates', [CountriesController::class, 'getGovrnoratesByCountryID'])->name('countries.get.govnernorates.by.country.id');
-
-                // governorates routes
-                Route::resource('governorates', GovernoratiesController::class);
-                Route::post('/governorates/destroy', [GovernoratiesController::class, 'destroy'])->name('governorates.destroy');
-                Route::get('/governorates/status/{id?}', [GovernoratiesController::class, 'changeStatus'])->name('governorates.change.status');
-                Route::get('/governorates/get/all/cities', [GovernoratiesController::class, 'getAllCitiesByGovernorate'])->name('governorates.get.all.cities');
-                Route::get('/governorate/{governorate_id?}/cities', [GovernoratiesController::class, 'getCitesByGovernrateID'])->name('governorates.get.cities.by.governorate.id');
-                Route::post('/govnerorates/update/price', [GovernoratiesController::class, 'updateShippingPrice'])->name('governorates.update.shipping.price');
-                Route::get('/govnerorates/autocomplete/country', [GovernoratiesController::class, 'autocompleteCountry'])->name('governorates.autocomplete.country');
+                Route::get('/country/{country_id?}/cities', [CountriesController::class, 'getAllCitiesByCountry'])->name('countries.get.cities.by.country.id');
+                Route::get('/countries/autocomplete/country', [CountriesController::class, 'autocompleteCountry'])->name('countries.autocomplete.country');
 
                 // cities routes
                 Route::resource('cities', CitiesController::class);
                 Route::post('/cities/destroy', [CitiesController::class, 'destroy'])->name('cities.destroy');
-                Route::get('/cities/autocomplete', [CitiesController::class, 'autocomplete'])->name('cities.autocomplete');
-                Route::get('/cities/autocomplete/govnerorate', [CitiesController::class, 'autocompleteGovnerorate'])->name('cities.autocomplete.govnerorate');
+                Route::get('/cities/status/{id?}', [CitiesController::class, 'changeStatus'])->name('cities.change.status');
+                Route::get('/cities/get/all/cities', [CitiesController::class, 'getAllCitiesByGovernorate'])->name('cities.get.all.cities');
+                Route::get('/cities/autocomplete/city', [CitiesController::class, 'autocompleteCity'])->name('cities.autocomplete.city');
             });
 
             ########################################### tickets  ######################################################################
@@ -112,6 +113,10 @@ Route::group(
             });
 
             ########################################### flights  ######################################################################
+            Livewire::setUpdateRoute(function ($handle) {
+                return Route::post('/livewire/update', $handle);
+            });
+
             Route::group(['middleware' => 'can:flights'], function () {
                 Route::resource('flights', FlightsController::class);
                 Route::get('/flights-all', [FlightsController::class, 'getAll'])->name('flights.get.all');
@@ -119,14 +124,30 @@ Route::group(
                 Route::get('/children/get-cities/{id?}', [FlightsController::class, 'getCities'])->name('flights.get.cities');
             });
 
-            ########################################### categories routes  ######################################################################
+            ########################################### categories routes  ##################################################################################
             Route::group(['middleware' => 'can:categories'], function () {
                 Route::resource('categories', CategoriesController::class)->except('show');
                 Route::get('/categories-all', [CategoriesController::class, 'getAll'])->name('categories.all');
                 Route::post('/categories/destroy', [CategoriesController::class, 'destroy'])->name('categories.destroy');
                 Route::post('/categories/status', [CategoriesController::class, 'changeStatus'])->name('categories.change.status');
+                Route::get('/categories/getFlights/{category_id?}', [CategoriesController::class, 'getFlights'])->name('categories.get.flights');
+                Route::get('categories/flight-paginate', [CategoriesController::class, 'flightPaging'])->name('categories.flights.paging');
             });
-            ########################################### brands routes  ######################################################################
+            ########################################### brands routes  ####################################################################################
+
+            ###########################################  mailing routes  ##################################################################
+            Route::group(['middlwire' => 'can:mailing'], function () {
+                Route::resource('mailing', MailingBoxController::class);
+                Route::post('/mailing/change-status', [MailingBoxController::class, 'changeStatus'])->name('mailing.change.status');
+
+            });
+
+            ###########################################  notifications routes  ##################################################################
+            Route::group(['middlwire' => 'can:notifications'], function () {
+                Route::resource('notifications', NotificationsController::class);
+                Route::post('/notifications/change-status', [NotificationsController::class, 'changeStatus'])->name('notifications.change.status');
+
+            });
         });
     },
 );

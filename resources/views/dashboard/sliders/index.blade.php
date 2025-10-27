@@ -92,19 +92,6 @@
                                                         </thead>
                                                         <tbody>
                                                         </tbody>
-                                                        <tfoot>
-                                                            <tr>
-                                                                <th>#</th>
-                                                                <th>{!! __('sliders.photo') !!}</th>
-                                                                <th>{!! __('sliders.title') !!}</th>
-                                                                <th>{!! __('sliders.details') !!}</th>
-                                                                <th>{!! __('sliders.details_status') !!}</th>
-                                                                <th>{!! __('sliders.button_status') !!}</th>
-                                                                <th>{!! __('sliders.status') !!}</th>
-                                                                <th>{!! __('sliders.manage_status') !!}</th>
-                                                                <th>{!! __('general.actions') !!}</th>
-                                                            </tr>
-                                                        </tfoot>
                                                     </table>
                                                 </div>
                                             </div>
@@ -133,6 +120,9 @@
             serverSide: true,
             colReorder: true,
             fixedHeader: true,
+            "bFilter": true,
+            "bLengthChange": false, //thought this line could hide the LengthMenu
+            pageLength: 10,
             rowReorder: {
                 update: false,
                 // selector: 'tr',
@@ -213,9 +203,9 @@
 
             layout: {
                 // 'colvis',
-                topStart: {
-                    buttons: ['copy', 'print', 'excel', 'pdf']
-                }
+                // topStart: {
+                //     buttons: ['copy', 'print', 'excel', 'pdf']
+                // }
             },
 
 
@@ -223,48 +213,48 @@
                 url: '{!! asset('vendor/datatables/ar.json') !!}',
             } : {},
 
-            buttons: [{
-                    extend: 'colvis',
-                    className: 'btn btn-default',
-                    exportOptions: {
-                        // columns: [0, 1, 2],
-                        columns: ':not(:last-child)',
-                    }
-                },
-                {
-                    extend: 'copy',
-                    className: 'btn btn-default',
-                    exportOptions: {
-                        // columns: [0, 1, 2],
-                        columns: ':not(:last-child)',
-                    }
-                },
-                {
-                    extend: 'print',
-                    className: 'btn btn-default',
-                    exportOptions: {
-                        // columns: [0, 1, 2],
-                        columns: ':not(:last-child)',
-                    }
-                },
-                {
-                    extend: 'excel',
-                    className: 'btn btn-default',
-                    exportOptions: {
-                        // columns: [0, 1, 2],
-                        columns: ':not(:last-child)',
-                    }
-                },
-                {
-                    extend: 'pdf',
-                    className: 'btn btn-default',
-                    exportOptions: {
-                        // columns: [0, 1, 2],
-                        columns: ':not(:last-child)',
-                    }
-                },
+            // buttons: [{
+            //         extend: 'colvis',
+            //         className: 'btn btn-default',
+            //         exportOptions: {
+            //             // columns: [0, 1, 2],
+            //             columns: ':not(:last-child)',
+            //         }
+            //     },
+            //     {
+            //         extend: 'copy',
+            //         className: 'btn btn-default',
+            //         exportOptions: {
+            //             // columns: [0, 1, 2],
+            //             columns: ':not(:last-child)',
+            //         }
+            //     },
+            //     {
+            //         extend: 'print',
+            //         className: 'btn btn-default',
+            //         exportOptions: {
+            //             // columns: [0, 1, 2],
+            //             columns: ':not(:last-child)',
+            //         }
+            //     },
+            //     {
+            //         extend: 'excel',
+            //         className: 'btn btn-default',
+            //         exportOptions: {
+            //             // columns: [0, 1, 2],
+            //             columns: ':not(:last-child)',
+            //         }
+            //     },
+            //     {
+            //         extend: 'pdf',
+            //         className: 'btn btn-default',
+            //         exportOptions: {
+            //             // columns: [0, 1, 2],
+            //             columns: ':not(:last-child)',
+            //         }
+            //     },
 
-            ],
+            // ],
 
             // initComplete: function() {
             //     this.api()

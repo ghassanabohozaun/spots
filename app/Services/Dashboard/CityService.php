@@ -2,7 +2,6 @@
 
 namespace App\Services\Dashboard;
 
-use App\Models\City;
 use App\Repositories\Dashboard\CityRepository;
 
 class CityService
@@ -13,6 +12,7 @@ class CityService
     {
         $this->cityRepository = $cityRepository;
     }
+
     // get city
     public function getCity($id)
     {
@@ -23,17 +23,23 @@ class CityService
         return $city;
     }
 
-    // get cities without Relations
-    public function getAllCitiesWithoutRelation()
-    {
-        return $this->cityRepository->getAllCitiesWithoutRelation();
-    }
-
     // get cities
     public function getCities()
     {
         return $this->cityRepository->getCities();
     }
+
+   // get active cities
+    public function getActiveCities()
+    {
+        return $this->cityRepository->getActiveCities();
+    }
+    // get all cities without relations
+    public function getAllCitiesWithoutRelations()
+    {
+        return $this->cityRepository->getAllCitiesWithoutRelations();
+    }
+
 
     // store city
     public function storeCity($data)
@@ -45,7 +51,7 @@ class CityService
         return $city;
     }
 
-        // update city
+    // update city
     public function updateCity($data, $id)
     {
         $city = self::getCity($id);
@@ -59,12 +65,26 @@ class CityService
         return $city;
     }
 
-    // destroy city
+    // change status
+    public function changeStatus($id)
+    {
+        $city = self::getCity($id);
+        if (!$city) {
+            return false;
+        }
+        $city = $this->cityRepository->changeStatus($city);
+        if (!$city) {
+            return false;
+        }
+        return $city;
+    }
+
+
+    // destory city
     public function destroyCity($id)
     {
         $city = self::getCity($id);
-
-        if (!$city) {
+        if ($city->fromFlightTicket->count() > 0  || $city->toFlightTicket->count() > 0 || $city->tours->count() > 0   || $city->flights->count() > 0  || !$city) {
             return false;
         }
 
@@ -75,9 +95,10 @@ class CityService
         return $city;
     }
 
-     // autocomplete
-    public function autocompleteGovnerorate($searchValue)
+   // autocomplete
+    public function autocompleteCity($searchValue)
     {
-        return $this->cityRepository->autocompleteGovnerorate($searchValue);
+        return $this->cityRepository->autocompleteCity($searchValue);
     }
+
 }

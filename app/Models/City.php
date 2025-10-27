@@ -9,15 +9,42 @@ use Spatie\Translatable\HasTranslations;
 class City extends Model
 {
     use SoftDeletes, HasTranslations;
+
     protected $table = 'cities';
-    protected $fillable = ['name', 'governorate_id'];
-    //public $timestamps = false;
+    protected $fillable = ['name', 'status', 'country_id'];
+    // public $timestamps = false;
     public array $translatable = ['name'];
 
     // relation
-    public function governorate()
+    // country
+    public function country()
     {
-        return $this->belongsTo(Governorate::class, 'governorate_id');
+        return $this->belongsTo(Country::class, 'country_id');
+    }
+
+    // fromFlightTicket
+    public function fromFlightTicket()
+    {
+        return $this->hasMany(FlightTicket::class, 'from_city_id');
+    }
+
+    // toFlightTicket
+    public function toFlightTicket()
+    {
+        return $this->hasMany(FlightTicket::class, 'to_city_id');
+    }
+
+
+    // tours
+    public function tours()
+    {
+        return $this->hasMany(Tour::class, 'city_id');
+    }
+
+    // flights
+    public function flights()
+    {
+        return $this->hasMany(Flight::class, 'city_id');
     }
 
     //scopes
@@ -28,5 +55,11 @@ class City extends Model
     public function scopeInactive($query)
     {
         return $query->where('status', 0);
+    }
+
+    // accsessores
+    public function getStatusAttribute($status)
+    {
+        return $status == 1 ? 'on' : '';
     }
 }

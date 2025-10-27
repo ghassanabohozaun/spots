@@ -93,23 +93,31 @@
                                                     <tr>
                                                         <th>#</th>
                                                         <th>{!! __('world.city_name') !!}</th>
-                                                        <th>{!! __('world.governorate_name') !!}</th>
-                                                        <th style="text-align: center">{!! __('general.actions') !!}</th>
+                                                        <th>{!! __('world.country_name') !!}</th>
+                                                        <th class="text-center">{!! __('world.status') !!}</th>
+                                                        <th class="text-center">{!! __('world.manage_status') !!}</th>
+                                                        <th class="text-center">{!! __('general.actions') !!}</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @forelse ($cities as $city)
-                                                        <tr>
+                                                        <tr class="row_{!! $city->id !!}">
                                                             <th class="col-lg-1">{!! $loop->iteration !!} </th>
-                                                            <td class="col-lg-5">{!! $city->name !!}</td>
-                                                            <td class="col-lg-5">{!! $city->governorate->name !!}</td>
+                                                            <td class="col-lg-3">{!! $city->name !!}</td>
+                                                            <td class="col-lg-3">{!! $city->country->name !!}</td>
+                                                            <td class="col-lg-1 text-center">
+                                                                @include('dashboard.world.cities.parts.status')
+                                                            </td>
+                                                            <td class="col-lg-1 text-center">
+                                                                @include('dashboard.world.cities.parts.manage_status')
+                                                            </td>
                                                             <td class="col-lg-1">
                                                                 @include('dashboard.world.cities.parts.actions')
                                                             </td>
                                                         </tr>
                                                     @empty
                                                         <tr>
-                                                            <td colspan="5" class="text-center">
+                                                            <td colspan="9" class="text-center">
                                                                 {!! __('world.no_cities_found') !!}
                                                             </td>
                                                         </tr>
@@ -131,6 +139,7 @@
             </div><!-- end: content body  -->
         </div> <!-- end: content wrapper  -->
     </div><!-- end: content app  -->
+
 
     @include('dashboard.world.cities.modals.create')
     @include('dashboard.world.cities.modals.edit')
@@ -172,8 +181,10 @@
                         type: 'post',
                         dataType: 'json',
                         success: function(data) {
+
                             $('#myTable').load(location.href + (' #myTable'));
                             if (data.status == true) {
+
                                 swal({
                                     title: "{!! __('general.deleted') !!} ",
                                     text: "{!! __('general.delete_success_message') !!} ",
@@ -186,21 +197,24 @@
                                         }
                                     }
                                 });
-                            } else if (data.status == false) {
-                                swal({
-                                    title: "{!! __('general.warning') !!} ",
-                                    text: "{!! __('general.delete_error_message') !!} ",
-                                    icon: "warning",
-                                    buttons: {
-                                        confirm: {
-                                            text: "{!! __('general.yes') !!}",
-                                            visible: true,
-                                            closeModal: true
-                                        }
-                                    }
-                                });
+                                // $('.row_' + id).remove();
                             }
                         }, //end success
+                        error: function(data) {
+                            swal({
+                                title: "{!! __('general.warning') !!} ",
+                                text: "{!! __('general.delete_error_message') !!} ",
+                                icon: "warning",
+                                buttons: {
+                                    confirm: {
+                                        text: "{!! __('general.yes') !!}",
+                                        visible: true,
+                                        closeModal: true
+                                    }
+                                }
+                            });
+
+                        } // end error
                     });
 
                 } else {
@@ -219,5 +233,96 @@
                 }
             });
         });
+
+        // change status
+        $(document).on('change', '.change_status', function(e) {
+            // e.preventDefault();
+            var id = $(this).data('id');
+
+            if ($(this).is(':checked')) {
+                statusSwitch = 1;
+            } else {
+                statusSwitch = 0;
+            }
+
+            var url = '{!! route('dashboard.cities.change.status', ':id') !!}',
+                url = url.replace(':id', id);
+
+            $.ajax({
+                url: url,
+                type: 'get',
+                success: function(data) {
+                    $('.city_status_' + data.data.id).empty();
+                    $('.city_status_' + data.data.id).removeClass('badge-danger');
+                    $('.city_status_' + data.data.id).removeClass('badge-success');
+                    if (data.data.status == 'on') {
+                        $('.city_status_' + data.data.id).addClass('badge-success');
+                        $('.city_status_' + data.data.id).text("{!! __('general.enable') !!}");
+                    } else if (data.data.status == '') {
+                        $('.city_status_' + data.data.id).addClass('badge-danger');
+                        $('.city_status_' + data.data.id).text("{!! __('general.disabled') !!}");
+                    }
+
+                    if (data.status === true) {
+                        flasher.success("{!! __('general.change_status_success_message') !!}");
+                    } else {
+                        flasher.error("{!! __('general.change_status_error_message') !!}");
+                    }
+                }
+            });
+
+        });
+
+        // get all cities by city
+        // $('body').on('click', '.get_all_cities_by_city_btn', function(e) {
+
+        //     e.preventDefault();
+        //     var id = $(this).data('id');
+
+        //     $.ajax({
+        //         url: '{!! route('dashboard.cities.get.all.cities') !!}',
+        //         data: {
+        //             id,
+        //             id
+        //         },
+        //         method: 'get',
+        //         dataType: 'json',
+
+        //         success: function(data) {
+
+        //             trHTML = "";
+        //             if (!$.trim(data.data)) {
+        //                 $("#cities_tbody").empty();
+        //                 trHTML += '<tr class="notfound" id="notfound">' +
+        //                     '<td colspan="10">' + '{{ __('general.no_record_found') }}' + '</td>' +
+        //                     '</tr>';
+        //             } else {
+        //                 $("#cities_tbody").empty();
+        //                 $.each(data.data, function(i, item) {
+        //                     var lang = '{!! Config::get('app.locale') !!}';
+
+        //                     var itration = i + 1;
+        //                     if (lang === 'en') {
+        //                         trHTML += '<tr id="row_' + item.id +
+        //                             '">' +
+        //                             '<td class="col-1">' + itration + '</td>' +
+        //                             '<td class="col-6">' + item.name.en + '</td>' +
+        //                             '</tr>';
+        //                     } else {
+        //                         trHTML += '<tr id="row_' + item.id +
+        //                             '">' +
+        //                             '<td class="col-1">' + itration + '</td>' +
+        //                             '<td class="col-6">' + item.name.ar + '</td>' +
+        //                             '</tr>';
+        //                     }
+        //                 });
+        //             }
+
+        //             $('#cities_tbody').append(trHTML);
+        //             $('#cities_modal').modal('show');
+        //         }
+
+        //     });
+        // });
     </script>
 @endpush

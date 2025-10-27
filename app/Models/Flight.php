@@ -11,7 +11,7 @@ class Flight extends Model
 {
     use SoftDeletes, HasTranslations;
     protected $table = 'flights';
-    protected $fillable = ['id', 'name', 'slug', 'details', 'status', 'days_num', 'nights_num', 'views', 'country_id', 'governorate_id', 'category_id', 'offer_duration_from', 'offer_duration_to'];
+    protected $fillable = ['id', 'name', 'slug', 'details', 'status', 'days_num', 'nights_num', 'views', 'country_id', 'city_id', 'category_id', 'offer_duration_from', 'offer_duration_to'];
     public array $translatable = ['name', 'slug', 'details'];
 
     // relations
@@ -21,10 +21,10 @@ class Flight extends Model
         return $this->belongsTo(Country::class, 'country_id');
     }
 
-    // governorate
-    public function governorate()
+    // city
+    public function city()
     {
-        return $this->belongsTo(Governorate::class, 'governorate_id');
+        return $this->belongsTo(City::class, 'city_id');
     }
 
     // category
@@ -46,7 +46,7 @@ class Flight extends Model
     }
 
     // flight images
-    public function flightImages()
+    public function images()
     {
         return $this->hasMany(FlightImage::class, 'flight_id');
     }
@@ -58,13 +58,13 @@ class Flight extends Model
     }
 
      // flight including
-    public function flightIncludeings()
+    public function flightIncludings()
     {
         return $this->hasMany(FlightIncluding::class, 'flight_id');
     }
 
      // flight not including
-    public function flightNotIncludeings()
+    public function flightNotIncludings()
     {
         return $this->hasMany(FlightNotIncluding::class, 'flight_id');
     }

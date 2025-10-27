@@ -44,7 +44,7 @@
                         <div class="float-md-right mb-1">
                             <button class="btn btn-info  btn-glow px-2" type="submit">
                                 <i class="la la-save"></i>
-                                {!! __('general.update') !!}
+                                {!! __('general.save') !!}
                             </button>
 
                         </div>

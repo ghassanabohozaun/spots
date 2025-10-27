@@ -49,6 +49,7 @@ class ImageManagerUtils
         $image->storeAs($path, $file_name, ['disk' => $disk]);
     }
 
+
     // remove image from local
     public function removeImageFromLocal($image, $disk)
     {

@@ -15,7 +15,7 @@ return [
     'country_name' => 'Country Name',
     'country_name_ar' => 'Arabic Country Name',
     'country_name_en' => 'English Country Name',
-
+    'country_id'=>'Country',
     'country_status' => 'Country Status',
     'phone_code' => 'Phone Code',
     'flag_code' => 'Flag Code',
@@ -27,30 +27,13 @@ return [
 
     'no_countries_found' => 'No Countries Found !',
 
-    // governorates
-    'create_new_governorate' => 'Create New Governorate',
-    'update_governorate' => 'Update Governorate',
-    'governorates' => 'Governorates',
-    'show_all_governorates' => 'Show All Governorates',
-    'governorates_count' => 'Governorates Count',
-
-    'governorate_name' => 'Governorate Name',
-    'governorate_name_ar' => 'Arabic Governorate Name',
-    'governorate_name_en' => 'English Governorate Name',
-    'country_id' => 'Country',
-
-    'enter_governorate_name_ar' => 'Enter Arabic Governorate Name',
-    'enter_governorate_name_en' => 'Enter English Governorate Name',
-    'enter_country_id' => 'Enter Country',
-
-    'no_governorates_found' => 'No Governorates Found !',
 
     // city
     'create_new_city' => 'Create New City',
     'update_city' => 'Update City',
     'cities' => 'Cities',
     'show_all_cities' => 'Show All Cities',
-    'cites_count' => 'Cities Count',
+    'cities_count' => 'Cities Count',
 
     'city_name' => 'City Name',
     'city_name_ar' => 'Arabic City Name',

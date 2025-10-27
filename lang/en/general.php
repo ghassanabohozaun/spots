@@ -7,6 +7,7 @@ return [
     'no_photo' => 'No Photo',
     'no_image' => 'No Image',
     'no_logo' => 'No Log',
+    'loading_more' => 'Loading More ...',
 
     'prev' => 'Previous',
     'more' => 'More pages',
@@ -43,7 +44,7 @@ return [
     'send' => 'Send',
     'write_here' => 'Write Here ...',
     'full_screen' => 'Full Screen',
-    'filters'=>'Filters',
+    'filters' => 'Filters',
 
     'not_found' => 'Not Found',
     'example' => 'Example',
@@ -88,7 +89,7 @@ return [
     'login_faild' => 'Sorry , Login Faild',
     'login_success' => 'Login Successfully',
     'logout_success' => 'Logout Successfully',
-    'data_fetch_successfully'=>'Data Fetch Successfully',
+    'data_fetch_successfully' => 'Data Fetch Successfully',
 
     'add_success_message' => 'Added Successfully',
     'add_error_message' => 'Added Failed',

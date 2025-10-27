@@ -22,13 +22,13 @@ class TourRepository
             ->when(!empty(request()->country_id), function ($query) {
                 $query->where('country_id', request()->country_id);
             })
-            ->when(!empty(request()->governorate_id), function ($query) {
-                $query->where('governorate_id', request()->governorate_id);
+            ->when(!empty(request()->city_id), function ($query) {
+                $query->where('city_id', request()->city_id);
             })
             ->when(request()->status != null, function ($query) {
                 $query->where('status', request()->status);
             })
-            ->select('id', 'name', 'title', 'details', 'price', 'country_id', 'governorate_id', 'tour_guide_name', 'photo', 'status', 'created_at')
+            ->select('id', 'name', 'title', 'details', 'price', 'country_id', 'city_id', 'tour_guide_name', 'photo', 'status', 'created_at')
             ->latest()
             ->get();
     }
@@ -36,7 +36,7 @@ class TourRepository
     // get active tours
     public function getActive()
     {
-        return Tour::orderByDesc('created_at')->active()->select('id', 'name', 'title', 'details', 'price', 'country_id', 'governorate_id', 'tour_guide_name', 'photo', 'status', 'created_at')->get();
+        return Tour::orderByDesc('created_at')->active()->select('id', 'name', 'title', 'details', 'price', 'country_id', 'city_id', 'tour_guide_name', 'photo', 'status', 'created_at')->get();
     }
 
     // store tour

@@ -4,20 +4,20 @@ display: none;
 
 
 .step-wizard {
-height: 10vh;
+height: 7vh;
 justify-content: center;
 align-items: center;
-margin-bottom: 100px
+margin-bottom: 15px
 }
 
 .step-wizard-list {
 /* background: #fff;
-box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1); */
+box-shadow: 0 15px 25px rgba(141, 53, 53, 0.1); */
 color: #333;
 list-style-type: none;
 border-radius: 10px;
 display: flex;
-padding: 20px 10px;
+padding: 10px 10px;
 position: relative;
 z-index: 10;
 }
@@ -49,9 +49,12 @@ transform: translateX(-50%);
 z-index: -10;
 }
 
+
 .progress-count {
+content: "";
 height: 40px;
 width: 40px;
+background: #21d4fd;
 display: flex;
 align-items: center;
 justify-content: center;
@@ -60,8 +63,11 @@ font-weight: 600;
 margin: 0 auto;
 position: relative;
 z-index: 10;
-color: transparent;
+color:#2C303B;
 }
+
+
+
 
 .progress-count:after {
 content: "";
@@ -76,10 +82,13 @@ border-radius: 50%;
 z-index: -10;
 }
 
+
+
 .progress-count:before {
 content: "";
 height: 10px;
 width: 20px;
+background: #21d4fd;
 border-left: 3px solid #fff;
 border-bottom: 3px solid #fff;
 position: absolute;
@@ -87,7 +96,9 @@ left: 50%;
 top: 50%;
 transform: translate(-50%, -60%) rotate(-45deg);
 transform-origin: center center;
+z-index: 10;
 }
+
 
 .progress-label {
 font-size: 14px;

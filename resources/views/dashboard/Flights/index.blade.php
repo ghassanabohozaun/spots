@@ -34,8 +34,9 @@
 
                 <!-- begin: content header right-->
                 <div class="content-header-right col-md-6 col-12">
-                    <div class="float-md-right mb-1">
-                        <a href="{!! route('dashboard.flights.create') !!}" class="btn btn-info btn-glow px-2">
+                    <div class="float-md-right mb-2">
+                        <a href="{{ route('dashboard.flights.create') }}" class="btn btn-info btn-glow px-2">
+                            <span class="la la-pencil"></span>
                             {!! __('flights.create_new_flight') !!}
                         </a>
                     </div>
@@ -48,15 +49,45 @@
             <div class="row" style="display: flex ; justify-content: center;">
                 <div class="col-md-12">
                     <div class="content-body">
-                        <!-- begin: sections  -->
+
                         <section id="basic-form-layouts">
                             <div class="row match-height">
                                 <div class="col-md-12">
-                                    {{-- @include('dashboard.flights.partials._search') --}}
-                                    @include('dashboard.flights.partials._table')
-                                </div><!-- end: row  -->
-                        </section>
-                        <!-- end: sections  -->
+
+                                    @include('dashboard.flights.partials._search')
+
+                                    <div class="card">
+                                        <!-- begin: card header -->
+                                        <div class="card-header">
+                                            <h4 class="card-title" id="basic-layout-colored-form-control">
+                                                {!! __('flights.show_all_flights') !!}
+                                            </h4>
+                                            <a class="heading-elements-toggle"><i
+                                                    class="la la-ellipsis-v font-medium-3"></i></a>
+                                            <div class="heading-elements">
+                                                <ul class="list-inline mb-0">
+                                                    <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                                    <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                                    <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                                    <li><a data-action="close"><i class="ft-x"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <!-- end: card header -->
+
+                                        <!-- begin: card content -->
+                                        <div class="card-content collapse show">
+                                            <div class="card-body">
+                                                <div class="table-responsive">
+                                                    @include('dashboard.flights.partials._table')
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end: card content -->
+                                    </div>
+                                </div> <!-- end: card  -->
+                            </div><!-- end: row  -->
+                        </section><!-- end: sections  -->
                     </div>
                 </div>
             </div>
@@ -65,14 +96,14 @@
     </div><!-- end: content app  -->
 @endsection
 
-
 @push('scripts')
     <script type="text/javascript">
         var lang = '{{ Lang() }}';
 
         loadData();
 
-        function loadData(status = '') {
+        function loadData(flight_name = '', country_id = '', city_id = '', category_id = '',
+            status = '') {
             // yajra tables
             $('#yajra-datatable').DataTable({
                 // dom: 'Bfrtip',
@@ -82,11 +113,11 @@
                 fixedHeader: true,
                 "bDestroy": true,
                 "bFilter": false,
-
+                "bLengthChange": false, //thought this line could hide the LengthMenu
+                pageLength: 10,
                 // rowReorder: {
                 //     update: false,
                 //     // selector: 'tr',
-                //     selector: "td:not(:first-child):not(:nth-child(4)):not(:nth-child(13)):not(:nth-child(14))",
                 // },
                 // select: true,
                 // responsive: true,
@@ -98,8 +129,8 @@
                         display: DataTable.Responsive.display.modal({
                             header: function(row) {
                                 var data = row.data();
-                                console.log(data);
-                                return '{!! __('general.detalis_for') !!} : ' + data['full_name'];
+                                return '{!! __('general.detalis_for') !!} : ' + data['name'];
+
                             }
                         }),
                         renderer: DataTable.Responsive.renderer.tableAll({
@@ -108,15 +139,19 @@
                     }
                 },
 
-                // ajax: '{!! route('dashboard.flights.get.all') !!}',
 
                 ajax: {
                     url: '{!! route('dashboard.flights.get.all') !!}',
                     data: {
-                        status: status,
+                        flight_name: flight_name,
+                        country_id: country_id,
+                        city_id: city_id,
+                        category_id: category_id,
+                        status: status
                     },
                     beforeSend: function() {}
                 },
+
 
                 columns: [{
                         data: 'DT_RowIndex',
@@ -126,32 +161,41 @@
                     {
                         data: 'images',
                         name: 'images',
+                        searchable: false,
+                        orderable: false,
                     },
                     {
                         data: 'name',
                         name: 'name',
                     },
-
                     {
                         data: 'country_id',
                         name: 'country_id',
                     },
                     {
-                        data: 'governorate_id',
-                        name: 'governorate_id',
+                        data: 'city_id',
+                        name: 'city_id',
+                    },
+                    {
+                        data: 'category_id',
+                        name: 'category_id',
+                    },
+                    {
+                        data: 'created_at',
+                        name: 'created_at',
                     },
                     {
                         data: 'status',
                         name: 'status',
+                        searchable: false,
+                        orderable: false,
                     },
-
                     {
                         data: 'manage_status',
                         name: 'manage_status',
                         searchable: false,
                         orderable: false,
                     },
-
                     {
                         data: 'actions',
                         searchable: false,
@@ -161,114 +205,61 @@
 
                 layout: {
                     // 'colvis',
-                    topStart: {
-                        buttons: ['copy', 'print', 'excel', 'pdf']
-                    }
+                    // topStart: {
+                    //     buttons: ['copy', 'print', 'excel', 'pdf']
+                    // }
                 },
                 language: lang === 'ar' ? {
                     url: '{!! asset('vendor/datatables/ar.json') !!}',
                 } : {},
 
-                buttons: [{
-                        extend: 'colvis',
-                        className: 'btn btn-default',
-                        exportOptions: {
-                            // columns: [0, 1, 2],
-                            columns: ':not(:last-child)',
-                        }
-                    },
-                    {
-                        extend: 'copy',
-                        className: 'btn btn-default',
-                        exportOptions: {
-                            // columns: [0, 1, 2],
-                            columns: ':not(:last-child)',
-                        }
-                    },
-                    {
-                        extend: 'print',
-                        className: 'btn btn-default',
-                        exportOptions: {
-                            // columns: [0, 1, 2],
-                            columns: ':not(:last-child)',
-                        }
-                    },
-                    {
-                        extend: 'excel',
-                        className: 'btn btn-default',
-                        exportOptions: {
-                            // columns: [0, 1, 2],
-                            columns: ':not(:last-child)',
-                        }
-                    },
-                    {
-                        extend: 'pdf',
-                        className: 'btn btn-default',
-                        exportOptions: {
-                            // columns: [0, 1, 2],
-                            columns: ':not(:last-child)',
-                        }
+                // buttons: [{
+                //         extend: 'colvis',
+                //         className: 'btn btn-default',
+                //         exportOptions: {
+                //             // columns: [0, 1, 2],
+                //             columns: ':not(:last-child)',
+                //         }
+                //     },
+                //     {
+                //         extend: 'copy',
+                //         className: 'btn btn-default',
+                //         exportOptions: {
+                //             // columns: [0, 1, 2],
+                //             columns: ':not(:last-child)',
+                //         }
+                //     },
+                //     {
+                //         extend: 'print',
+                //         className: 'btn btn-default',
+                //         exportOptions: {
+                //             // columns: [0, 1, 2],
+                //             columns: ':not(:last-child)',
+                //         }
+                //     },
+                //     {
+                //         extend: 'excel',
+                //         className: 'btn btn-default',
+                //         exportOptions: {
+                //             // columns: [0, 1, 2],
+                //             columns: ':not(:last-child)',
+                //         }
+                //     },
+                //     {
+                //         extend: 'pdf',
+                //         className: 'btn btn-default',
+                //         exportOptions: {
+                //             // columns: [0, 1, 2],
+                //             columns: ':not(:last-child)',
+                //         }
+                //     },
 
-
-                    },
-
-                ]
+                // ]
 
             });
+
         }
 
-        // search
-        $('body').on('click', '#flight_search_btn', function(e) {
-            e.preventDefault();
-            var status = $('#status').val();
-            // var gender = $('#gender').val();
-            // var classification = $('#classification').val();
-            // var health_status = $('#health_status').val();
-            // var governoate_id = $('#governoate_id').val();
-            // var city_id = $('#city_id').val();
-
-            loadData(status);
-        })
-
-
-        // reset
-        $('body').on('click', '#flight_reset_btn', function(e) {
-            e.preventDefault();
-            $('#status').val('');
-            // $('#gender').val('')
-            // $('#classification').val('');
-            // $('#health_status').val('');
-            // $('#governoate_id').val('');
-            // $('#city_id').val('');
-
-            loadData();
-        });
-
-        // address dependency
-        $('#governoate_id').on('change', function() {
-            var id = $(this).val();
-            if (id) {
-                $.ajax({
-                    url: '{!! route('dashboard.flights.get.cities', ':id') !!}'.replace(':id', id),
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(data) {
-                        $('#city_id').empty().append(
-                            '<option value=""> {!! __('users.select') !!} {!! __('users.city_id') !!}</option>'
-                        );
-                        $.each(data, function(key, value) {
-                            $('#city_id').append('<option value="' + key +
-                                '">' + value + '</option>');
-                        });
-                        $('#city_id').prop('disabled', false);
-                    }
-                });
-            } else {
-                $('#city_id').empty().append(
-                    '<option value=""> {!! __('users.select') !!} {!! __('users.city_id') !!}</option>').prop(
-                    'disabled', true);
-            }
-        });
 
         // delete
         $('body').on('click', '.delete_flight_btn', function(e) {
@@ -318,24 +309,23 @@
                                         }
                                     }
                                 });
-                                // setTimeout(function() {
-                                //     window.location.reload();
-                                // }, 1000)
-                            } else if (data.status == false) {
-                                swal({
-                                    title: "{!! __('general.warning') !!} ",
-                                    text: "{!! __('general.delete_error_message') !!} ",
-                                    icon: "warning",
-                                    buttons: {
-                                        confirm: {
-                                            text: "{!! __('general.yes') !!}",
-                                            visible: true,
-                                            closeModal: true
-                                        }
-                                    }
-                                });
                             }
                         }, //end success
+                        error: function(data) {
+                            console.log(data.status);
+                            swal({
+                                title: "{!! __('general.warning') !!} ",
+                                text: "{!! __('general.delete_error_message') !!} ",
+                                icon: "warning",
+                                buttons: {
+                                    confirm: {
+                                        text: "{!! __('general.yes') !!}",
+                                        visible: true,
+                                        closeModal: true
+                                    }
+                                }
+                            });
+                        } //end error
                     });
 
                 } else {

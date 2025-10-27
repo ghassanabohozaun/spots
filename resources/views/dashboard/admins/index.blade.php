@@ -38,18 +38,15 @@
                 <!-- begin: content header right-->
                 <div class="content-header-right col-md-6 col-12">
                     <div class="float-md-right mb-1">
-                        {{-- <a href="{{ route('dashboard.admins.create') }}" class="btn btn-info  btn-glow px-2" i>
-                            {!! __('admins.create_new_admin') !!}</a> --}}
+
+                        <a href="{{ route('dashboard.admins.export') }}" class="btn btn-sm btn-light mr-1" i>
+                            <span class="la la-file-excel-o"></span> {!! __('general.export') !!}</a>
 
                         <button type="button" class="btn btn-info  btn-glow px-2" data-toggle="modal"
                             data-target="#createAdminModal">
                             <span class="la la-pencil"></span>
                             {!! __('admins.create_new_admin') !!}
-
                         </button>
-
-                        <a href="{{ route('dashboard.admins.export') }}" class="btn btn-warning  btn-glow px-2" i>
-                            <span class="la la-file-excel-o"></span> {!! __('general.export') !!}</a>
 
                     </div>
                 </div>

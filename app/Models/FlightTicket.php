@@ -11,7 +11,7 @@ class FlightTicket extends Model
 {
     use SoftDeletes, HasTranslations;
     protected $table = 'flight_tickets';
-    protected $fillable = ['id', 'title', 'details', 'price', 'from_country_id', 'from_governorate_id', 'to_country_id', 'to_governorate_id', 'status', 'photo'];
+    protected $fillable = ['id', 'title', 'details', 'price', 'from_country_id', 'from_city_id', 'to_country_id', 'to_city_id', 'status', 'photo'];
 
     public array $translatable = ['title', 'details'];
 
@@ -26,14 +26,14 @@ class FlightTicket extends Model
         return $this->belongsTo(Country::class, 'to_country_id');
     }
 
-    public function formGovernorate()
+    public function formCity()
     {
-        return $this->belongsTo(Governorate::class, 'from_governorate_id');
+        return $this->belongsTo(City::class, 'from_city_id');
     }
 
-    public function toGovernorate()
+    public function toCity()
     {
-        return $this->belongsTo(Governorate::class, 'to_governorate_id');
+        return $this->belongsTo(City::class, 'to_city_id');
     }
 
     //scopes

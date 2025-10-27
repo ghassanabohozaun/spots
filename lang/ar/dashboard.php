@@ -14,6 +14,14 @@ return [
     'countries_count' => 'عدد الدول',
     'governorates_count' => 'عدد المحافظات',
     'cities_count' => 'عدد المدن',
+    'flights_count' => 'عدد الرحلات',
+    'tickets_count' => 'عدد تذاكر الطيران',
+    'tours_count' => 'عدد الجولات السياحية',
+    'categories_count' => 'عدد الأقسام',
+    'latest_flights' => 'آخر الرحلات السياحية',
+    'latest_tickets' => 'أخر تذاكر الطيران',
+    'latest_tours' => 'أخر الجولات السياحية',
+    'payments_total' => 'اجمالي المبالغ المدفوعة',
 
     // menu
     'roles' => 'الصلاحيات',
@@ -25,6 +33,8 @@ return [
     'tours' => 'الجولات السياحية',
     'flights' => 'الرحلات السياحية',
     'categories' => 'الأقسام',
+    'mailing' => 'القائمة البريدية',
+    'notifications' => 'الاشعارات',
 
     // login
     'login' => 'تسجيل الدخول',

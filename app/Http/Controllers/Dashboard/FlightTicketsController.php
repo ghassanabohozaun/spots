@@ -6,20 +6,20 @@ use App\Exports\TicketExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\TicketRequest;
 use App\Models\FlightTicket;
+use App\Services\Dashboard\CityService;
 use App\Services\Dashboard\CountryService;
 use App\Services\Dashboard\FlightTicketService;
-use App\Services\Dashboard\GovernorateService;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
 class FlightTicketsController extends Controller
 {
-    protected $flightTicketService, $countryService, $governorateService;
-    public function __construct(FlightTicketService $flightTicketService, CountryService $countryService, GovernorateService $governorateService)
+    protected $flightTicketService, $countryService, $cityService;
+    public function __construct(FlightTicketService $flightTicketService, CountryService $countryService, CityService $cityService)
     {
         $this->flightTicketService = $flightTicketService;
         $this->countryService = $countryService;
-        $this->governorateService = $governorateService;
+        $this->cityService = $cityService;
     }
 
     // index
@@ -44,7 +44,7 @@ class FlightTicketsController extends Controller
     // store
     public function store(TicketRequest $request)
     {
-        $data = $request->only(['title', 'details', 'price', 'from_country_id', 'from_governorate_id', 'to_country_id', 'to_governorate_id', 'status', 'photo']);
+        $data = $request->only(['title', 'details', 'price', 'from_country_id', 'from_city_id', 'to_country_id', 'to_city_id', 'status', 'photo']);
         $ticket = $this->flightTicketService->store($data);
         if (!$ticket) {
             return response()->json(['status' => false], 500);
@@ -69,14 +69,14 @@ class FlightTicketsController extends Controller
         }
 
         $countries = $this->countryService->getActiveCountries();
-        $governorates = $this->governorateService->getActiveGovernoraties();
-        return view('dashboard.tickets.edit', compact('title', 'ticket', 'countries', 'governorates'));
+        $cities = $this->cityService->getActiveCities();
+        return view('dashboard.tickets.edit', compact('title', 'ticket', 'countries', 'cities'));
     }
 
     // update
     public function update(TicketRequest $request, string $id)
     {
-        $data = $request->only(['id', 'title', 'details', 'price', 'from_country_id', 'from_governorate_id', 'to_country_id', 'to_governorate_id', 'status', 'photo']);
+        $data = $request->only(['id', 'title', 'details', 'price', 'from_country_id', 'from_city_id', 'to_country_id', 'to_city_id', 'status', 'photo']);
         $ticket = $this->flightTicketService->update($data);
         if (!$ticket) {
             return response()->json(['status' => false], 500);

@@ -11,5 +11,8 @@ return [
         'tours' => 'global.tours',
         'flights' => 'global.flights',
         'categories' => 'global.categories',
+        'pages' => 'global.pages',
+        'mailing' => 'global.mailing',
+        'notifications' => 'global.notifications',
     ],
 ];

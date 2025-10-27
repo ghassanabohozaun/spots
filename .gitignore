@@ -8,6 +8,7 @@
 /public/uploads/tickets/*
 /public/uploads/tours/*
 /public/uploads/categories/*
+/public/uploads/flights/*
 /storage/*.key
 /storage/pail
 /vendor

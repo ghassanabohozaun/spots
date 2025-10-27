@@ -15,6 +15,14 @@ return [
     'countries_count' => 'Countries Count',
     'governorates_count' => 'Governorates Count',
     'cities_count' => 'Cities Count',
+    'flights_count' => 'Flights Count',
+    'tickets_count' => 'Flights Tickets Count',
+    'tours_count' => 'Flights Tours Count',
+    'categories_count' => 'Categories Count',
+    'latest_flights' => 'latest Flights',
+    'latest_tickets' => 'latest Flights Tickets',
+    'latest_tours' => 'latest Flights Tours',
+    'payments_total' => 'Payments Total',
 
     // menu
     'roles' => 'Roles',
@@ -26,6 +34,9 @@ return [
     'tours' => 'Sightseeing Tours',
     'flights' => 'Flights',
     'categories' => 'Categories',
+    'mailing' => 'Mailing Box',
+    'notifications' => 'Notificatoins',
+
     // login
     'login' => 'Login',
 ];

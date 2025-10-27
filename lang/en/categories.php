@@ -4,7 +4,8 @@ return [
     'update_category' => 'Update Category',
     'categories' => 'Categories',
     'show_all_categories' => 'Show All Categories',
-    'products_count'=>'Products Count',
+    'added_flights_count'=>'Adedd Flights Count',
+    'flights'=>'Flights',
 
 
     'category_name' => 'Category Name',

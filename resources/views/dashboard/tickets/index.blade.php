@@ -35,7 +35,8 @@
                 <!-- begin: content header right-->
                 <div class="content-header-right col-md-6 col-12">
                     <div class="float-md-right mb-2">
-                        <a href="{{ route('dashboard.tickets.create') }}" class="btn btn-primary btn-glow px-2">
+                        <a href="{{ route('dashboard.tickets.create') }}" class="btn btn-info btn-glow px-2">
+                            <span class="la la-pencil"></span>
                             {!! __('tickets.create_new_ticket') !!}
                         </a>
                     </div>
@@ -102,8 +103,8 @@
 
         loadData();
 
-        function loadData(price = '', from_country_id = '', from_governorate_id = '', to_country_id = '',
-            to_governorate_id = '', status = '') {
+        function loadData(price = '', from_country_id = '', from_city_id = '', to_country_id = '',
+            to_city_id = '', status = '') {
             // yajra tables
             $('#yajra-datatable').DataTable({
                 // dom: 'Bfrtip',
@@ -113,8 +114,8 @@
                 fixedHeader: true,
                 "bDestroy": true,
                 "bFilter": false,
-                "lengthChange": false,
-
+                "bLengthChange": false, //thought this line could hide the LengthMenu
+                pageLength: 10,
                 // rowReorder: {
                 //     update: false,
                 //     // selector: 'tr',
@@ -147,9 +148,9 @@
                     data: {
                         price: price,
                         from_country_id: from_country_id,
-                        from_governorate_id: from_governorate_id,
+                        from_city_id: from_city_id,
                         to_country_id: to_country_id,
-                        to_governorate_id: to_governorate_id,
+                        to_city_id: to_city_id,
                         status: status,
                     },
                     beforeSend: function() {}
@@ -184,16 +185,16 @@
                         name: 'from_country_id',
                     },
                     {
-                        data: 'from_governorate_id',
-                        name: 'from_governorate_id',
+                        data: 'from_city_id',
+                        name: 'from_city_id',
                     },
                     {
                         data: 'to_country_id',
                         name: 'to_country_id',
                     },
                     {
-                        data: 'to_governorate_id',
-                        name: 'to_governorate_id',
+                        data: 'to_city_id',
+                        name: 'to_city_id',
                     },
                     {
                         data: 'created_at',

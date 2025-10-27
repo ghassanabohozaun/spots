@@ -4,6 +4,9 @@
 @endsection
 @push('style')
     <link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord/vendors/css/forms/selects/select2.min.css') !!}">
+    @if (Lang() == 'ar')
+        <link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord/css-rtl/my-select2-style.css') !!}">
+    @endif
 @endpush
 @section('content')
     <div class="app-content content">
@@ -230,21 +233,20 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label
-                                                                        for="from_governorate_id">{!! __('tickets.from_governorate_id') !!}</label>
+                                                                        for="from_city_id">{!! __('tickets.from_city_id') !!}</label>
                                                                     <br />
-                                                                    <select
-                                                                        class="from_governorate_id_select2 form-control"
-                                                                        id="from_governorate_id"
-                                                                        name="from_governorate_id" style="width: 100%">
-                                                                        @foreach ($governorates as $governorate)
-                                                                            <option value="{{ $governorate->id }}"
-                                                                                {{ old('from_governorate_id', $ticket->from_governorate_id) == $governorate->id ? 'selected' : '' }}>
-                                                                                {{ $governorate->name }}
+                                                                    <select class="from_city_id_select2 form-control"
+                                                                        id="from_city_id" name="from_city_id"
+                                                                        style="width: 100%">
+                                                                        @foreach ($cities as $city)
+                                                                            <option value="{{ $city->id }}"
+                                                                                {{ old('from_city_id', $ticket->from_city_id) == $city->id ? 'selected' : '' }}>
+                                                                                {{ $city->name }}
                                                                             </option>
                                                                         @endforeach
                                                                     </select>
                                                                     <span class="text text-danger"
-                                                                        id="from_governorate_id_error">
+                                                                        id="from_city_id_error">
                                                                     </span>
                                                                 </div>
                                                             </div>
@@ -285,20 +287,19 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label
-                                                                        for="to_governorate_id">{!! __('tickets.to_governorate_id') !!}</label>
+                                                                        for="to_city_id">{!! __('tickets.to_city_id') !!}</label>
                                                                     <br />
-                                                                    <select class="to_governorate_id_select2 form-control"
-                                                                        id="to_governorate_id" name="to_governorate_id"
+                                                                    <select class="to_city_id_select2 form-control"
+                                                                        id="to_city_id" name="to_city_id"
                                                                         style="width: 100%">
-                                                                        @foreach ($governorates as $governorate)
-                                                                            <option value="{{ $governorate->id }}"
-                                                                                {{ old('to_governorate_id', $ticket->to_governorate_id) == $governorate->id ? 'selected' : '' }}>
-                                                                                {{ $governorate->name }}
+                                                                        @foreach ($cities as $city)
+                                                                            <option value="{{ $city->id }}"
+                                                                                {{ old('to_city_id', $ticket->to_city_id) == $city->id ? 'selected' : '' }}>
+                                                                                {{ $city->name }}
                                                                             </option>
                                                                         @endforeach
                                                                     </select>
-                                                                    <span class="text text-danger"
-                                                                        id="to_governorate_id_error">
+                                                                    <span class="text text-danger" id="to_city_id_error">
                                                                     </span>
                                                                 </div>
                                                             </div>
@@ -387,7 +388,7 @@
 
     <script type="text/javascript">
         // select 2
-        var countryPath = "{{ route('dashboard.governorates.autocomplete.country') }}";
+        var countryPath = "{{ route('dashboard.countries.autocomplete.country') }}";
         $(".from_country_id_select2").select2({
             minimumInputLength: 1,
             maximumInputLength: 20,
@@ -496,8 +497,8 @@
 
 
         // select 2
-        var governoratePath = "{{ route('dashboard.cities.autocomplete.govnerorate') }}";
-        $(".from_governorate_id_select2").select2({
+        var cityPath = "{{ route('dashboard.cities.autocomplete.city') }}";
+        $(".from_city_id_select2").select2({
             minimumInputLength: 1,
             maximumInputLength: 20,
             placeholder: '{!! __('general.select_from_list') !!}',
@@ -524,7 +525,7 @@
             },
 
             ajax: {
-                url: governoratePath,
+                url: cityPath,
                 dataType: 'json',
                 delay: 250,
                 processResults: function(data) {
@@ -533,12 +534,12 @@
                         results: $.map(data, function(item) {
                             if ('{!! Lang() !!}' === 'en') {
                                 return {
-                                    text: item.country_en,
+                                    text: item.city_en,
                                     id: item.id
                                 }
                             } else {
                                 return {
-                                    text: item.country_ar,
+                                    text: item.city_ar,
                                     id: item.id
                                 }
                             }
@@ -550,7 +551,7 @@
             }
         });
 
-        $(".to_governorate_id_select2").select2({
+        $(".to_city_id_select2").select2({
             minimumInputLength: 1,
             maximumInputLength: 20,
             placeholder: '{!! __('general.select_from_list') !!}',
@@ -577,7 +578,7 @@
             },
 
             ajax: {
-                url: governoratePath,
+                url: cityPath,
                 dataType: 'json',
                 delay: 250,
                 processResults: function(data) {
@@ -586,12 +587,12 @@
                         results: $.map(data, function(item) {
                             if ('{!! Lang() !!}' === 'en') {
                                 return {
-                                    text: item.country_en,
+                                    text: item.city_en,
                                     id: item.id
                                 }
                             } else {
                                 return {
-                                    text: item.country_ar,
+                                    text: item.city_ar,
                                     id: item.id
                                 }
                             }
@@ -634,9 +635,9 @@
             $('#details_en').css('border-color', '');
             $('#price').css('border-color', '');
             $('#from_country_id').css('border-color', '');
-            $('#from_governorate_id').css('border-color', '');
+            $('#from_city_id').css('border-color', '');
             $('#to_country_id').css('border-color', '');
-            $('#to_governorate_id').css('border-color', '');
+            $('#to_city_id').css('border-color', '');
             $('#photo').css('border-color', '');
             $('#status').css('border-color', '');
 
@@ -646,9 +647,9 @@
             $('#details_en_error').text('');
             $('#price_error').text('');
             $('#from_country_id_error').text('');
-            $('#from_governorate_id_error').text('');
+            $('#from_city_id_error').text('');
             $('#to_country_id_error').text('');
-            $('#to_governorate_id_error').text('');
+            $('#to_city_id_error').text('');
             $('#photo_error').text('');
             $('#status_error').text('');
         }

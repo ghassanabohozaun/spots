@@ -4,21 +4,18 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\CountryRequest;
-use App\Models\Country;
 use App\Services\Dashboard\CountryService;
-use App\Services\Dashboard\GovernorateService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class CountriesController extends Controller
 {
-    protected $countryService, $governorateService;
+    protected $countryService;
 
     // __construct
-    public function __construct(CountryService $countryService, GovernorateService $governorateService)
+    public function __construct(CountryService $countryService)
     {
         $this->countryService = $countryService;
-        $this->governorateService = $governorateService;
     }
 
     // index
@@ -29,12 +26,12 @@ class CountriesController extends Controller
         return view('dashboard.world.countries.index', compact('title', 'countries'));
     }
 
-    // get governorate by country id
-    public function getGovrnoratesByCountryID($country_id)
+    // get cities by country id
+    public function getAllCitiesByCountry($country_id)
     {
         $title = __('world.governorates');
-        $governorates = $this->countryService->getAllGovernoratiesByCountry($country_id);
-        return view('dashboard.world.governorates.index', compact('title', 'governorates'));
+        $cities = $this->countryService->getAllCitiesByCountry($country_id);
+        return view('dashboard.world.governorates.index', compact('title', 'cities'));
     }
 
     // create
@@ -95,13 +92,6 @@ class CountriesController extends Controller
     {
         if ($request->json()) {
             $country = $this->countryService->destroyCountry($request->id);
-            // if ($country == 'notFound') {
-            //     return response()->json(['status' => 'notFound'], 500);
-            // } elseif ($country == 'notUpdate') {
-            //     return response()->json(['status' => 'notUpdate'], 500);
-            // } elseif ($country == 'hasGovernorate') {
-            //     return response()->json(['status' => 'hasGovernorate'], 500);
-            // }
             if (!$country) {
                 return response()->json(['status' => false], 500);
             }
@@ -123,12 +113,14 @@ class CountriesController extends Controller
         }
     }
 
-    // get all governoratis by county
-    public function getAllGovernoratiesByCountry(Request $request)
+
+     // autocomplete Country
+    public function autocompleteCountry(Request $request)
     {
-        if ($request->json()) {
-            $governoraties = $this->countryService->getAllGovernoratiesByCountry($request->id);
-            return response()->json(['data' => $governoraties]);
+        $data = [];
+        if ($request->filled('q')) {
+            $data = $this->countryService->autocompleteCountry($request->get('q'));
         }
+        return response()->json($data);
     }
 }

@@ -21,7 +21,7 @@ return [
     'tour_guide_name_en' => 'اسم  المرشد السياحي الانجليزي',
     'price' => 'السعر',
     'country_id' => 'الدولة',
-    'governorate_id' => 'المدينة',
+    'city_id' => 'المدينة',
     'status' => 'حالة الجولة السياحية',
     'photo' => 'صورة الجولة السياحية',
     'manage_status' => 'إدارة الحالة',
@@ -37,7 +37,7 @@ return [
     'enter_tour_guide_name_en' => 'ادخل اسم  المرشد السياحي الانجليزي',
     'enter_price' => 'ادخل السعر',
     'enter_country_id' => 'ادخل الدولة',
-    'enter_governorate_id' => 'ادخل المدينة',
+    'enter_city_id' => 'ادخل المدينة',
 
     'no_tours_found' => 'لا يوجد جوالات سياحية حالياً',
 ];

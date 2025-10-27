@@ -16,9 +16,9 @@ return new class extends Migration {
             $table->longText('details');
             $table->decimal('price', 8, 3);
             $table->foreignId('from_country_id')->constrained('countries')->cascadeOnDelete();
-            $table->foreignId('from_governorate_id')->constrained('governorates')->cascadeOnDelete();
+            $table->foreignId('from_city_id')->constrained('cities')->cascadeOnDelete();
             $table->foreignId('to_country_id')->constrained('countries')->cascadeOnDelete();
-            $table->foreignId('to_governorate_id')->constrained('governorates')->cascadeOnDelete();
+            $table->foreignId('to_city_id')->constrained('cities')->cascadeOnDelete();
             $table->boolean('status')->default(1);
             $table->string('photo');
             $table->softDeletes();

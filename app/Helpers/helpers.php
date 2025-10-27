@@ -2,10 +2,14 @@
 
 use App\Models\Admin;
 use App\Models\AttributeValue;
+use App\Models\Category;
 use App\Models\City;
 use App\Models\Country;
+use App\Models\Flight;
+use App\Models\FlightTicket;
 use App\Models\Governorate;
 use App\Models\Setting;
+use App\Models\Tour;
 use Illuminate\Support\Facades\Config;
 
 //  setting Helper Function
@@ -56,33 +60,58 @@ if (!function_exists('replaceHyphensWithSpaces')) {
     }
 
     //  get admin count Helper Function
-    if (!function_exists('adminCount')) {
-        function adminCount()
+    if (!function_exists('adminsCount')) {
+        function adminsCount()
         {
             return Admin::count();
         }
     }
 
     //  get country count Helper Function
-    if (!function_exists('countryCount')) {
-        function countryCount()
+    if (!function_exists('countriesCount')) {
+        function countriesCount()
         {
             return Country::count();
         }
     }
-    //  get governorate count Helper Function
-    if (!function_exists('governorateCount')) {
-        function governorateCount()
+
+    //  get city count Helper Function
+    if (!function_exists('citiesCount')) {
+        function citiesCount()
         {
-            return Governorate::count();
+            return City::count();
         }
     }
 
-    //  get city count Helper Function
-    if (!function_exists('cityCount')) {
-        function cityCount()
+    //  get flights count Helper Function
+    if (!function_exists('flightsCount')) {
+        function flightsCount()
         {
-            return City::count();
+            return Flight::count();
+        }
+    }
+
+    //  get tickets count Helper Function
+    if (!function_exists('ticketsCount')) {
+        function ticketsCount()
+        {
+            return FlightTicket::count();
+        }
+    }
+
+    //  get tours count Helper Function
+    if (!function_exists('toursCount')) {
+        function toursCount()
+        {
+            return Tour::count();
+        }
+    }
+
+     //  get categories count Helper Function
+    if (!function_exists('categoriesCount')) {
+        function categoriesCount()
+        {
+            return Category::count();
         }
     }
 }

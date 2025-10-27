@@ -7,14 +7,6 @@ use PhpParser\Node\Expr\FuncCall;
 
 class CountryRepository
 {
-    /**
-     * Create a new class instance.
-     */
-    public function __construct()
-    {
-        //
-    }
-
     // get country
     public function getCountry($id)
     {
@@ -24,7 +16,7 @@ class CountryRepository
     // get countries
     public function getCountries()
     {
-        return Country::withCount(['governorates'])
+        return Country::withCount(['cities'])
             ->when(!empty(request()->keyword), function ($query) {
                 $query->where('name', 'like', '%' . request()->keyword . '%');
             })
@@ -35,7 +27,7 @@ class CountryRepository
     // get active countries
     public function getActiveCountries()
     {
-        return Country::withCount(['governorates'])
+        return Country::withCount(['cities'])
             ->orderByDesc('created_at')
             ->active()
             ->get();
@@ -47,15 +39,10 @@ class CountryRepository
         return Country::get();
     }
 
-    // get all governorates by country
-    public function getAllGovernoratiesByCountry($country)
+    // get all cities by country
+    public function getAllCitiesByCountry($country)
     {
-        $governorates = $country
-            ->governorates()
-            ->withCount(['cities', 'users'])
-            ->with(['country', 'shippingPrice'])
-            ->get();
-        return $governorates;
+        return $country->cities()->get();
     }
 
     // store country
@@ -84,5 +71,16 @@ class CountryRepository
             'status' => $status,
         ]);
         return $country;
+    }
+
+
+    // autocomplete country
+    public function autocompleteCountry($searchValue)
+    {
+        return Country::select('name->en as country_en', 'name->ar as country_ar', 'id')
+            ->where('name->en', 'LIKE', '%' . $searchValue . '%')
+            ->orWhere('name->ar', 'LIKE', '%' . $searchValue . '%')
+            ->active()
+            ->get();
     }
 }

@@ -90,6 +90,24 @@ return [
             'report' => false,
         ],
 
+        'flights' => [
+            'driver' => 'local',
+            'root' => public_path('/uploads/flights'),
+            'url' => env('APP_URL') . '/uploads/flights',
+            'visibility' => 'public',
+            'throw' => false,
+            'report' => false,
+        ],
+
+        'pages' => [
+            'driver' => 'local',
+            'root' => public_path('/uploads/pages'),
+            'url' => env('APP_URL') . '/uploads/pages',
+            'visibility' => 'public',
+            'throw' => false,
+            'report' => false,
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

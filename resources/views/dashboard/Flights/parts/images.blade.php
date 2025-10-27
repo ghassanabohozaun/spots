@@ -1,34 +1,18 @@
-<!-- begin: slider-->
-<div class="text-center">
-    <div id="carouselExampleControls_{!! $flight->id !!}" class="carousel slide" data-ride="carousel"
-        style="width: 270px;">
-        <div class="carousel-inner">
-            @foreach ($flight->images as $key => $image)
-                <div class="carousel-item {!! $key == 0 ? 'active' : '' !!}">
-                    <img src="{!! asset('uploads/flights/' . $image->file_name) !!}" class="d-block w-100" alt="...">
-                </div>
-            @endforeach
+<div class="text-center" style="width: 150px;">
 
-            <a href="#carouselExampleControls_{!! $flight->id !!}" class="carousel-control-prev" type="button"
-                data-target="#carouselExampleControls_{!! $flight->id !!}" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">{!! __('general.previous') !!}</span>
+    <div class="position-relative d-inline-block">
+        @if (!empty($flight->images()->first()))
+            <img src='{!! asset('/uploads/flights/' . $flight->images()->first()->file_name) !!}' width="100" height="100" class="img-fluid img-responsive">
+            <a href="#" data-target="#fullScreenModal_{!! $flight->id !!}" data-toggle="modal"
+                class="badge badge-sm bg-info  position-absolute" style="top: 5px; left: 2px;">
+                <i class="la la-arrows"></i>
             </a>
-            <a href="#carouselExampleControls_{!! $flight->id !!}" class="carousel-control-next" type="button"
-                data-target="#carouselExampleControls_{!! $flight->id !!}" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">{!! __('general.next') !!}</span>
-            </a>
-        </div>
+        @else
+            <img src='{!! asset('assets/dashbaord/images/images-empty.png') !!}' width="100" height="100" class="img-fluid img-responsive">
+        @endif
+
     </div>
-    <button type="button" class="btn btn-primary btn-glow px-2 mt-1" data-toggle="modal"
-        data-target="#fullScreenModal_{!! $flight->id !!}">
-        {!! __('flights.full_screen') !!}
-    </button>
 </div>
-<!-- end: slider-->
-
-
 
 <!-- begin: modal-->
 <div class="modal fade" id="fullScreenModal_{!! $flight->id !!}" tabindex="-1" role="dialog"

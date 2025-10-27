@@ -60,8 +60,8 @@ class TourService
             ->addColumn('country_id', function ($tour) {
                 return $tour->country->name;
             })
-            ->addColumn('governorate_id', function ($tour) {
-                return $tour->governorate->name;
+            ->addColumn('city_id', function ($tour) {
+                return $tour->city->name;
             })
             ->addColumn('created_at', function ($tour) {
                 return $tour->created_at;

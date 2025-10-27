@@ -10,7 +10,7 @@ class FlightService extends Model
 {
     use SoftDeletes, HasTranslations;
     protected $table = 'flight_services';
-    protected $fillable = ['icon', 'name', 'flight_id'];
+    protected $fillable = ['name', 'flight_id'];
 
     // translatable
     public array $translatable = ['name'];

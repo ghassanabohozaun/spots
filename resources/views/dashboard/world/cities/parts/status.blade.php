@@ -1,2 +1,3 @@
-<input type="checkbox" id="input-15" class="change_status" aria-busy="" id="change_status"
-    {{ $country->status == 'on' ? 'checked' : '' }} data-id="{{ $country->id }}" />
+<div class="badge badge-md {!! $city->status == 'on' ? 'badge-success' : 'badge-danger' !!} city_status_{!! $city->id !!}" id=''>
+    {!! $city->status == 'on' ? __('general.enable') : __('general.disabled') !!}
+</div>

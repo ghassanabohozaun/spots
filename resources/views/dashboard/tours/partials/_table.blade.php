@@ -7,7 +7,7 @@
             <th>{!! __('tours.title') !!}</th>
             <th>{!! __('tours.price') !!}</th>
             <th>{!! __('tours.country_id') !!}</th>
-            <th>{!! __('tours.governorate_id') !!}</th>
+            <th>{!! __('tours.city_id') !!}</th>
             <th>{!! __('tours.created_at') !!}</th>
             <th>{!! __('tours.status') !!}</th>
             <th>{!! __('tours.manage_status') !!}</th>

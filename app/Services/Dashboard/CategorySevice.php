@@ -3,9 +3,7 @@
 namespace App\Services\Dashboard;
 
 use App\Repositories\Dashboard\CategoryRepository;
-use App\Utils\ImageManager;
 use App\Utils\ImageManagerUtils;
-use Illuminate\Support\Facades\Cache;
 use Yajra\DataTables\Facades\DataTables;
 
 class CategorySevice
@@ -46,6 +44,9 @@ class CategorySevice
             })
             ->addColumn('name', function ($category) {
                 return $category->getTranslation('name', Lang());
+            })
+            ->addColumn('added_flights_count', function ($category) {
+                return view('dashboard.categories.parts.added-flights-count', compact('category'));
             })
             ->addColumn('status', function ($category) {
                 return view('dashboard.categories.parts.status', compact('category'));
@@ -126,6 +127,10 @@ class CategorySevice
     public function destroyCategory($id)
     {
         $category = $this->categoryRepository->getCategory($id);
+
+        if ($category->flights->count() > 0 || !$category) {
+            return false;
+        }
 
         if ($category['icon'] != null) {
             $this->imageManagerUtils->removeImageFromLocal($category->icon, 'categories');

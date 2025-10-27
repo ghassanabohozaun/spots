@@ -274,5 +274,29 @@ return [
         'photo' => 'Photo ',
         'tour_guide_name.ar' => 'Arabic Tour Guide Name',
         'tour_guide_name.en' => 'English Tour Guide Name',
+
+        'flight_name' => 'Flight Name',
+
+        'flight_details' => 'Flight Details',
+        'details_ar' => 'Arabic Flight Details',
+        'details_en' => 'English Flight Details',
+        'days_num' => 'Days Number',
+        'nights_num' => 'Nights Number',
+        'offer_duration_from' => 'Offer Duration From',
+        'offer_duration_to' => 'Offer Duration To',
+        'servicesItems.*.service_name_ar' => 'Arabic Service Name :index',
+        'servicesItems.*.service_name_en' => 'English Service Name :index',
+        'pricesItems.*.price_text_ar' => 'Arabic Price Text :index',
+        'pricesItems.*.price_text_en' => 'English Price Text :index',
+        'pricesItems.*.price' => 'Price :index',
+        'notesItems.*.note_text_ar' => 'Arabic Note Text :index',
+        'notesItems.*.note_text_en' => 'English Note Text :index',
+        'offerIncludingItems.*.including_text_ar' => 'Arabic Offer including Text :index',
+        'offerIncludingItems.*.including_text_en' => 'English Offer including Text :index',
+        'offerNotIncludingItems.*.not_including_text_ar' => 'Arabic Offer Not including Text :index',
+        'offerNotIncludingItems.*.not_including_text_en' => 'English Offer Not including Text :index',
+        'images' => 'Images',
+
+
     ],
 ];

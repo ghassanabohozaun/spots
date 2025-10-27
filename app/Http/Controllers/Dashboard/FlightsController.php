@@ -4,23 +4,23 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\City;
- use App\Services\Dashboard\CityService;
+use App\Services\Dashboard\CategorySevice;
+use App\Services\Dashboard\CityService;
 use App\Services\Dashboard\CountryService;
 use App\Services\Dashboard\FlightService;
-use App\Services\Dashboard\GovernorateService;
 use Illuminate\Http\Request;
 
 class FlightsController extends Controller
 {
-    protected $flightService, $countryService, $governorateService, $cityService, $sponsershipOrganizationService, $sponsershipStatusService, $sponsershipTypeService;
+    protected $flightService, $countryService, $cityService, $sponsershipOrganizationService, $sponsershipStatusService, $sponsershipTypeService, $categorySevice;
     // __construct
 
-    public function __construct(FlightService $flightService, CountryService $countryService, GovernorateService $governorateService, CityService $cityService)
+    public function __construct(FlightService $flightService, CountryService $countryService, CityService $cityService  ,CategorySevice $categorySevice)
     {
         $this->flightService = $flightService;
         $this->countryService = $countryService;
-        $this->governorateService = $governorateService;
         $this->cityService = $cityService;
+        $this->categorySevice = $categorySevice;
     }
 
     // index
@@ -28,10 +28,9 @@ class FlightsController extends Controller
     {
         $title = __('flights.show_all_flights');
         $countries = $this->countryService->getAllCountriesWithoutRelations();
-        $governorates = $this->governorateService->getAllGovernoratesWithoutRelations();
-        $cities = $this->cityService->getAllCitiesWithoutRelation();
-
-        return view('dashboard.flights.index', compact('title', 'countries', 'governorates', 'cities'));
+        $cities = $this->cityService->getAllCitiesWithoutRelations();
+        $categories = $this->categorySevice->getCategories();
+        return view('dashboard.flights.index', compact('title', 'countries', 'cities', 'categories'));
     }
 
     // get All
@@ -45,9 +44,9 @@ class FlightsController extends Controller
     {
         $title = __('flights.create_new_flight');
         $countries = $this->countryService->getAllCountriesWithoutRelations();
-        $governorates = $this->governorateService->getAllGovernoratesWithoutRelations();
-        $cities = $this->cityService->getAllCitiesWithoutRelation();
-        return view('dashboard.children.create', compact('title', 'countries', 'governorates', 'cities'));
+        $cities = $this->cityService->getAllCitiesWithoutRelations();
+        $categories = $this->categorySevice->getCategories();
+        return view('dashboard.flights.create', compact('title', 'countries', 'cities', 'categories'));
     }
 
     // store
@@ -67,8 +66,7 @@ class FlightsController extends Controller
 
         $title = __('flights.show_flight');
         $countries = $this->countryService->getAllCountriesWithoutRelations();
-        $governorates = $this->governorateService->getAllGovernoratesWithoutRelations();
-        $cities = $this->cityService->getAllCitiesWithoutRelation();
+        $cities = $this->cityService->getAllCitiesWithoutRelations();
         $FlightID = $id;
         return view('dashboard.flights.show', compact('title', 'FlightID', 'flight'));
     }
@@ -83,10 +81,10 @@ class FlightsController extends Controller
         }
         $title = __('flights.update_flight');
         $countries = $this->countryService->getAllCountriesWithoutRelations();
-        $governorates = $this->governorateService->getAllGovernoratesWithoutRelations();
-        $cities = $this->cityService->getAllCitiesWithoutRelation();
+        $cities = $this->cityService->getAllCitiesWithoutRelations();
+        $categories = $this->categorySevice->getCategories();
         $FlightID = $id;
-        return view('dashboard.children.edit', compact('title', 'FlightID', 'flight'));
+        return view('dashboard.flights.edit', compact('title', 'FlightID', 'flight','countries','cities','categories'));
     }
 
     // update
@@ -118,9 +116,9 @@ class FlightsController extends Controller
     }
 
     // get cities
-    public function getCities($governorate_id)
+    public function getCities($country_id)
     {
-        $cities = City::where('governorate_id', $governorate_id)->pluck('name', 'id');
+        $cities = City::where('country_id', $country_id)->pluck('name', 'id');
         return response()->json($cities);
     }
 }

@@ -3,19 +3,11 @@
 namespace App\Repositories\Dashboard;
 
 use App\Models\City;
-use App\Models\Governorate;
+use App\Models\Country;
 
 class CityRepository
 {
-    /**
-     * Create a new class instance.
-     */
-    public function __construct()
-    {
-        //
-    }
-
-    // get city
+    // get City
     public function getCity($id)
     {
         return City::find($id);
@@ -24,51 +16,64 @@ class CityRepository
     // get cities
     public function getCities()
     {
-        $cities = City::when(!empty(request()->keyword), function ($query) {
-            $query->where('name', 'like', '%' . request()->keyword . '%');
+        return City::when(!empty(request()->keyword), function ($q) {
+            $q->where('name', 'like', '%' . request()->keyword . '%');
         })
             ->orderByDesc('id')
-            ->select('id', 'name', 'governorate_id')
             ->paginate(10);
-        return $cities;
     }
 
-    // get cities without Relations
-    public function getAllCitiesWithoutRelation()
+    // get active cities
+    public function getActiveCities()
+    {
+        return City::orderByDesc('created_at')->get();
+    }
+
+    // get all cities without relations
+    public function getAllCitiesWithoutRelations()
     {
         return City::get();
     }
 
-    // store city
+    // get all cities by country
+    public function getAllCitiesbyCountry($country)
+    {
+        $cities = $country->cities()->get();
+        return $cities;
+    }
+
+    // store City
     public function storeCity($data)
     {
         return City::create($data);
     }
 
-    // update city
-    public function updateCity($data, $city)
+    // update City
+    public function updateCity($data, $City)
     {
-        return $city->update($data);
+        return $City->update($data);
     }
 
-    // destroy city
-    public function destroyCity($city)
-    {
-        return $city->forceDelete();
-    }
     // change status
-    public function changeStatus($city, $status)
+    public function changeStatus($City)
     {
-        $city = $city->update([
-            'status' => $status,
+        $City = $City->update([
+            'status' => $City->status == 'on' ? 0 : 1,
         ]);
-        return $city;
+        return $City;
     }
 
-    // autocomplete
-    public function autocompleteGovnerorate($searchValue)
+    // destory City
+    public function destroyCity($City)
     {
-        return Governorate::select('name->en as country_en', 'name->ar as country_ar', 'id')
+        $City = $City->forceDelete();
+        return $City;
+    }
+
+    // autocomplete city
+    public function autocompleteCity($searchValue)
+    {
+        return City::select('name->en as city_en', 'name->ar as city_ar', 'id')
             ->where('name->en', 'LIKE', '%' . $searchValue . '%')
             ->orWhere('name->ar', 'LIKE', '%' . $searchValue . '%')
             ->active()

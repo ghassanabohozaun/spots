@@ -28,7 +28,7 @@ class TourRequest extends FormRequest
             'tour_guide_name.*' => ['required', 'string', 'max:100'],
             'price' => ['required'],
             'country_id' => ['required'],
-            'governorate_id' => ['required'],
+            'city_id' => ['required'],
             'status' => ['required', 'in:1,0'],
             'photo' => ['required_without:hidden_photo', 'mimes:png,jpg,jpeg,webp', 'max:2048'],
         ];

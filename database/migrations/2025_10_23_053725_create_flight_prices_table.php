@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('text');
             $table->decimal('price', 13, 2)->default(0.0);
-            $table->boolean('make_main')->default(0);
+            $table->boolean('main_option')->default(0);
             $table->foreignId('flight_id')->constrained('flights')->cascadeOnDelete();
             $table->softDeletes();
             $table->timestamps();

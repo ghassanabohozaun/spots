@@ -1,17 +1,15 @@
 <div class="text-center" style="width: 150px;">
 
-
     @if (!empty($slider->photo))
         <img src='{!! asset('/uploads/sliders/' . $slider->photo) !!}' width="150" height="120" class="img-fluid">
+
+        <button type="button" class="btn btn-primary btn-block btn-glow px-2 mt-1 " data-toggle="modal"
+            data-target="#fullScreenModal_{!! $slider->id !!}">
+            {!! __('general.full_screen') !!}
+        </button>
     @else
         <img src='{!! asset('assets/dashbaord/images/images-empty.png') !!}' style="width: 100%" class="img-fluid img-responsive">
     @endif
-
-
-    <button type="button" class="btn btn-primary btn-block btn-glow px-2 mt-1 " data-toggle="modal"
-        data-target="#fullScreenModal_{!! $slider->id !!}">
-        {!! __('general.full_screen') !!}
-    </button>
 
 </div>
 

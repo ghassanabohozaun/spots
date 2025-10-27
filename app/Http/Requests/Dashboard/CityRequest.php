@@ -23,8 +23,8 @@ class CityRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name.*' => ['required', 'string', 'min:3', 'max:100', UniqueTranslationRule::for('cities')->ignore($this->id)],
-            'governorate_id' => ['required', 'exists:governorates,id'],
+            'name.*' => ['required', 'string', 'max:100', UniqueTranslationRule::for('cities')->ignore($this->id)],
+            'country_id' => ['required'],
         ];
     }
 }

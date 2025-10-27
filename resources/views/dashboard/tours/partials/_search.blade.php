@@ -1,5 +1,8 @@
 @push('style')
     <link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord/vendors/css/forms/selects/select2.min.css') !!}">
+    @if (Lang() == 'ar')
+        <link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord/css-rtl/my-select2-style.css') !!}">
+    @endif
 @endpush
 
 <div class="card">
@@ -13,7 +16,7 @@
     <!-- end: card header -->
 
     <!-- begin: card content  show-->
-    <div class="card-content collapse  ">
+    <div class="card-content collapse  show">
         <div class="card-body">
             <form class="form">
                 <div class="form-body">
@@ -40,8 +43,8 @@
 
                         <!-- begin: input -->
                         <div class="form-group col-md-2">
-                            <label for="governorate_id">{!! __('tours.governorate_id') !!}</label>
-                            <select class="governorate_id_select form-control" id="governorate_id" name="governorate_id"
+                            <label for="city_id">{!! __('tours.city_id') !!}</label>
+                            <select class="city_id_select form-control" id="city_id" name="city_id"
                                 style="width: 100%">
 
                             </select>
@@ -97,9 +100,9 @@
 
         //     var price = $('#price').val();
         //     var country_id = $('#country_id').val();
-        //     var governorate_id = $('#governorate_id').val();
+        //     var city_id = $('#city_id').val();
         //     var to_country_id = $('#to_country_id').val();
-        //     var to_governorate_id = $('#to_governorate_id').val();
+        //     var to_city_id = $('#to_city_id').val();
         //     var status = $('#status').val();
 
         //     $.ajax({
@@ -109,9 +112,9 @@
         //         data: {
         //             price: price,
         //             country_id: country_id,
-        //             governorate_id: governorate_id,
+        //             city_id: city_id,
         //             to_country_id: to_country_id,
-        //             to_governorate_id: to_governorate_id,
+        //             to_city_id: to_city_id,
         //             status: status,
         //         },
         //         success: function(data) {
@@ -127,10 +130,10 @@
             e.preventDefault();
             var price = $('#price').val();
             var country_id = $('#country_id').val();
-            var governorate_id = $('#governorate_id').val();
+            var city_id = $('#city_id').val();
             var status = $('#status').val();
 
-            loadData(price, country_id, governorate_id, status);
+            loadData(price, country_id, city_id, status);
         })
 
 
@@ -139,7 +142,7 @@
             e.preventDefault();
             $('#price').val('');
             $(".country_id_select").val('').trigger('change');
-            $(".governorate_id_select").val('').trigger('change');
+            $(".city_id_select").val('').trigger('change');
             $('#status').val('');
 
             loadData();
@@ -168,7 +171,7 @@
 
 
         // select 2
-        var countryPath = "{{ route('dashboard.governorates.autocomplete.country') }}";
+        var countryPath = "{{ route('dashboard.countries.autocomplete.country') }}";
         $(".country_id_select").select2({
             minimumInputLength: 1,
             maximumInputLength: 20,
@@ -206,8 +209,10 @@
             }
         });
 
+
         // select 2
-        $(".to_country_id_select").select2({
+        var cityPath = "{{ route('dashboard.cities.autocomplete.city') }}";
+        $(".city_id_select").select2({
             minimumInputLength: 1,
             maximumInputLength: 20,
             placeholder: '{!! __('general.select_from_list') !!}',
@@ -219,7 +224,7 @@
             language: select2Language,
 
             ajax: {
-                url: countryPath,
+                url: cityPath,
                 dataType: 'json',
                 delay: 250,
                 processResults: function(data) {
@@ -228,94 +233,15 @@
                         results: $.map(data, function(item) {
                             if ('{!! Lang() !!}' === 'en') {
                                 return {
-                                    text: item.country_en,
+                                    text: item.city_en,
                                     id: item.id
                                 }
                             } else {
                                 return {
-                                    text: item.country_ar,
+                                    text: item.city_ar,
                                     id: item.id
                                 }
                             }
-                        })
-                    };
-                },
-                cache: true
-            }
-        });
-
-
-        // select 2
-        var governoratePath = "{{ route('dashboard.cities.autocomplete.govnerorate') }}";
-        $(".governorate_id_select").select2({
-            minimumInputLength: 1,
-            maximumInputLength: 20,
-            placeholder: '{!! __('general.select_from_list') !!}',
-            allowClear: true,
-            escapeMarkup: function(markup) {
-                return markup;
-            },
-
-            language: select2Language,
-
-            ajax: {
-                url: governoratePath,
-                dataType: 'json',
-                delay: 250,
-                processResults: function(data) {
-                    console.log(data);
-                    return {
-                        results: $.map(data, function(item) {
-                            if ('{!! Lang() !!}' === 'en') {
-                                return {
-                                    text: item.country_en,
-                                    id: item.id
-                                }
-                            } else {
-                                return {
-                                    text: item.country_ar,
-                                    id: item.id
-                                }
-                            }
-                        })
-                    };
-                },
-                cache: true
-            }
-        });
-
-        // select 2
-        $(".to_governorate_id_select").select2({
-            minimumInputLength: 1,
-            maximumInputLength: 20,
-            placeholder: '{!! __('general.select_from_list') !!}',
-            allowClear: true,
-            escapeMarkup: function(markup) {
-                return markup;
-            },
-
-            language: select2Language,
-
-            ajax: {
-                url: governoratePath,
-                dataType: 'json',
-                delay: 250,
-                processResults: function(data) {
-                    console.log(data);
-                    return {
-                        results: $.map(data, function(item) {
-                            if ('{!! Lang() !!}' === 'en') {
-                                return {
-                                    text: item.country_en,
-                                    id: item.id
-                                }
-                            } else {
-                                return {
-                                    text: item.country_ar,
-                                    id: item.id
-                                }
-                            }
-
                         })
                     };
                 },

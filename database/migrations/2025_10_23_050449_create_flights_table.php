@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->integer('nights_num')->unsigned()->default(0);
             $table->integer('views')->nullable();
             $table->foreignId('country_id')->constrained('countries')->cascadeOnDelete();
-            $table->foreignId('governorate_id')->constrained('governorates')->cascadeOnDelete();
+            $table->foreignId('city_id')->constrained('cities')->cascadeOnDelete();
             $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
             $table->date('offer_duration_from');
             $table->date('offer_duration_to');

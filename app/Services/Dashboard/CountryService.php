@@ -41,12 +41,11 @@ class CountryService
         return $this->countryRepository->getAllCountriesWithoutRelations();
     }
 
-    // get all governorates by country
-    public function getAllGovernoratiesByCountry($id)
+    // get all cities by country
+    public function getAllCitiesByCountry($id)
     {
         $country = self::getCountry($id);
-        $governorates = $this->countryRepository->getAllGovernoratiesByCountry($country);
-        return $governorates;
+        return $this->countryRepository->getAllCitiesByCountry($country);
     }
 
     // store country
@@ -84,7 +83,8 @@ class CountryService
         //     return 'hasGovernorate';
         // }
 
-        if ($country->governorates->count() > 0 || $country->fromFlightTicket->count() > 0  || $country->toFlightTicket->count() > 0 || !$country) {
+        if ($country->cities->count() > 0 || $country->fromFlightTicket->count() > 0 || $country->toFlightTicket->count() > 0
+        || $country->tours->count() > 0 || $country->flights->count() > 0 || !$country) {
             return false;
         }
 
@@ -107,5 +107,11 @@ class CountryService
             return false;
         }
         return $country;
+    }
+
+    // autocomplete
+    public function autocompleteCountry($searchValue)
+    {
+        return $this->countryRepository->autocompleteCountry($searchValue);
     }
 }

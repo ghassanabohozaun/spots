@@ -1,7 +1,9 @@
 @push('style')
     <link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord/vendors/css/forms/selects/select2.min.css') !!}">
+    @if (Lang() == 'ar')
+        <link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord/css-rtl/my-select2-style.css') !!}">
+    @endif
 @endpush
-
 <div class="modal fade" id="updateCityModal" role="dialog" aria-labelledby="updateCityModalLabel" aria-hidden="true">
 
     <div class="modal-dialog modal-md" role="document">
@@ -22,6 +24,7 @@
 
                 <!--begin::modal body-->
                 <div class="modal-body">
+
                     <div class="row">
                         <div class="col-lg-12">
 
@@ -79,43 +82,42 @@
                                 <!-- begin: input -->
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="governorate_id">{!! __('world.governorate_id') !!}</label>
+                                        <label for="country_id">{!! __('world.country_id') !!}</label>
                                         <br />
-
-                                        <select class="governorate_select2_edit form-control" id="governorate_id_edit"
-                                            name="governorate_id" style="width: 100%">
-                                            @foreach (App\Models\Governorate::all() as $governorate)
-                                                <option value="{{ $governorate->id }}">
-                                                    {{ $governorate->name }}
+                                        <select class="country_select2_edit form-control" id="country_id_edit"
+                                            name="country_id" style="width: 100%">
+                                            @foreach (App\Models\Country::all() as $country)
+                                                <option value="{{ $country->id }}">
+                                                    {{ $country->name }}
                                                 </option>
                                             @endforeach
                                         </select>
                                         <span class="text text-danger">
-                                            <strong id="governorate_id_error_edit"></strong>
+                                            <strong id="country_id_error_edit"></strong>
                                         </span>
                                     </div>
                                 </div>
                                 <!-- end: input -->
-
                                 <!-- end: input -->
                             </div>
                             <!-- end: row -->
+
                         </div>
                     </div>
-                    <!--end: row-->
+                    <!--end: form-->
                 </div>
                 <!--end::modal body-->
 
                 <!--begin::modal footer-->
                 <div class="modal-footer">
-                    <button type="submit" id="update_city_btn" class="btn btn-info font-weight-bold ">
+                    <button type="submit" class="btn btn-info font-weight-bold ">
                         <span class="la la-save"></span>
                         {{ __('general.save') }}
                         <i class="la la-refresh spinner spinner_loading d-none">
                         </i>
                     </button>
 
-                    <button type="button" id="cancel_city_btn" class="btn btn-light-dark font-weight-bold"
+                    <button type="button" id="cancel_city_btn_edit" class="btn btn-light-dark font-weight-bold"
                         data-dismiss="modal">
                         <span class="la la-close"></span>
                         {{ __('general.cancel') }}
@@ -129,13 +131,10 @@
 </div>
 
 @push('scripts')
-    <script src="{!! asset('assets/dashbaord') !!}/vendors/js/forms/select/select2.full.min.js" type="text/javascript"></script>
-    <script src="{!! asset('assets/dashbaord') !!}/js/scripts/forms/select/form-select2.js" type="text/javascript"></script>
-
     <script type="text/javascript">
         // select 2
 
-        $(".governorate_select2_edit").select2({
+        $(".country_select2_edit").select2({
             minimumInputLength: 1,
             maximumInputLength: 20,
             placeholder: '{!! __('general.select_from_list') !!}',
@@ -162,7 +161,7 @@
             },
 
             ajax: {
-                url: "{{ route('dashboard.cities.autocomplete.govnerorate') }}",
+                url: "{{ route('dashboard.countries.autocomplete.country') }}",
                 dataType: 'json',
                 delay: 250,
                 processResults: function(data) {
@@ -194,15 +193,13 @@
             var city_id = $(this).attr('city-id');
             var city_name_ar = $(this).attr('city-name-ar');
             var city_name_en = $(this).attr('city-name-en');
-            var governorate_id = $(this).attr('governorate-id');
-
+            var country_id = $(this).attr('country-id');
 
 
             $('#id_edit').val(city_id);
             $('#name_ar_edit').val(city_name_ar);
             $('#name_en_edit').val(city_name_en);
-            $(".governorate_select2_edit").val(governorate_id).trigger('change');
-
+            $(".country_select2_edit").val(country_id).trigger('change');
 
             $('#updateCityModal').modal('show');
         })
@@ -211,16 +208,15 @@
         function resetEditForm() {
             $('#name_ar_edit').css('border-color', '');
             $('#name_en_edit').css('border-color', '');
-            $('#governorate_id_edit').css('border-color', '');
+            $('#country_id_edit').css('border-color', '');
 
             $('#name_ar_error_edit').text('');
             $('#name_en_error_edit').text('');
-            $('#governorate_id_error_edit').text('');
-
+            $('#country_id_error_edit').text('');
         }
 
         // cancel
-        $('body').on('click', '#cancel_city_btn', function(e) {
+        $('body').on('click', '#cancel_city_btn_edit', function(e) {
             $('#updateCityModal').modal('hide');
             $('#update_city_form')[0].reset();
             resetEditForm();
@@ -242,6 +238,7 @@
 
             // paramters
             var city_id = $('#id_edit').val();
+            //var currentPage = $('#yajra-datatable').DataTable().page();
             var data = new FormData(this);
             var type = $(this).attr('method');
             var url = "{!! route('dashboard.cities.update', 'id') !!}".replace('id', city_id);
@@ -261,6 +258,7 @@
                     if (data.status == true) {
                         console.log(data);
                         $('#myTable').load(location.href + (' #myTable'));
+                        // $('#yajra-datatable').DataTable().page(currentPage).draw(false);
                         $('#update_city_form')[0].reset();
                         resetEditForm();
                         $('#updateCityModal').modal('hide');

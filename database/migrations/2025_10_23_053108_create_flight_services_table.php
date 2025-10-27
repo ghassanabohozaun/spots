@@ -12,7 +12,6 @@ return new class extends Migration {
     {
         Schema::create('flight_services', function (Blueprint $table) {
             $table->id();
-            $table->string('icon');
             $table->string('name');
             $table->foreignId('flight_id')->constrained('flights')->cascadeOnDelete();
             $table->softDeletes();

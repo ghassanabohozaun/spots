@@ -17,10 +17,10 @@ class Country extends Model
     public array $translatable = ['name'];
 
     // relation
-    // governorates
-    public function governorates()
+    // cities
+    public function cities()
     {
-        return $this->hasMany(Governorate::class, 'country_id', 'id');
+        return $this->hasMany(City::class, 'country_id', 'id');
     }
 
     // fromFlightTicket

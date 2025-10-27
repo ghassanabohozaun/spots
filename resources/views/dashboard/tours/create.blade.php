@@ -158,8 +158,6 @@
                                                     <!-- end: row name ,title -->
 
 
-
-
                                                     <!-- begin: row  details-->
                                                     <div class="row">
                                                         <!-- begin: input details-->
@@ -189,7 +187,7 @@
                                                     <!-- end: row details-->
 
 
-                                                    <!-- begin: row tour_guide_name ,price country_id governorate_id -->
+                                                    <!-- begin: row tour_guide_name ,price country_id city_id -->
                                                     <div class="row">
                                                         <!-- begin: input -->
                                                         <div class="col-md-2">
@@ -257,21 +255,19 @@
                                                         <!-- begin: input -->
                                                         <div class="col-md-3">
                                                             <div class="form-group">
-                                                                <label
-                                                                    for="governorate_id">{!! __('tours.governorate_id') !!}</label>
+                                                                <label for="city_id">{!! __('tours.city_id') !!}</label>
                                                                 <br />
-                                                                <select class="governorate_id_select form-control"
-                                                                    id="governorate_id" name="governorate_id"
-                                                                    style="width: 100%">
+                                                                <select class="city_id_select form-control" id="city_id"
+                                                                    name="city_id" style="width: 100%">
                                                                 </select>
-                                                                <span class="text text-danger" id="governorate_id_error">
+                                                                <span class="text text-danger" id="city_id_error">
                                                                 </span>
                                                             </div>
                                                         </div>
                                                         <!-- end: input -->
 
                                                     </div>
-                                                    <!-- end: row tour_guide_name ,price country_id governorate_id -->
+                                                    <!-- end: row tour_guide_name ,price country_id city_id -->
 
 
 
@@ -357,7 +353,7 @@
 
     <script type="text/javascript">
         // select 2
-        var countryPath = "{{ route('dashboard.governorates.autocomplete.country') }}";
+        var countryPath = "{{ route('dashboard.countries.autocomplete.country') }}";
 
         $(".country_id_select").select2({
             minimumInputLength: 1,
@@ -414,8 +410,8 @@
 
 
         // select 2
-        var governoratePath = "{{ route('dashboard.cities.autocomplete.govnerorate') }}";
-        $(".governorate_id_select").select2({
+        var cityPath = "{{ route('dashboard.cities.autocomplete.city') }}";
+        $(".city_id_select").select2({
             minimumInputLength: 1,
             maximumInputLength: 20,
             placeholder: '{!! __('general.select_from_list') !!}',
@@ -442,7 +438,7 @@
             },
 
             ajax: {
-                url: governoratePath,
+                url: cityPath,
                 dataType: 'json',
                 delay: 250,
                 processResults: function(data) {
@@ -451,12 +447,12 @@
                         results: $.map(data, function(item) {
                             if ('{!! Lang() !!}' === 'en') {
                                 return {
-                                    text: item.country_en,
+                                    text: item.city_en,
                                     id: item.id
                                 }
                             } else {
                                 return {
-                                    text: item.country_ar,
+                                    text: item.city_ar,
                                     id: item.id
                                 }
                             }
@@ -530,7 +526,7 @@
             $('#tour_guide_name_ar').css('border-color', '');
             $('#tour_guide_name_en').css('border-color', '');
             $('#country_id').css('border-color', '');
-            $('#governorate_id').css('border-color', '');
+            $('#city_id').css('border-color', '');
             $('#photo').css('border-color', '');
             $('#status').css('border-color', '');
             $('.details_ar_summernote').next('.note-editor').removeClass(
@@ -548,7 +544,7 @@
             $('#tour_guide_name_ar_error').text('');
             $('#tour_guide_name_en_error').text('');
             $('#country_id_error').text('');
-            $('#governorate_id_error').text('');
+            $('#city_id_error').text('');
             $('#photo_error').text('');
             $('#status_error').text('');
         }
@@ -579,7 +575,7 @@
                         console.log(data);
                         $('#storeSliderFrom')[0].reset();
                         $(".country_id_select").val('').trigger('change');
-                        $(".governorate_id_select").val('').trigger('change');
+                        $(".city_id_select").val('').trigger('change');
                         $('.details_ar_summernote').summernote('code', '');
                         $('.details_en_summernote').summernote('code', '');
                         resetCreateTourFrom()
@@ -597,8 +593,12 @@
                             key = 'title_ar';
                         } else if (key == 'details.ar') {
                             key = 'details_ar';
+                            $('.details_ar_summernote').next('.note-editor').addClass(
+                                'is-invalid-summernote-editor');
                         } else if (key == 'details.en') {
                             key = 'details_en';
+                            $('.details_en_summernote').next('.note-editor').addClass(
+                                'is-invalid-summernote-editor');
                         } else if (key == 'name.ar') {
                             key = 'name_ar';
                         } else if (key == 'name.en') {
@@ -610,14 +610,6 @@
                         }
                         $('#' + key + '_error').text(value[0]);
                         $('#' + key).css('border-color', '#F64E60');
-
-                        if (key == 'details_ar') {
-                            $('.details_ar_summernote').next('.note-editor').addClass(
-                                'is-invalid-summernote-editor');
-                        } else if (key == 'details_en') {
-                            $('.details_en_summernote').next('.note-editor').addClass(
-                                'is-invalid-summernote-editor');
-                        }
                     });
                 }, //end error
                 complete: function() {

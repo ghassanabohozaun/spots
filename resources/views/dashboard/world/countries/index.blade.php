@@ -107,7 +107,7 @@
                                                         <th>#</th>
                                                         <th>{!! __('world.country_name') !!}</th>
                                                         <th>{!! __('world.phone_code') !!}</th>
-                                                        <th class="text-center">{!! __('world.governorates_count') !!}</th>
+                                                        <th class="text-center">{!! __('world.cities_count') !!}</th>
                                                         <th class="text-center">{!! __('world.status') !!}</th>
                                                         <th class="text-center">{!! __('world.manage_status') !!}</th>
 
@@ -126,7 +126,7 @@
                                                                 @include('dashboard.world.countries.parts.phone_code')
                                                             </td>
                                                             <td class="col-lg-2 text-center">
-                                                                @include('dashboard.world.countries.parts.governorates_count')
+                                                                @include('dashboard.world.countries.parts.cities_count')
                                                             </td>
                                                             <td class="col-lg-1 text-center">
                                                                 @include('dashboard.world.countries.parts.status')
@@ -204,7 +204,6 @@
                         dataType: 'json',
                         success: function(data) {
                             console.log(data);
-                            return false;
                             $('#myTable').load(location.href + (' #myTable'));
                             if (data.status == true) {
                                 swal({

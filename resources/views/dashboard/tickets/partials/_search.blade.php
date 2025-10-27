@@ -1,5 +1,8 @@
 @push('style')
     <link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord/vendors/css/forms/selects/select2.min.css') !!}">
+    @if (Lang() == 'ar')
+        <link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord/css-rtl/my-select2-style.css') !!}">
+    @endif
 @endpush
 
 <div class="card">
@@ -13,7 +16,7 @@
     <!-- end: card header -->
 
     <!-- begin: card content  show-->
-    <div class="card-content collapse  ">
+    <div class="card-content collapse  show">
         <div class="card-body">
             <form class="form">
                 <div class="form-body">
@@ -40,9 +43,9 @@
 
                         <!-- begin: input -->
                         <div class="form-group col-md-2">
-                            <label for="from_governorate_id">{!! __('tickets.from_governorate_id') !!}</label>
-                            <select class="from_governorate_id_select form-control" id="from_governorate_id"
-                                name="from_governorate_id" style="width: 100%">
+                            <label for="from_city_id">{!! __('tickets.from_city_id') !!}</label>
+                            <select class="from_city_id_select form-control" id="from_city_id" name="from_city_id"
+                                style="width: 100%">
 
                             </select>
                         </div>
@@ -60,9 +63,9 @@
 
                         <!-- begin: input -->
                         <div class="form-group col-md-2">
-                            <label for="to_governorate_id">{!! __('tickets.to_governorate_id') !!}</label>
-                            <select class="to_governorate_id_select form-control" id="to_governorate_id"
-                                name="to_governorate_id" style="width: 100%">
+                            <label for="to_city_id">{!! __('tickets.to_city_id') !!}</label>
+                            <select class="to_city_id_select form-control" id="to_city_id" name="to_city_id"
+                                style="width: 100%">
                             </select>
                         </div>
                         <!-- end: input -->
@@ -117,9 +120,9 @@
 
         //     var price = $('#price').val();
         //     var from_country_id = $('#from_country_id').val();
-        //     var from_governorate_id = $('#from_governorate_id').val();
+        //     var from_city_id = $('#from_city_id').val();
         //     var to_country_id = $('#to_country_id').val();
-        //     var to_governorate_id = $('#to_governorate_id').val();
+        //     var to_city_id = $('#to_city_id').val();
         //     var status = $('#status').val();
 
         //     $.ajax({
@@ -129,9 +132,9 @@
         //         data: {
         //             price: price,
         //             from_country_id: from_country_id,
-        //             from_governorate_id: from_governorate_id,
+        //             from_city_id: from_city_id,
         //             to_country_id: to_country_id,
-        //             to_governorate_id: to_governorate_id,
+        //             to_city_id: to_city_id,
         //             status: status,
         //         },
         //         success: function(data) {
@@ -147,14 +150,14 @@
             e.preventDefault();
             var price = $('#price').val();
             var from_country_id = $('#from_country_id').val();
-            var from_governorate_id = $('#from_governorate_id').val();
+            var from_city_id = $('#from_city_id').val();
             var to_country_id = $('#to_country_id').val();
-            var to_governorate_id = $('#to_governorate_id').val();
+            var to_city_id = $('#to_city_id').val();
             var status = $('#status').val();
 
 
 
-            loadData(price, from_country_id, from_governorate_id, to_country_id, to_governorate_id, status);
+            loadData(price, from_country_id, from_city_id, to_country_id, to_city_id, status);
         })
 
 
@@ -164,8 +167,8 @@
             $('#price').val('');
             $(".from_country_id_select").val('').trigger('change');
             $(".to_country_id_select").val('').trigger('change');
-            $(".from_governorate_id_select").val('').trigger('change');
-            $(".to_governorate_id_select").val('').trigger('change');
+            $(".from_city_id_select").val('').trigger('change');
+            $(".to_city_id_select").val('').trigger('change');
             $('#status').val('');
 
             loadData();
@@ -196,7 +199,7 @@
 
 
         // select 2
-        var countryPath = "{{ route('dashboard.governorates.autocomplete.country') }}";
+        var countryPath = "{{ route('dashboard.countries.autocomplete.country') }}";
         $(".from_country_id_select").select2({
             minimumInputLength: 1,
             maximumInputLength: 20,
@@ -274,8 +277,8 @@
 
 
         // select 2
-        var governoratePath = "{{ route('dashboard.cities.autocomplete.govnerorate') }}";
-        $(".from_governorate_id_select").select2({
+        var cityPath = "{{ route('dashboard.cities.autocomplete.city') }}";
+        $(".from_city_id_select").select2({
             minimumInputLength: 1,
             maximumInputLength: 20,
             placeholder: '{!! __('general.select_from_list') !!}',
@@ -287,7 +290,7 @@
             language: select2Language,
 
             ajax: {
-                url: governoratePath,
+                url: cityPath,
                 dataType: 'json',
                 delay: 250,
                 processResults: function(data) {
@@ -296,12 +299,12 @@
                         results: $.map(data, function(item) {
                             if ('{!! Lang() !!}' === 'en') {
                                 return {
-                                    text: item.country_en,
+                                    text: item.city_en,
                                     id: item.id
                                 }
                             } else {
                                 return {
-                                    text: item.country_ar,
+                                    text: item.city_ar,
                                     id: item.id
                                 }
                             }
@@ -313,7 +316,7 @@
         });
 
         // select 2
-        $(".to_governorate_id_select").select2({
+        $(".to_city_id_select").select2({
             minimumInputLength: 1,
             maximumInputLength: 20,
             placeholder: '{!! __('general.select_from_list') !!}',
@@ -325,7 +328,7 @@
             language: select2Language,
 
             ajax: {
-                url: governoratePath,
+                url: cityPath,
                 dataType: 'json',
                 delay: 250,
                 processResults: function(data) {
@@ -334,12 +337,12 @@
                         results: $.map(data, function(item) {
                             if ('{!! Lang() !!}' === 'en') {
                                 return {
-                                    text: item.country_en,
+                                    text: item.city_en,
                                     id: item.id
                                 }
                             } else {
                                 return {
-                                    text: item.country_ar,
+                                    text: item.city_ar,
                                     id: item.id
                                 }
                             }
